@@ -46,7 +46,7 @@ async def interactions(ctx, members, name, error_name, giflist, reason=None, sra
         description=f"**{ctx.author.display_name}** {name} **" + display_giflist + f"**\n{'' if reason is None else f'**Reason:** {reason}'}",
         color=discord.Color.blue())
     embed.set_thumbnail(url=image)
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
 
 
 async def feelings(ctx, members, name, giflist):
@@ -65,4 +65,4 @@ async def feelings(ctx, members, name, giflist):
         else:
             display_giflist = ', '.join(display_giflist)
         embed.description = f"**{ctx.author.display_name}** {name} because of **{display_giflist}**"
-    await ctx.send(embed=embed)
+    await ctx.respond(embed=embed)
