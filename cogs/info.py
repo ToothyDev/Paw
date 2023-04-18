@@ -20,7 +20,7 @@ class Info(commands.Cog):
 **RAM:** {psutil.virtual_memory().used / 1000000000}GB used out of {psutil.virtual_memory().total / 1000000000}GB total ({psutil.virtual_memory().percent}% used)
 **Disk:** {psutil.disk_usage('/').free / 1000000000}GB free out of {psutil.disk_usage('/').total / 1000000000}GB total ({((psutil.disk_usage('/').percent) - 100)*(-1)}% free)
 
-[[Github]](https://github.com/MiataBoy/iLoveMiatas) [[Privacy Policy]](https://gist.github.com/MiataBoy/20fda9024f277ea5eb2421adbebc2f23) [[Terms of Service]](https://gist.github.com/MiataBoy/81e96023a2aa055a038edab02e7e7792)
+[[Github]](https://github.com/MiataBoy/Paw) [[Privacy Policy]](https://gist.github.com/MiataBoy/20fda9024f277ea5eb2421adbebc2f23) [[Terms of Service]](https://gist.github.com/MiataBoy/81e96023a2aa055a038edab02e7e7792)
         """
         embed.colour = Colors.blue
         await ctx.respond(embed=embed)
