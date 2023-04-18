@@ -15,3 +15,4 @@ async def paw(ctx):
 
 def setup(bot):
     bot.add_cog(assets(bot))
+    
