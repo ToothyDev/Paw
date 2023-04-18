@@ -17,8 +17,8 @@ class Info(commands.Cog):
 **Guilds:** {len(self.bot.guilds)}
 **Users:** {sum(x.member_count for x in self.bot.guilds)}
 **API Latency:** {round(self.bot.latency * 1000)}ms
-**RAM:** {psutil.virtual_memory().used / 1000000000}GB used out of {psutil.virtual_memory().total / 1000000000}GB total ({psutil.virtual_memory().percent}% used)
-**Disk:** {psutil.disk_usage('/').free / 1000000000}GB free out of {psutil.disk_usage('/').total / 1000000000}GB total ({((psutil.disk_usage('/').percent) - 100)*(-1)}% free)
+**RAM:** {round((psutil.virtual_memory().used / 1000000000), 2)}GB used out of {round((psutil.virtual_memory().total / 1000000000), 2)}GB total ({psutil.virtual_memory().percent}% used)
+**Disk:** {round((psutil.disk_usage('/').free / 1000000000), 2)}GB free out of {round((psutil.disk_usage('/').total / 1000000000), 2)}GB total ({((psutil.disk_usage('/').percent) - 100)*(-1)}% free)
 
 [[Github]](https://github.com/MiataBoy/Paw) [[Privacy Policy]](https://gist.github.com/MiataBoy/20fda9024f277ea5eb2421adbebc2f23) [[Terms of Service]](https://gist.github.com/MiataBoy/81e96023a2aa055a038edab02e7e7792)
         """
