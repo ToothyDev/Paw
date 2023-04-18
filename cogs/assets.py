@@ -13,7 +13,8 @@ class assets(commands.Cog, name="assets"):
     async def paw(self, ctx):
         embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
         embed.set_image(url=random.choice(gifs.paw))
-        return await ctx.send(embed=embed)
+        return await ctx.respond(embed=embed)
 
-    def setup(bot):
-        bot.add_cog(assets(bot))
+
+def setup(bot):
+    bot.add_cog(assets(bot))
