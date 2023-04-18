@@ -1,13 +1,23 @@
 from discord import Intents, Status, Activity, ActivityType
-from discord.ext.bridge import Bot
+from discord.ext import commands, bridge
+import discord
 from config import token
 
 intents = Intents(guilds=True, guild_messages=True, message_content=True)
 # intents.message_content = True #Uncomment this if you use prefixed command that are not mentions
-bot = Bot(intents=intents, command_prefix=">>", status=Status.dnd,
+bot = bridge.Bot(intents=intents, command_prefix=">>", status=Status.dnd,
           activity=Activity(type=ActivityType.watching, name="you (prefix: >>)"))
+
+class MyNewHelp(commands.MinimalHelpCommand):
+    async def send_pages(self):
+        destination = self.get_destination()
+        for page in self.paginator.pages:
+            emby = discord.Embed(description=page)
+            await destination.send(embed=emby)
+
+bot.help_command = MyNewHelp()
+
 bot.load_extensions("cogs")  # Loads all cogs in the cogs folder
-bot.remove_command('help') # Disables the default help command
 BOOTED = False
 
 
@@ -26,6 +36,5 @@ async def on_ready():
         print(f'Logged in as {bot.user}')
         print('------')
         BOOTED = True
-
 
 bot.run(token)
