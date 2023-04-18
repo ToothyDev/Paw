@@ -18,6 +18,8 @@ class MyNewHelp(commands.MinimalHelpCommand):
 bot.help_command = MyNewHelp()
 
 bot.load_extensions("cogs")  # Loads all cogs in the cogs folder
+bot.load_extensions("cogs.events")
+print(bot.extensions)
 BOOTED = False
 
 
