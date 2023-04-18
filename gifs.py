@@ -144,3 +144,15 @@ cookie = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-m
 
 
 nuzzle = ['https://media1.tenor.com/images/412ed5e4675f2efa000882e933f1ffee/tenor.gif?itemid=12530414']
+
+paw = ["https://cdn.discordapp.com/attachments/1092442686671290378/1092442923158736966/IMG_1802.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1092442937473908976/IMG_1822.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869824991953008/Paw_Boop.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869825214263426/Paw_Hug_Me.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869825449148548/Paw_OWO.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869825696596098/Paw_Yes.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869825948270752/Paw_Evil.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826342518895/Paw_Look.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826652909598/Paw_Kisses.png",
+       "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826904571964/Paw_No.png"
+       ]
