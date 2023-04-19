@@ -8,6 +8,7 @@ Paw was built on code from a former project known as [exorium](https://github.co
 Paw can provide a variety of things to your server! For example:
 
 😘 interaction commands!
+
 🐕 Sona generators!
 
 # Self hosting
@@ -19,3 +20,5 @@ Paw is self-hosted with ease, as it was made to be minimal and compact.
 4. Make sure Python 3.11+ is installed
 5. Run `pip install -r requirements.txt`
 6. Use PM2 or a similar tool to run the bot (`pm2 start bot.py --name Paw --interpreter python3`)
+
+#### ⚠ **We will not provide support with self-hosting aside from this. This bot was designed to work with TPK alone.** ⚠
