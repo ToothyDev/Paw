@@ -10,7 +10,7 @@ class utility(commands.Cog, name="utility"):
     @bridge.bridge_command(brief="Generate a sona!")
     async def sonagen(self, ctx):
         primary_color = "%06x" % random.randint(0, 0xFFFFFF);
-        colors = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange"]
+        colors = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green", "Light Blue", "Grey", "Yellow"]
         species = ["Dragon", "Fox", "Deer", "Wolf", "Dog", "Bunny", "Protogen", "Hyena", "Tiger", "Lion", "Bird", "Otter", "Snake", "Cat", "Sergal", "Horse", "Shark", "Lizard"]
         sonatype = ["Feral", "Anthro"]
         sex = ["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Hermaphrodite"]
