@@ -11,10 +11,10 @@ class assets(commands.Cog, name="assets"):
 
     @bridge.bridge_command(brief="Art of Paw")
     async def paw(self, ctx):
+        """ Get random art of me, Paw """
         embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
         embed.set_image(url=random.choice(data.paw))
         return await ctx.respond(embed=embed)
-
 
 def setup(bot):
     bot.add_cog(assets(bot))

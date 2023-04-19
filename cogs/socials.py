@@ -120,6 +120,7 @@ class socials(commands.Cog, name="social"):
     @bridge.bridge_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fact(self, ctx):
+        """ Get a random animal fact """
         facts = random.choice(["https://some-random-api.ml/facts/dog", "https://some-random-api.ml/facts/cat", "https://some-random-api.ml/facts/panda",
                                "https://some-random-api.ml/facts/fox", "https://some-random-api.ml/facts/bird", "https://some-random-api.ml/facts/koala"])
 
