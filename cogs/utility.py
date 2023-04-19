@@ -10,6 +10,7 @@ class utility(commands.Cog, name="utility"):
 
     @bridge.bridge_command(brief="Generate a sona!")
     async def sonagen(self, ctx):
+        """ Generate a sona """
         primary_color = random.randint(0x000000, 0xFFFFFF)
         color = random.choice(data.colors)
         species = random.choice(data.species)
