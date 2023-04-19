@@ -1,6 +1,6 @@
 import discord
 
-import gifs
+import data
 from discord.ext import commands, bridge
 from utils import *
 
@@ -14,108 +14,108 @@ class socials(commands.Cog, name="social"):
     @commands.command(brief="Snuggle someone")
     async def snuggle(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Snuggle the specified people"""
-        await interactions(ctx, members, "snuggled", 'snuggle', gifs.snuggle, reason)
+        await interactions(ctx, members, "snuggled", 'snuggle', data.snuggle, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Hug someone")
     async def hug(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
-        await interactions(ctx, members, "hugged", 'hug', gifs.hug, reason, 'hug')
+        await interactions(ctx, members, "hugged", 'hug', data.hug, reason, 'hug')
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Boop someone")
     async def boop(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Boop the specified people"""
-        await interactions(ctx, members, "booped", 'boop', gifs.boop, reason)
+        await interactions(ctx, members, "booped", 'boop', data.boop, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Smooch someone", aliases=["kiss"])
     async def smooch(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Smooch the specified people"""
-        await interactions(ctx, members, "smooched", 'smooch', gifs.smooch, reason)
+        await interactions(ctx, members, "smooched", 'smooch', data.smooch, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Lick someone")
     async def lick(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Lick the specified people"""
-        await interactions(ctx, members, "licked", 'lick', gifs.lick, reason)
+        await interactions(ctx, members, "licked", 'lick', data.lick, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Give bellyrubs!")
     async def bellyrub(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Give bellyrubs to the specified people"""
-        await interactions(ctx, members, "bellyrubbed", 'rub the belly of', gifs.bellyrub, reason)
+        await interactions(ctx, members, "bellyrubbed", 'rub the belly of', data.bellyrub, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Nuzzle someone")
     async def nuzzle(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Nuzzle the specified people"""
-        await interactions(ctx, members, "nuzzled", 'nuzzles', gifs.nuzzle, reason)
+        await interactions(ctx, members, "nuzzled", 'nuzzles', data.nuzzle, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Cuddle someone")
     async def cuddle(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Cuddle the specified people"""
-        await interactions(ctx, members, "cuddled", 'cuddle', gifs.cuddle, reason)
+        await interactions(ctx, members, "cuddled", 'cuddle', data.cuddle, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Feed someone")
     async def feed(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Feed the specified people"""
-        await interactions(ctx, members, "fed", 'feed', gifs.feed, reason)
+        await interactions(ctx, members, "fed", 'feed', data.feed, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Glomp someone")
     async def glomp(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Glomp on the specified people"""
-        await interactions(ctx, members, "glomped", 'glomp', gifs.glomp, reason)
+        await interactions(ctx, members, "glomped", 'glomp', data.glomp, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Highfive someone")
     async def highfive(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Highfive the specified people"""
-        await interactions(ctx, members, "highfived", 'hivefive', gifs.highfive, reason)
+        await interactions(ctx, members, "highfived", 'hivefive', data.highfive, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Rawrrrr")
     async def rawr(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Rawr at the specified people"""
-        await interactions(ctx, members, "rawred at", 'rawr at', gifs.rawr, reason)
+        await interactions(ctx, members, "rawred at", 'rawr at', data.rawr, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Howl to the moon, or someone", aliases=["howl"])
     async def awoo(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Howl at the specified people"""
-        await interactions(ctx, members, "howled at", 'howl at', gifs.awoo)
+        await interactions(ctx, members, "howled at", 'howl at', data.awoo)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="pat someone!", aliases=["pet"])
     async def pat(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Pat the specified people"""
-        await interactions(ctx, members, "patted", 'pat', gifs.pet, reason, 'pat')
+        await interactions(ctx, members, "patted", 'pat', data.pet, reason, 'pat')
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Gib cookie")
     async def cookie(self, ctx, members: commands.Greedy[discord.Member], *, reason=None):
         """Give cookies to the specified people"""
-        await interactions(ctx, members, "gave a cookie to", 'give a cookie to', gifs.cookie, reason)
+        await interactions(ctx, members, "gave a cookie to", 'give a cookie to', data.cookie, reason)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Blushies!")
     async def blush(self, ctx, members: commands.Greedy[discord.Member]):
         """Blush (optionally because of specified people)"""
-        await feelings(ctx, members, "blushes", gifs.blush)
+        await feelings(ctx, members, "blushes", data.blush)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="Be happy")
     async def happy(self, ctx, members: commands.Greedy[discord.Member]):
         """Be happy (optionally because of specified people)"""
-        await feelings(ctx, members, "smiles", gifs.happy)
+        await feelings(ctx, members, "smiles", data.happy)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @commands.command(brief="wag yer tail")
     async def wag(self, ctx, members: commands.Greedy[discord.Member]):
         """Wag your tail (Optionally because of specified people)"""
-        await feelings(ctx, members, "wags their tail", gifs.wag)
+        await feelings(ctx, members, "wags their tail", data.wag)
 
     @bridge.bridge_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
