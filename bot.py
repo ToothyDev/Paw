@@ -1,6 +1,8 @@
 from discord import Intents, Status, Activity, ActivityType
 from discord.ext import commands, bridge
 import discord
+import jishaku
+import pynacl
 from config import token
 
 intents = Intents(guilds=True, guild_messages=True, message_content=True)
