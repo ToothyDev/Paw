@@ -20,6 +20,7 @@ class utility(commands.Cog, name="utility"):
         embed.add_field(name="Species:", value=f"{random.choice(sonatype)} {random.choice(species)}", inline=True)
         embed.add_field(name="Sex:", value=random.choice(sex), inline=True)
         embed.add_field(name="Size:", value=f"{random(120,240)}cm", inline=True)
+        embed.set_footer(text="The embed color defines your sona's primary color!")
         return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
 
 
