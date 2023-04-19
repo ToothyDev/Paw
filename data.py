@@ -156,3 +156,7 @@ paw = ["https://cdn.discordapp.com/attachments/1092442686671290378/1092442923158
        "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826652909598/Paw_Kisses.png",
        "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826904571964/Paw_No.png"
        ]
+colors = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green", "Light Blue", "Grey", "Yellow"]
+
+species = ["Dragon", "Fox", "Deer", "Wolf", "Dog", "Bunny", "Protogen", "Hyena", "Tiger", "Lion", "Bird", "Otter", "Snake", "Cat", "Sergal", "Horse", "Shark", "Lizard"]
+

@@ -1,6 +1,7 @@
 from discord.ext import commands, bridge
 import random
 import discord
+import data
 
 
 class utility(commands.Cog, name="utility"):
@@ -10,8 +11,8 @@ class utility(commands.Cog, name="utility"):
     @bridge.bridge_command(brief="Generate a sona!")
     async def sonagen(self, ctx):
         primary_color = random.randint(0x000000, 0xFFFFFF)
-        color = random.choice(["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green", "Light Blue", "Grey", "Yellow"])
-        species = random.choice(["Dragon", "Fox", "Deer", "Wolf", "Dog", "Bunny", "Protogen", "Hyena", "Tiger", "Lion", "Bird", "Otter", "Snake", "Cat", "Sergal", "Horse", "Shark", "Lizard"])
+        color = random.choice(data.colors)
+        species = random.choice(data.species)
         sonatype = random.choice(["Feral", "Anthro"])
         sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Hermaphrodite"])
 
