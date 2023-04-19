@@ -8,6 +8,7 @@ Paw was built on code from a former project known as [exorium](https://github.co
 Paw can provide a variety of things to your server! For example:
 
 😘 interaction commands!
+🐕 Sona generators!
 
 # Self hosting
 Paw is self-hosted with ease, as it was made to be minimal and compact.
