@@ -21,4 +21,5 @@ Paw is self-hosted with ease, as it was made to be minimal and compact.
 5. Run `pip install -r requirements.txt`
 6. Use PM2 or a similar tool to run the bot (`pm2 start bot.py --name Paw --interpreter python3`)
 
-#### ⚠ **We will not provide support with self-hosting aside from this. This bot was designed to work with TPK alone.** ⚠
+#### ⚠ **We will not provide further support with self-hosting.** ⚠
+**Joining TPK with the sole intent of requesting support with self-hosting may result in a ban.**
