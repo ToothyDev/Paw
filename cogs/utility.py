@@ -13,13 +13,13 @@ class utility(commands.Cog, name="utility"):
         """ Generate a random sona """
         primary_color = random.randint(0x000000, 0xFFFFFF)
         color = random.choice(data.colors)
-        species = random.choice(data.species)
+        species = random.choice(list(data.species))
         sonatype = random.choice(["Feral", "Anthro"])
         sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Hermaphrodite"])
         if sonatype == "Feral":
-            heightstring = f"**Height to shoulders**: {random.randint(20,140)}cm"
+            heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
         else:
-            heightstring = f"**Height**: {random.randint(120,240)}cm"
+            heightstring = f"**Height**: {random.randint(130,240)}cm"
 
         embed=discord.Embed(title="Your Sona:", color=primary_color, description=f"""
             **Species**: {sonatype} {species}
