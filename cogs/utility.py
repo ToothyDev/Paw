@@ -16,18 +16,19 @@ class utility(commands.Cog, name="utility"):
         species = random.choice(list(data.species))
         sonatype = random.choice(["Feral", "Anthro"])
         sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Hermaphrodite"])
+        
         if sonatype == "Feral":
             heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
         else:
             heightstring = f"**Height**: {random.randint(130,240)}cm"
 
         embed=discord.Embed(title="Your Sona:", color=primary_color, description=f"""
-            **Species**: {sonatype} {species}
-            **Primary Color**: #{'{:06x}'.format(primary_color)} (embed color)
-            **Secondary Color**: {color}
-            {heightstring}
-            **Sex**: {sex}
-            """)
+**Species**: {sonatype} {species}
+**Primary Color**: #{'{:06x}'.format(primary_color)} (embed color)
+**Secondary Color**: {color}
+{heightstring}
+**Sex**: {sex}
+""")
 
         return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
     
