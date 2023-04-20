@@ -39,7 +39,7 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
     else:
         display_giflist = ', '.join(display_giflist)
     embed = discord.Embed(
-        description=f"**{ctx.author.display_name}** {name} **" + display_giflist,
+        description=f"**{ctx.author.display_name}** {name} **" + display_giflist + "**",
         color=discord.Color.blue())
     embed.set_thumbnail(url=image)
     await ctx.respond(embed=embed)
