@@ -8,6 +8,7 @@ class utility(commands.Cog, name="utility"):
     def __init__(self, bot):
         self.bot = bot
 
+    @commands.cooldown(1, 3, commands.BucketType.user)
     @bridge.bridge_command(brief="Generate a sona!")
     async def sonagen(self, ctx):
         """ Generate a random sona """
