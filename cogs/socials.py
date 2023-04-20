@@ -12,7 +12,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Snuggle someone")
-    async def snuggle(self, ctx, members: str):
+    async def snuggle(self, ctx, *, members: str):
         """Snuggle the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -24,7 +24,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Hug someone")
-    async def hug(self, ctx, members: str):
+    async def hug(self, ctx, *, members: str):
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
         members = discord.utils.raw_mentions(members)
@@ -35,7 +35,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Boop someone")
-    async def boop(self, ctx, members: str):
+    async def boop(self, ctx, *, members: str):
         """Boop the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -47,7 +47,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Smooch someone", aliases=["kiss"])
-    async def smooch(self, ctx, members: str):
+    async def smooch(self, ctx, *, members: str):
         """Smooch the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -59,7 +59,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Lick someone")
-    async def lick(self, ctx, members: str):
+    async def lick(self, ctx, *, members: str):
         """Lick the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -71,7 +71,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Give bellyrubs!")
-    async def bellyrub(self, ctx, members: str):
+    async def bellyrub(self, ctx, *, members: str):
         """Give bellyrubs to the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -83,7 +83,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Nuzzle someone")
-    async def nuzzle(self, ctx, members: str):
+    async def nuzzle(self, ctx, *, members: str):
         """Nuzzle the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -95,7 +95,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Cuddle someone")
-    async def cuddle(self, ctx, members: str):
+    async def cuddle(self, ctx, *, members: str):
         """Cuddle the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -107,7 +107,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Feed someone")
-    async def feed(self, ctx, members: str):
+    async def feed(self, ctx, *, members: str):
         """Feed the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -119,7 +119,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Glomp someone")
-    async def glomp(self, ctx, members: str):
+    async def glomp(self, ctx, *, members: str):
         """Glomp on the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -131,7 +131,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Highfive someone")
-    async def highfive(self, ctx, members: str):
+    async def highfive(self, ctx, *, members: str):
         """Highfive the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -143,7 +143,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Rawrrrr")
-    async def rawr(self, ctx, members: str):
+    async def rawr(self, ctx, *, members: str):
         """Rawr at the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -155,7 +155,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Howl to the moon, or someone", aliases=["howl"])
-    async def awoo(self, ctx, members: str):
+    async def awoo(self, ctx, *, members: str):
         """Howl at the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -167,7 +167,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="pat someone!", aliases=["pet"])
-    async def pat(self, ctx, members: str):
+    async def pat(self, ctx, *, members: str):
         """Pat the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -179,7 +179,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Gib cookie")
-    async def cookie(self, ctx, members: str):
+    async def cookie(self, ctx, *, members: str):
         """Give cookies to the specified people"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -191,7 +191,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Blushies!")
-    async def blush(self, ctx, members: str):
+    async def blush(self, ctx, *, members: str):
         """Blush (optionally because of specified people)"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -203,7 +203,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Be happy")
-    async def happy(self, ctx, members: str):
+    async def happy(self, ctx, *, members: str):
         """Be happy (optionally because of specified people)"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
@@ -215,7 +215,7 @@ class socials(commands.Cog, name="social"):
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="wag yer tail")
-    async def wag(self, ctx, members: str):
+    async def wag(self, ctx, *, members: str):
         """Wag your tail (Optionally because of specified people)"""
         memberlist = []
         guild = self.bot.get_guild(ctx.guild.id)
