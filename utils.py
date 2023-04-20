@@ -10,6 +10,7 @@ class Colors:
     green = 0x90ee90
     orange = 0xfaa61a
 
+
 async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
     image = ""
 
@@ -44,6 +45,7 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
     embed.set_thumbnail(url=image)
     await ctx.respond(embed=embed)
 
+
 async def mentionconverter(self, ctx, members):
     memberlist = []
     guild = self.bot.get_guild(ctx.guild.id)
@@ -52,6 +54,7 @@ async def mentionconverter(self, ctx, members):
         member = await guild.fetch_member(member)
         memberlist.append(member)
     return memberlist
+
 
 async def feelings(ctx, members, name, giflist):
     embed = discord.Embed(color=discord.Color.blue())
