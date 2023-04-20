@@ -1,5 +1,3 @@
-import discord
-
 import data
 from discord.ext import commands, bridge
 from utils import *
