@@ -44,6 +44,14 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
     embed.set_thumbnail(url=image)
     await ctx.respond(embed=embed)
 
+async def mentionconverter(self, ctx, members):
+    memberlist = []
+    guild = self.bot.get_guild(ctx.guild.id)
+    members = discord.utils.raw_mentions(members)
+    for member in members:
+        member = await guild.fetch_member(member)
+        memberlist.append(member)
+    return memberlist
 
 async def feelings(ctx, members, name, giflist):
     embed = discord.Embed(color=discord.Color.blue())
