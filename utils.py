@@ -63,9 +63,9 @@ async def feelings(ctx, members, name, giflist):
         for x in members:
             display_giflist.append(x.display_name)
         if len(members) >= 3:
-            display_giflist.append(f"and {display_giflist.pop(-1)}")
+            display_giflist.append(f"**and **{display_giflist.pop(-1)}")
         if len(members) == 2:
-            display_giflist = f"{display_giflist[0]} and {display_giflist[1]}"
+            display_giflist = f"{display_giflist[0]}** and **{display_giflist[1]}"
         else:
             display_giflist = ', '.join(display_giflist)
         embed.description = f"**{ctx.author.display_name}** {name} because of **{display_giflist}**"
