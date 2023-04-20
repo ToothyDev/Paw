@@ -4,8 +4,10 @@ awoo = ["https://cdn.discordapp.com/attachments/715969701771083820/7394299024027
         "https://cdn.discordapp.com/attachments/726377118304305245/739430548895825930/unknown.gif",
         "https://cdn.discordapp.com/attachments/726377118304305245/739430608673177650/unknown.gif",
         "https://cdn.discordapp.com/attachments/726377118304305245/739430699672797324/unknown.gif",
-        "https://media.giphy.com/media/jPSjVZLPOGVa0/giphy.gif", "https://media.giphy.com/media/lLoYlICw9DEY0/giphy.gif",
-        "https://media.giphy.com/media/OQI1KMVGJyniwVwnl3/giphy.gif", "https://media.giphy.com/media/2nXYb1jf0FVRK/giphy.gif"]
+        "https://media.giphy.com/media/jPSjVZLPOGVa0/giphy.gif", 
+        "https://media.giphy.com/media/lLoYlICw9DEY0/giphy.gif",
+        "https://media.giphy.com/media/OQI1KMVGJyniwVwnl3/giphy.gif",
+        "https://media.giphy.com/media/2nXYb1jf0FVRK/giphy.gif"]
 
 
 bellyrub = ["https://i.imgur.com/VnoVdts.gif",
@@ -30,7 +32,6 @@ boop = ["https://media1.tenor.com/images/36d187af3d5e876ec0d8f11cabe1a8d4/tenor.
         "https://media.tenor.com/images/3f364e971453b18a1ae2b5cc8d2d0613/tenor.gif",
         "https://media1.tenor.com/images/a0f0c6b3ef95bb2ff530a92d6c516cbd/tenor.gif?itemid=14452125",
         "https://media1.tenor.com/images/5c0b2e9661b5ea40834fc6bd6b84a806/tenor.gif?itemid=14796547",
-        "https://cdn.discordapp.com/attachments/715979499799445577/717050110667784272/8NgFDIL.gif",
         "https://media.tenor.com/images/aa41ce7ea8f138eb8e0be635cd4664d9/tenor.gif",
         "https://media1.tenor.com/images/9e42f5059137a153137af77cb898c070/tenor.gif?itemid=17599907"]
 
@@ -138,7 +139,6 @@ wag = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gi
 
 cookie = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-ms-fields-cookies-024-1544735513.jpg',
           'https://images-gmi-pmc.edge-generalmills.com/087d17eb-500e-4b26-abd1-4f9ffa96a2c6.jpg',
-          'https://cdn.sallysbakingaddiction.com/wp-content/uploads/2012/01/mm-cookies.jpg',
           'https://www.janespatisserie.com/wp-content/uploads/2020/04/IMG_0744_1-scaled.jpg',
           'https://images.squarespace-cdn.com/content/v1/549367d9e4b0b0a3e2543543/1588847414826-FQZTCRKH9B7DBCHWPX04/ke17ZwdGBToddI8pDm48kGBZtRQfXGGrtPZLnhyM-_cUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKc2A05hr64wuCTS4zP7CpzbvVdV_gnisg_uG0ZwZ1tao3WChTLVZ4KTQ-wgmrDxiyo/image-asset.jpeg']
 
