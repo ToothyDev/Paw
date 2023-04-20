@@ -10,15 +10,11 @@ class Colors:
     green = 0x90ee90
     orange = 0xfaa61a
 
-
-async def interactions(ctx, members, name, error_name, giflist, reason=None, sra_url=None):
+async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
     image = ""
 
     if len(set(members)) == 0:
         return await ctx.send(f'You must specify the user to {error_name}!')
-    if reason is not None:
-        if len(reason) > 256:
-            return await ctx.send(f'{config.crossmark} **You can only put max 256 characters in your reason.**')
     if sra_url is None:
         image = random.choice(giflist)
     else:
@@ -43,7 +39,7 @@ async def interactions(ctx, members, name, error_name, giflist, reason=None, sra
     else:
         display_giflist = ', '.join(display_giflist)
     embed = discord.Embed(
-        description=f"**{ctx.author.display_name}** {name} **" + display_giflist + f"**\n{'' if reason is None else f'**Reason:** {reason}'}",
+        description=f"**{ctx.author.display_name}** {name} **" + display_giflist,
         color=discord.Color.blue())
     embed.set_thumbnail(url=image)
     await ctx.respond(embed=embed)
