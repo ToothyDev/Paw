@@ -8,7 +8,8 @@ from config import token
 intents = Intents(guilds=True, guild_messages=True, message_content=True)
 # intents.message_content = True #Uncomment this if you use prefixed command that are not mentions
 bot = bridge.Bot(intents=intents, command_prefix=">>", status=Status.dnd,
-          activity=Activity(type=ActivityType.watching, name="you (prefix: >>)"))
+                 activity=Activity(type=ActivityType.watching, name="you (prefix: >>)"))
+
 
 class MyNewHelp(commands.MinimalHelpCommand):
     async def send_pages(self):
@@ -16,6 +17,7 @@ class MyNewHelp(commands.MinimalHelpCommand):
         for page in self.paginator.pages:
             emby = discord.Embed(description=page)
             await destination.send(embed=emby)
+
 
 bot.help_command = MyNewHelp()
 
@@ -41,5 +43,6 @@ async def on_ready():
         print(f'Logged in as {bot.user}')
         print('------')
         BOOTED = True
+
 
 bot.run(token)

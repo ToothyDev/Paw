@@ -16,5 +16,6 @@ class assets(commands.Cog, name="assets"):
         embed.set_image(url=random.choice(data.paw))
         return await ctx.respond(embed=embed)
 
+
 def setup(bot):
     bot.add_cog(assets(bot))

@@ -181,5 +181,6 @@ class socials(commands.Cog, name="social"):
         e.set_footer(text=f"Gay avatar: {user}")
         await ctx.respond(embed=e)
 
+
 def setup(bot):
     bot.add_cog(socials(bot))

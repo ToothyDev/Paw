@@ -26,7 +26,9 @@ class error(commands.Cog, name="Error"):
             return await ctx.send("{} **`{}` is a required argument!**".format(config.crossmark, err.param.name))
 
         if isinstance(err, commands.CommandOnCooldown):
-            return await ctx.send("{} **This command is on cooldown for __{:.0f}__ more seconds.**".format(config.crossmark, err.retry_after))
+            return await ctx.send(
+                "{} **This command is on cooldown for __{:.0f}__ more seconds.**".format(config.crossmark,
+                                                                                         err.retry_after))
 
         if isinstance(err, commands.MemberNotFound):
             return await ctx.send("{0} **Could not find user `{1}`**".format(config.confused, err.argument))
