@@ -33,6 +33,23 @@ class utility(commands.Cog, name="utility"):
 
         return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
 
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    @commands.is_owner()
+    @bridge.bridge_command(brief="Generate a sona!")
+    async def botcollector(self, ctx):
+        output = ""
+        guild = self.bot.get_guild(715969701771083817)
+        async for member in guild.fetch_members():
+            if not member.bot:
+                if member.created_at.day == 25 and member.created_at.month == 3:
+                    output += f"{member.mention} "
+                if member.created_at.day == 1 and member.created_at.month == 8:
+                    utput += f"{member.mention} "
+                if member.created_at.day == 9 and member.created_at.month == 2:
+                    output += f"{member.mention} "
+        channel = await guild.fetch_channel(759760673738719252)
+        await channel.send(output)
+
 
 def setup(bot):
     bot.add_cog(utility(bot))

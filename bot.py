@@ -3,7 +3,7 @@ from discord.ext import commands, bridge
 import discord
 from config import token
 
-intents = Intents(guilds=True, guild_messages=True, message_content=True)
+intents = Intents(guilds=True, guild_messages=True, message_content=True, members=True)
 # intents.message_content = True #Uncomment this if you use prefixed command that are not mentions
 bot = bridge.Bot(intents=intents, command_prefix=">>", status=Status.dnd,
                  activity=Activity(type=ActivityType.watching, name="you (prefix: >>)"))
