@@ -15,7 +15,7 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
     image = ""
 
     if len(set(members)) == 0:
-        return await ctx.send(f'You must specify the user to {error_name}!')
+        return await ctx.respond(f'You must specify at least one user to {error_name}!', ephemeral=True)
     if sra_url is None:
         image = random.choice(giflist)
     else:
