@@ -1,6 +1,7 @@
 import data
 from discord.ext import commands, bridge
 from utils import *
+import aiohttp
 
 
 class socials(commands.Cog, name="social"):
