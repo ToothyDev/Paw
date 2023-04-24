@@ -30,12 +30,12 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
         description=f"**{ctx.author.display_name}** {name} **" + display_giflist + "**",
         color=discord.Color.blue())
     embed.set_thumbnail(url=image)
-    view = interactionsView(ctx, members, name, error_name, giflist, sra_url, name, embed)
+    view = interactionsView(ctx, members, name, error_name, giflist, sra_url)
     await ctx.respond(embed=embed, view=view)
 
 
 class interactionsView(discord.ui.View):
-    def __init__(self, ctx, members, name, error_name, giflist, sra_url=None, label="Return it!", embed=None):
+    def __init__(self, ctx, members, name, error_name, giflist, sra_url=None):
         super().__init__(timeout=600)
         self.ctx = ctx
         self.members = members
@@ -43,8 +43,7 @@ class interactionsView(discord.ui.View):
         self.error_name = error_name
         self.giflist = giflist
         self.sra_url = sra_url
-        self.button_callback.label = "Return it!"
-        self.embed = embed
+        self.button_callback.label = f"{self.error_name.title()} back!"
 
     @discord.ui.button()
     async def button_callback(self, button, interaction):
@@ -58,7 +57,7 @@ class interactionsView(discord.ui.View):
             color=discord.Color.blue())
         embed.set_thumbnail(url=image)
         self.disable_all_items()
-        await interaction.message.edit(embed=self.embed, view=self)
+        await interaction.message.edit(view=self)
         view = interactionsView(self.ctx, self.members, self.name, self.error_name, self.giflist, self.sra_url)
         await interaction.response.send_message(embed=embed, view=view)
 
