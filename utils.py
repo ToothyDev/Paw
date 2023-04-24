@@ -13,7 +13,6 @@ class Colors:
 
 async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
     image = ""
-
     if len(set(members)) == 0:
         return await ctx.respond(f'You must specify at least one user to {error_name}!', ephemeral=True)
     if sra_url is None:
@@ -43,7 +42,52 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
         description=f"**{ctx.author.display_name}** {name} **" + display_giflist + "**",
         color=discord.Color.blue())
     embed.set_thumbnail(url=image)
-    await ctx.respond(embed=embed)
+    view = interactionsView(ctx, members, name, error_name, giflist, sra_url, name, embed)
+    await ctx.respond(embed=embed, view=view)
+
+
+class interactionsView(discord.ui.View):
+    def __init__(self, ctx, members, name, error_name, giflist, sra_url=None, label="Return it!", embed=None):
+        super().__init__(timeout=600)
+        self.ctx = ctx
+        self.members = members
+        self.name = name
+        self.error_name = error_name
+        self.giflist = giflist
+        self.sra_url = sra_url
+        self.button_callback.label = "Return it!"
+        self.embed = embed
+
+    @discord.ui.button()
+    async def button_callback(self, button, interaction):
+        if interaction.user not in self.members:
+            return await interaction.response.send_message(f"You weren't {self.name}!", ephemeral=True)
+            return
+        image = ""
+        if len(set(self.members)) == 0:
+            return await self.ctx.respond(f'You must specify at least one user to {self.error_name}!', ephemeral=True)
+        if self.sra_url is None:
+            image = random.choice(self.giflist)
+        else:
+            api_random = random.choice(['normal', 'sra'])
+            if api_random == 'normal':
+                image = random.choice(self.giflist)
+            elif api_random == 'sra':
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(f'https://some-random-api.ml/animu/{self.sra_url}') as r:
+                        if r.status == 200:
+                            js = await r.json()
+                            image = js['link']
+                        else:
+                            image = random.choice(self.giflist)
+        embed = discord.Embed(
+            description=f"**{interaction.user.name}** {self.name} **" + self.ctx.author.name + "** back!",
+            color=discord.Color.blue())
+        embed.set_thumbnail(url=image)
+        self.disable_all_items()
+        await interaction.message.edit(embed=self.embed, view=self)
+        view = interactionsView(self.ctx, self.members, self.name, self.error_name, self.giflist, self.sra_url)
+        await interaction.response.send_message(embed=embed, view=view)
 
 
 async def mentionconverter(self, ctx, members):
