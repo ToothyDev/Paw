@@ -50,10 +50,7 @@ class interactionsView(discord.ui.View):
     async def button_callback(self, button, interaction):
         if interaction.user not in self.members:
             return await interaction.response.send_message(f"You weren't {self.name}!", ephemeral=True)
-            return
         image = ""
-        if len(set(self.members)) == 0:
-            return await self.ctx.respond(f'You must specify at least one user to {self.error_name}!', ephemeral=True)
         if self.sra_url is None:
             image = random.choice(self.giflist)
         embed = discord.Embed(
