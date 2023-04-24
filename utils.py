@@ -1,6 +1,4 @@
-import config
 import random
-import aiohttp
 import discord
 
 
