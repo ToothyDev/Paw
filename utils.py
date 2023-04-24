@@ -17,18 +17,6 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
         return await ctx.respond(f'You must specify at least one user to {error_name}!', ephemeral=True)
     if sra_url is None:
         image = random.choice(giflist)
-    else:
-        api_random = random.choice(['normal', 'sra'])
-        if api_random == 'normal':
-            image = random.choice(giflist)
-        elif api_random == 'sra':
-            async with aiohttp.ClientSession() as session:
-                async with session.get(f'https://some-random-api.ml/animu/{sra_url}') as r:
-                    if r.status == 200:
-                        js = await r.json()
-                        image = js['link']
-                    else:
-                        image = random.choice(giflist)
     display_giflist = []
     for x in members:
         display_giflist.append(x.display_name)
@@ -68,18 +56,6 @@ class interactionsView(discord.ui.View):
             return await self.ctx.respond(f'You must specify at least one user to {self.error_name}!', ephemeral=True)
         if self.sra_url is None:
             image = random.choice(self.giflist)
-        else:
-            api_random = random.choice(['normal', 'sra'])
-            if api_random == 'normal':
-                image = random.choice(self.giflist)
-            elif api_random == 'sra':
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(f'https://some-random-api.ml/animu/{self.sra_url}') as r:
-                        if r.status == 200:
-                            js = await r.json()
-                            image = js['link']
-                        else:
-                            image = random.choice(self.giflist)
         embed = discord.Embed(
             description=f"**{interaction.user.name}** {self.name} **" + self.ctx.author.name + "** back!",
             color=discord.Color.blue())
