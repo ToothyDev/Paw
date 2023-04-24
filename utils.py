@@ -47,6 +47,10 @@ class interactionsView(discord.ui.View):
     async def button_callback(self, button, interaction):
         if interaction.user not in self.members:
             return await interaction.response.send_message(f"You weren't {self.name}!", ephemeral=True)
+        self.members.remove(interaction.user)
+        if len(self.members) == 0:
+            self.disable_all_items()
+            await interaction.message.edit(view=self)
         image = ""
         if self.sra_url is None:
             image = random.choice(self.giflist)
@@ -54,10 +58,7 @@ class interactionsView(discord.ui.View):
             description=f"**{interaction.user.name}** {self.name} **" + self.ctx.author.name + "** back!",
             color=discord.Color.blue())
         embed.set_thumbnail(url=image)
-        self.disable_all_items()
-        await interaction.message.edit(view=self)
-        view = interactionsView(self.ctx, self.members, self.name, self.error_name, self.giflist, self.sra_url)
-        await interaction.response.send_message(embed=embed, view=view)
+        await interaction.response.send_message(embed=embed)
 
 
 async def mentionconverter(self, ctx, members):
