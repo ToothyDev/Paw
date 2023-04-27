@@ -12,7 +12,7 @@ class utility(commands.Cog, name="utility"):
     @bridge.bridge_command(brief="Generate a sona!")
     async def sonagen(self, ctx):
         """ Generate a random sona """
-        primary_color = random.randint(0x000000, 0xFFFFFF)
+        primary_color = discord.Color.random()
         color = random.choice(data.colors)
         species = random.choice(list(data.species))
         sonatype = random.choice(["Feral", "Anthro"])
@@ -25,7 +25,7 @@ class utility(commands.Cog, name="utility"):
 
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
 **Species**: {sonatype} {species}
-**Primary Color**: #{'{:06x}'.format(primary_color)} (embed color)
+**Primary Color**: {str(primary_color)} (embed color)
 **Secondary Color**: {color}
 {heightstring}
 **Sex**: {sex}
