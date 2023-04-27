@@ -170,11 +170,20 @@ class socials(commands.Cog, name="social"):
 
     @bridge.bridge_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def gay(self, ctx, user: discord.Member = None):
+    async def gay(self, ctx, user: discord.Member = None, border: bool = False):
         """ Gay overlay on avatar """
+        link = ""
         if not user:
-            user = ctx.author
-        link = f"https://some-random-api.ml/canvas/gay/?avatar={user.avatar.url}"
+            if ctx.message:  # additional check to make slash commands not break at .message.reference
+                if ctx.message.reference:
+                    reference = await ctx.fetch_message(ctx.message.reference.message_id)
+                    user = reference.author
+            else:
+                user = ctx.author
+        if not border:
+            link = f"https://some-random-api.ml/canvas/gay/?avatar={user.avatar.url}"
+        else:
+            link = f"https://some-random-api.ml/canvas/misc/lgbt/?avatar={user.avatar.url}"
         e = discord.Embed(color=discord.Color.random())
         e.set_image(url=link)
         e.set_footer(text=f"Gay avatar: {user}")
