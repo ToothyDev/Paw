@@ -170,10 +170,11 @@ class socials(commands.Cog, name="social"):
 
     @bridge.bridge_command(options=[
         discord.Option(discord.Member, name="user", description="Select a user"),
-        discord.Option(bool, name="border", description="Make it a border?", required=False)
+        discord.Option(bool, name="border", description="Make it a border?", required=False),
+        discord.Option(bool, name="server-avatar", description="Use their server avatar?", required=False)
     ])
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def gay(self, ctx, user: discord.Member = None, border: bool = False):
+    async def gay(self, ctx, user: discord.Member = None, border: bool = False, server_avatar: bool = False):
         """ Gay overlay on avatar """
         link = ""
         if not user:
@@ -183,10 +184,15 @@ class socials(commands.Cog, name="social"):
                     user = reference.author
             else:
                 user = ctx.author
-        if not border:
-            link = f"https://some-random-api.ml/canvas/gay/?avatar={user.avatar.url}"
+        print(ctx.author.display_avatar.url)
+        if not server_avatar:
+            url = user.avatar.url
         else:
-            link = f"https://some-random-api.ml/canvas/misc/lgbt/?avatar={user.avatar.url}"
+            url = user.display_avatar.url
+        if not border:
+            link = f"https://some-random-api.ml/canvas/gay/?avatar={url}"
+        else:
+            link = f"https://some-random-api.ml/canvas/misc/lgbt/?avatar={url}"
         e = discord.Embed(color=discord.Color.random())
         e.set_image(url=link)
         e.set_footer(text=f"Gay avatar: {user}")
