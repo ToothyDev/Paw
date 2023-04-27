@@ -184,7 +184,6 @@ class socials(commands.Cog, name="social"):
                     user = reference.author
             else:
                 user = ctx.author
-        print(ctx.author.display_avatar.url)
         if not server_avatar:
             url = user.avatar.url
         else:
