@@ -35,7 +35,10 @@ class utility(commands.Cog, name="utility"):
 
     @commands.cooldown(1, 3, commands.BucketType.user)
     @commands.is_owner()
-    @bridge.bridge_command(brief="Get rid of bots")
+    @bridge.bridge_command(brief="Get rid of bots", options=[
+        discord.Option(int, name="day", description="Select the desired day of a month"),
+        discord.Option(int, name="month", description="Select the desired month number"),
+        ])
     async def botcollector(self, ctx, day: int, month: int):
         output = ""
         guild = self.bot.get_guild(ctx.guild.id)

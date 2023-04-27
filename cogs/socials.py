@@ -168,7 +168,10 @@ class socials(commands.Cog, name="social"):
                 e.set_image(url=js['image'])
                 await ctx.respond(embed=e)
 
-    @bridge.bridge_command()
+    @bridge.bridge_command(options=[
+        discord.Option(discord.Member, name="user", description="Select a user"),
+        discord.Option(bool, name="border", description="Make it a border?", required=False)
+    ])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def gay(self, ctx, user: discord.Member = None, border: bool = False):
         """ Gay overlay on avatar """
