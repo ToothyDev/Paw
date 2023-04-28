@@ -38,8 +38,10 @@ class utility(commands.Cog, name="utility"):
         discord.Option(int, name="day", description="Select the desired day of a month"),
         discord.Option(int, name="month", description="Select the desired month number"),
         ])
-    @discord.ext.commands.has_permissions(ban_members=True)
+    @bridge.has_permissions(ban_members=True)
     async def botcollector(self, ctx, day: int, month: int):
+        if day == 0 or month == 0:
+            return await ctx.respond("0 is not a valid number!")
         output = ""
         guild = self.bot.get_guild(ctx.guild.id)
         message = await ctx.respond("Fetching...")
