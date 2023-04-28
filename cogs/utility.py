@@ -40,6 +40,7 @@ class utility(commands.Cog, name="utility"):
         ])
     @bridge.has_permissions(ban_members=True)
     async def botcollector(self, ctx, day: int, month: int):
+        """ Get members created on a certain day """
         if day == 0 or month == 0:
             return await ctx.respond("0 is not a valid number!")
         output = ""
