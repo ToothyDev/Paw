@@ -38,6 +38,7 @@ class utility(commands.Cog, name="utility"):
         discord.Option(int, name="day", description="Select the desired day of a month"),
         discord.Option(int, name="month", description="Select the desired month number"),
         ])
+    @discord.ext.commands.has_permissions(ban_members=True)
     async def botcollector(self, ctx, day: int, month: int):
         output = ""
         guild = self.bot.get_guild(ctx.guild.id)
