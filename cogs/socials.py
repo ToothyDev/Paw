@@ -115,8 +115,11 @@ class socials(commands.Cog, name="social"):
 
     @bridge.bridge_command(brief="Dance with someone")
     @commands.cooldown(1, 5, commands.BucketType.user)
-    async def dance(self, ctx, *, members: str):
+    async def dance(self, ctx, *, members: str = None):
         """ Dance with someone """
+        if not members:
+            memberlist = None
+            return await feelings(ctx, memberlist, "dances", data.dance)
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "danced with", "dance with", data.dance, "Dance")
 
