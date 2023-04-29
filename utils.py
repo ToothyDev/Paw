@@ -52,9 +52,7 @@ class interactionsView(discord.ui.View):
         if len(self.members) == 0:
             self.disable_all_items()
             await interaction.message.edit(view=self)
-        image = ""
-        if self.sra_url is None:
-            image = random.choice(self.giflist)
+        image = random.choice(self.giflist)
         embed = discord.Embed(
             description=f"**{interaction.user.name}** {self.name} **" + self.ctx.author.name + "** back!",
             color=discord.Color.blue())
