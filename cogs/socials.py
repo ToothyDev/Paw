@@ -48,7 +48,7 @@ class socials(commands.Cog, name="social"):
     async def bellyrub(self, ctx, *, members: str):
         """ Give bellyrubs to the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "bellyrubbed", 'rub the belly of', data.bellyrub)
+        await interactions(ctx, memberlist, "bellyrubbed", 'rub the belly of', data.bellyrub, "Rub")
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Nuzzle someone")

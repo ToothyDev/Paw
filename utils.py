@@ -10,7 +10,7 @@ class Colors:
 
 
 async def interactions(ctx, members, name, error_name, giflist, altname=None):
-    image = ""
+    image = random.choice(giflist)
     if len(set(members)) == 0:
         return await ctx.respond(f'You must specify at least one user to {error_name}!', ephemeral=True)
     display_giflist = []
@@ -39,8 +39,7 @@ class interactionsView(discord.ui.View):
         self.error_name = error_name
         self.giflist = giflist
         self.altname = altname
-        # self.sra_url = sra_url
-        if altname is None:
+        if self.altname is None:
             self.button_callback.label = f"{self.error_name.title()} back!"
         else:
             self.button_callback.label = f"{self.altname} back!"
