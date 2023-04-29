@@ -9,112 +9,112 @@ class socials(commands.Cog, name="social"):
         self.bot = bot
         self.help_icon = "♥️"
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Snuggle someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def snuggle(self, ctx, *, members: str):
         """ Snuggle the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "snuggled", 'snuggle', data.snuggle)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Hug someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def hug(self, ctx, *, members: str):
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "hugged", 'hug', data.hug, 'hug')
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Boop someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def boop(self, ctx, *, members: str):
         """ Boop the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "booped", 'boop', data.boop)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Smooch someone", aliases=["kiss"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def smooch(self, ctx, *, members: str):
         """ Smooch the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "smooched", 'smooch', data.smooch)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Lick someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def lick(self, ctx, *, members: str):
         """ Lick the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "licked", 'lick', data.lick)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Give bellyrubs!")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def bellyrub(self, ctx, *, members: str):
         """ Give bellyrubs to the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "bellyrubbed", 'rub the belly of', data.bellyrub, "Rub")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Nuzzle someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def nuzzle(self, ctx, *, members: str):
         """ Nuzzle the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "nuzzled", 'nuzzles', data.nuzzle)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Cuddle someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def cuddle(self, ctx, *, members: str):
         """ Cuddle the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "cuddled", 'cuddle', data.cuddle)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Feed someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def feed(self, ctx, *, members: str):
         """ Feed the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "fed", 'feed', data.feed)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Glomp someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def glomp(self, ctx, *, members: str):
         """ Glomp on the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "glomped", 'glomp', data.glomp)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Highfive someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def highfive(self, ctx, *, members: str):
         """ Highfive the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "highfived", 'highfive', data.highfive)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Rawrrrr")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def rawr(self, ctx, *, members: str):
         """ Rawr at the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "rawred at", 'rawr at', data.rawr, "Rawr")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Howl to the moon, or someone", aliases=["howl"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def awoo(self, ctx, *, members: str):
         """ Howl at the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "howled at", 'howl at', data.awoo, "howl")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="pat someone!", aliases=["pet"])
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def pat(self, ctx, *, members: str):
         """ Pat the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "patted", 'pat', data.pet, 'pat')
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Gib cookie")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def cookie(self, ctx, *, members: str):
         """ Give cookies to the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "gave a cookie to", 'give a cookie to', data.cookie, "Give a cookie")
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Blushies!")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def blush(self, ctx, *, members: str = "None"):
         """ Blush (optionally because of specified people) """
         if members == "None":
@@ -123,8 +123,8 @@ class socials(commands.Cog, name="social"):
             memberlist = await mentionconverter(self, ctx, members)
         await feelings(ctx, memberlist, "blushes", data.blush)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Be happy")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def happy(self, ctx, *, members: str = "None"):
         """ Be happy (optionally because of specified people) """
         if members == "None":
@@ -133,8 +133,8 @@ class socials(commands.Cog, name="social"):
             memberlist = await mentionconverter(self, ctx, members)
         await feelings(ctx, memberlist, "smiles", data.happy)
 
-    @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="wag yer tail")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def wag(self, ctx, *, members: str = "None"):
         """ Wag your tail (Optionally because of specified people) """
         if members == "None":
