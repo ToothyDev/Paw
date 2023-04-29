@@ -113,6 +113,13 @@ class socials(commands.Cog, name="social"):
         memberlist = await mentionconverter(self, ctx, members)
         await interactions(ctx, memberlist, "gave a cookie to", 'give a cookie to', data.cookie, "Give a cookie")
 
+    @bridge.bridge_command(brief="Dance with someone")
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def dance(self, ctx, *, members: str):
+        """ Dance with someone """
+        memberlist = await mentionconverter(self, ctx, members)
+        await interactions(ctx, memberlist, "danced with", "dance with", data.dance, "Dance")
+
     @bridge.bridge_command(brief="Blushies!")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def blush(self, ctx, *, members: str = "None"):

@@ -140,6 +140,13 @@ paw = ["https://cdn.discordapp.com/attachments/1092442686671290378/1092442923158
        "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826652909598/Paw_Kisses.png",
        "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826904571964/Paw_No.png"
        ]
+
+dance = ["https://media.tenor.com/OxrPk4Zbf1IAAAAC/dancing-protogen.gif",
+         "https://media.tenor.com/pTxxtlWeKBMAAAAC/furry-dance.gif",
+         "https://media.tenor.com/EtShnq3WAWkAAAAd/eevee-furry.gif",
+         "https://media.tenor.com/5FlpxgiZWe4AAAAd/keenora-kee.gif",
+         "https://media.tenor.com/3U0EPDQsvx4AAAAd/furry-furries.gif"]
+
 colors = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
           "Light Blue", "Grey", "Yellow"]
 
