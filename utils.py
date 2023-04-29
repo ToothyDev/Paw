@@ -9,12 +9,10 @@ class Colors:
     orange = 0xfaa61a
 
 
-async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
+async def interactions(ctx, members, name, error_name, giflist, altname=None):
     image = ""
     if len(set(members)) == 0:
         return await ctx.respond(f'You must specify at least one user to {error_name}!', ephemeral=True)
-    if sra_url is None:
-        image = random.choice(giflist)
     display_giflist = []
     for x in members:
         display_giflist.append(x.display_name)
@@ -28,20 +26,25 @@ async def interactions(ctx, members, name, error_name, giflist, sra_url=None):
         description=f"**{ctx.author.display_name}** {name} **" + display_giflist + "**",
         color=discord.Color.blue())
     embed.set_thumbnail(url=image)
-    view = interactionsView(ctx, members, name, error_name, giflist, sra_url)
+    view = interactionsView(ctx, members, name, error_name, giflist, altname)
     await ctx.respond(embed=embed, view=view)
 
 
 class interactionsView(discord.ui.View):
-    def __init__(self, ctx, members, name, error_name, giflist, sra_url=None):
+    def __init__(self, ctx, members, name, error_name, giflist, altname=None):
+        print(altname)
         super().__init__(timeout=600)
         self.ctx = ctx
         self.members = members
         self.name = name
         self.error_name = error_name
         self.giflist = giflist
-        self.sra_url = sra_url
-        self.button_callback.label = f"{self.error_name.title()} back!"
+        self.altname = altname
+        # self.sra_url = sra_url
+        if altname is None:
+            self.button_callback.label = f"{self.error_name.title()} back!"
+        else:
+            self.button_callback.label = f"{self.altname} back!"
 
     @discord.ui.button()
     async def button_callback(self, button, interaction):

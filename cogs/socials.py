@@ -83,21 +83,21 @@ class socials(commands.Cog, name="social"):
     async def highfive(self, ctx, *, members: str):
         """ Highfive the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "highfived", 'hivefive', data.highfive)
+        await interactions(ctx, memberlist, "highfived", 'highfive', data.highfive)
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Rawrrrr")
     async def rawr(self, ctx, *, members: str):
         """ Rawr at the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "rawred at", 'rawr at', data.rawr)
+        await interactions(ctx, memberlist, "rawred at", 'rawr at', data.rawr, "Rawr")
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Howl to the moon, or someone", aliases=["howl"])
     async def awoo(self, ctx, *, members: str):
         """ Howl at the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "howled at", 'howl at', data.awoo)
+        await interactions(ctx, memberlist, "howled at", 'howl at', data.awoo, "howl")
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="pat someone!", aliases=["pet"])
@@ -111,7 +111,7 @@ class socials(commands.Cog, name="social"):
     async def cookie(self, ctx, *, members: str):
         """ Give cookies to the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "gave a cookie to", 'give a cookie to', data.cookie)
+        await interactions(ctx, memberlist, "gave a cookie to", 'give a cookie to', data.cookie, "Give a cookie")
 
     @commands.cooldown(1, 5, commands.BucketType.user)
     @bridge.bridge_command(brief="Blushies!")
