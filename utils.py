@@ -32,7 +32,6 @@ async def interactions(ctx, members, name, error_name, giflist, altname=None):
 
 class interactionsView(discord.ui.View):
     def __init__(self, ctx, members, name, error_name, giflist, altname=None):
-        print(altname)
         super().__init__(timeout=600)
         self.ctx = ctx
         self.members = members
