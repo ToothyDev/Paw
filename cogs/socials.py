@@ -20,7 +20,7 @@ class socials(commands.Cog, name="social"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def hug(self, ctx, *, members: str):
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "hugged", 'hug', data.hug, 'hug')
+        await interactions(ctx, memberlist, "hugged", 'hug', data.hug, 'Hug')
 
     @bridge.bridge_command(brief="Boop someone")
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -97,14 +97,14 @@ class socials(commands.Cog, name="social"):
     async def awoo(self, ctx, *, members: str):
         """ Howl at the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "howled at", 'howl at', data.awoo, "howl")
+        await interactions(ctx, memberlist, "howled at", 'howl at', data.awoo, "Howl")
 
     @bridge.bridge_command(brief="pat someone!", aliases=["pet"])
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def pat(self, ctx, *, members: str):
         """ Pat the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        await interactions(ctx, memberlist, "patted", 'pat', data.pet, 'pat')
+        await interactions(ctx, memberlist, "pats", 'pat', data.pet, 'Pat')
 
     @bridge.bridge_command(brief="Gib cookie")
     @commands.cooldown(1, 5, commands.BucketType.user)
