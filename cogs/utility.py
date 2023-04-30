@@ -37,7 +37,7 @@ class utility(commands.Cog, name="utility"):
     @bridge.bridge_command(brief="Get rid of bots", options=[
         discord.Option(int, name="day", description="Select the desired day of a month"),
         discord.Option(int, name="month", description="Select the desired month number"),
-        ])
+    ])
     @bridge.has_permissions(ban_members=True)
     async def botcollector(self, ctx, day: int, month: int):
         """ Get members created on a certain day """
