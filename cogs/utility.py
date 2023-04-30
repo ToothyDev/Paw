@@ -1,6 +1,7 @@
 from discord.ext import commands, bridge
 import random
 import discord
+from discord import option
 import data
 
 
@@ -8,8 +9,8 @@ class utility(commands.Cog, name="utility"):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.cooldown(1, 3, commands.BucketType.user)
     @bridge.bridge_command(brief="Generate a sona!")
+    @commands.cooldown(1, 3, commands.BucketType.user)
     async def sonagen(self, ctx):
         """ Generate a random sona """
         primary_color = discord.Color.random()
@@ -33,11 +34,9 @@ class utility(commands.Cog, name="utility"):
 
         return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
 
-    @commands.cooldown(1, 3, commands.BucketType.user)
-    @bridge.bridge_command(brief="Get rid of bots", options=[
-        discord.Option(int, name="day", description="Select the desired day of a month"),
-        discord.Option(int, name="month", description="Select the desired month number"),
-    ])
+    @bridge.bridge_command(brief="Get rid of bots")
+    @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
+    @option("month", int, description="Select the desired month number", min_value=1, max_value=12)
     @bridge.has_permissions(ban_members=True)
     async def botcollector(self, ctx, day: int, month: int):
         """ Get members created on a certain day """
