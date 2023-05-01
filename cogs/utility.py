@@ -60,24 +60,21 @@ class utility(commands.Cog, name="utility"):
     @bridge.has_permissions(manage_guild=True)
     async def announce(self, ctx, channel: discord.TextChannel, message: str, embed):
         """ Announce something in a channel """
+        if not channel.can_send():
+            return await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
         if embed:
+            print("bad")
             view = ConfirmView()
             await ctx.respond("Are you sure? Embeds don't actually send pings to any roles or users", view=view, ephemeral=True)
             await view.wait()
             if not view.confirmed:
                 return
-        try:
-            if not embed:
-                await channel.send(message)
-            else:
-                embed = discord.Embed(colour=discord.Color.random(), description=message)
-                await channel.send(embed=embed)
-            if ctx.channel is not channel:
-                await ctx.respond("Message successfully sent!", ephemeral=True)
-        except Exception as e:
-            if str(e).startswith("403"):
-                e = "Missing Permissions"
-            await ctx.respond(f"Could not send message, `{e}`!\nMake sure I have view and write access in {channel.mention}", ephemeral=True)
+        if not embed:
+            await channel.send(message)
+        else:
+            embed = discord.Embed(colour=discord.Color.random(), description=message)
+            await channel.send(embed=embed)
+        await ctx.respond("Message successfully sent!", ephemeral=True)
 
 
 class ConfirmView(discord.ui.View):
