@@ -83,7 +83,7 @@ class utility(commands.Cog, name="utility"):
 class ConfirmView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=120)
-        confirmed: bool = None
+        self.confirmed: bool = None
 
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
     async def confirm(self, button, interaction):
