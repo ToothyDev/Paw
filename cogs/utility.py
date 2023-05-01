@@ -59,6 +59,7 @@ class utility(commands.Cog, name="utility"):
     @option("embed", bool, description="Whether to make it an embed")
     @bridge.has_permissions(manage_guild=True)
     async def announce(self, ctx, channel: discord.TextChannel, message: str, embed):
+        """ Announce something in a channel """
         if embed:
             view = ConfirmView()
             await ctx.respond("Are you sure? Embeds don't actually send pings to any roles or users", view=view, ephemeral=True)
