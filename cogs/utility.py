@@ -53,6 +53,57 @@ class utility(commands.Cog, name="utility"):
             output = "No one found!"
         await message.edit_original_response(content=output)
 
+    @bridge.bridge_command(brief="Announce something!")
+    @option("channel", discord.TextChannel, description="The channel to announce in")
+    @option("message", str, description="The message to announce")
+    @option("embed", bool, description="Whether to make it an embed", required=False, default=False)
+    @option("attachment", discord.Attachment, description="A nice image", required=False, default=None)
+    @bridge.has_permissions(manage_guild=True)
+    async def announce(self, ctx, channel: discord.TextChannel, message: str, embed: bool, attachment: discord.Attachment):
+        """ Announce something in a channel """
+        await ctx.defer(ephemeral=True)
+        if not channel.can_send():
+            return await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
+        if embed:
+            view = ConfirmView()
+            await ctx.respond("Are you sure? Embeds don't actually send pings to any roles or users", view=view, ephemeral=True)
+            await view.wait()
+            if not view.confirmed:
+                return
+        if not embed:
+            if not attachment:
+                await channel.send(message)
+            else:
+                file = await attachment.to_file()
+                await channel.send(content=message, file=file)
+        else:
+            message_embed = discord.Embed(colour=discord.Color.random(), description=message)
+            if attachment:
+                message_embed.set_thumbnail(url=attachment.url)
+            await channel.send(embed=message_embed)
+        await ctx.respond("Message successfully sent!", ephemeral=True)
+
+
+class ConfirmView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=120)
+        self.confirmed: bool = None
+        self.disable_on_timeout = True
+
+    @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
+    async def confirm(self, button, interaction):
+        self.confirmed = True
+        self.disable_all_items()
+        await interaction.response.edit_message(view=self)
+        self.stop()
+
+    @discord.ui.button(label="Cancel", style=discord.ButtonStyle.red)
+    async def cancel(self, button, interaction):
+        self.confirmed = False
+        self.disable_all_items()
+        await interaction.response.edit_message(content="Cancelled", view=None)
+        self.stop()
+
 
 def setup(bot):
     bot.add_cog(utility(bot))
