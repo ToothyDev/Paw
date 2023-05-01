@@ -61,6 +61,7 @@ class utility(commands.Cog, name="utility"):
     @bridge.has_permissions(manage_guild=True)
     async def announce(self, ctx, channel: discord.TextChannel, message: str, embed: bool, attachment: discord.Attachment):
         """ Announce something in a channel """
+        await ctx.defer()
         if not channel.can_send():
             return await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
         if embed:
