@@ -53,6 +53,51 @@ class utility(commands.Cog, name="utility"):
             output = "No one found!"
         await message.edit_original_response(content=output)
 
+    @bridge.bridge_command(brief="Announce something!")
+    @option("channel", discord.TextChannel, description="The channel to announce in")
+    @option("message", str, description="The message to announce")
+    @option("embed", bool, description="Whether to make it an embed")
+    @bridge.has_permissions(manage_guild=True)
+    async def announce(self, ctx, channel: discord.TextChannel, message: str, embed):
+        if embed:
+            view = ConfirmView()
+            await ctx.respond("Are you sure? Embeds don't actually send pings to any roles or users", view=view, ephemeral=True)
+            await view.wait()
+            if not view.confirmed:
+                return
+        try:
+            if not embed:
+                await channel.send(message)
+            else:
+                embed = discord.Embed(colour=discord.Color.random(), description=message)
+                await channel.send(embed=embed)
+            if ctx.channel is not channel:
+                await ctx.respond("Message successfully sent!", ephemeral=True)
+        except Exception as e:
+            if str(e).startswith("403"):
+                e = "Missing Permissions"
+            await ctx.respond(f"Could not send message, `{e}`!\nMake sure I have view and write access in {channel.mention}", ephemeral=True)
+
+
+class ConfirmView(discord.ui.View):
+    def __init__(self):
+        super().__init__(timeout=120)
+        confirmed: bool = None
+
+    @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
+    async def confirm(self, button, interaction):
+        self.confirmed = True
+        self.disable_all_items()
+        await interaction.response.edit_message(view=self)
+        self.stop()
+
+    @discord.ui.button(label="Cancel", style=discord.ButtonStyle.red)
+    async def cancel(self, button, interaction):
+        self.confirmed = False
+        self.disable_all_items()
+        await interaction.response.edit_message(content="Cancelled", view=None)
+        self.stop()
+
 
 def setup(bot):
     bot.add_cog(utility(bot))
