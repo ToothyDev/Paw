@@ -88,6 +88,7 @@ class ConfirmView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=120)
         self.confirmed: bool = None
+        self.disable_on_timeout = True
 
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
     async def confirm(self, button, interaction):
