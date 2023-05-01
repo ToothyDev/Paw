@@ -56,8 +56,8 @@ class utility(commands.Cog, name="utility"):
     @bridge.bridge_command(brief="Announce something!")
     @option("channel", discord.TextChannel, description="The channel to announce in")
     @option("message", str, description="The message to announce")
-    @option("embed", bool, description="Whether to make it an embed")
-    @option("attachment", discord.Attachment, description="A nice image")
+    @option("embed", bool, description="Whether to make it an embed", required=False, default=False)
+    @option("attachment", discord.Attachment, description="A nice image", required=False, default=None)
     @bridge.has_permissions(manage_guild=True)
     async def announce(self, ctx, channel: discord.TextChannel, message: str, embed: bool, attachment: discord.Attachment):
         """ Announce something in a channel """
