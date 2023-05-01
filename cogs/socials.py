@@ -211,8 +211,8 @@ class socials(commands.Cog, name="social"):
                 if ctx.message.reference:
                     reference = await ctx.fetch_message(ctx.message.reference.message_id)
                     user = reference.author
-                else:
-                    user = ctx.author
+            else:
+                user = ctx.author
         if not server_avatar:
             url = user.avatar.url
         else:
