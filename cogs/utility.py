@@ -57,23 +57,29 @@ class utility(commands.Cog, name="utility"):
     @option("channel", discord.TextChannel, description="The channel to announce in")
     @option("message", str, description="The message to announce")
     @option("embed", bool, description="Whether to make it an embed")
+    @option("attachment", discord.Attachment, description="A nice image")
     @bridge.has_permissions(manage_guild=True)
-    async def announce(self, ctx, channel: discord.TextChannel, message: str, embed):
+    async def announce(self, ctx, channel: discord.TextChannel, message: str, embed: bool, attachment: discord.Attachment):
         """ Announce something in a channel """
         if not channel.can_send():
             return await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
         if embed:
-            print("bad")
             view = ConfirmView()
             await ctx.respond("Are you sure? Embeds don't actually send pings to any roles or users", view=view, ephemeral=True)
             await view.wait()
             if not view.confirmed:
                 return
         if not embed:
-            await channel.send(message)
+            if not attachment:
+                await channel.send(message)
+            else:
+                file = await attachment.to_file()
+                await channel.send(content=message, file=file)
         else:
-            embed = discord.Embed(colour=discord.Color.random(), description=message)
-            await channel.send(embed=embed)
+            message_embed = discord.Embed(colour=discord.Color.random(), description=message)
+            if attachment:
+                message_embed.set_thumbnail(url=attachment.url)
+            await channel.send(embed=message_embed)
         await ctx.respond("Message successfully sent!", ephemeral=True)
 
 
