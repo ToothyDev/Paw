@@ -43,6 +43,7 @@ class interactionsView(discord.ui.View):
             self.button_callback.label = f"{self.error_name.title()} back!"
         else:
             self.button_callback.label = f"{self.altname} back!"
+        self.disable_on_timeout = True
 
     @discord.ui.button()
     async def button_callback(self, button, interaction):
