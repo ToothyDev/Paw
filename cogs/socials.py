@@ -177,8 +177,8 @@ class socials(commands.Cog, name="social"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fact(self, ctx):
         """ Get a random animal fact """
-        facts = random.choice(["https://some-random-api.ml/facts/dog", "https://some-random-api.ml/facts/cat", "https://some-random-api.ml/facts/panda",
-                               "https://some-random-api.ml/facts/fox", "https://some-random-api.ml/facts/bird", "https://some-random-api.ml/facts/koala"])
+        facts = random.choice(["https://some-random-api.com/facts/dog", "https://some-random-api.com/facts/cat", "https://some-random-api.com/facts/panda",
+                               "https://some-random-api.com/facts/fox", "https://some-random-api.com/facts/bird", "https://some-random-api.com/facts/koala"])
 
         async with aiohttp.ClientSession() as cs:
             async with cs.get(facts) as r:
@@ -218,9 +218,9 @@ class socials(commands.Cog, name="social"):
         else:
             url = user.display_avatar.url
         if not border:
-            link = f"https://some-random-api.ml/canvas/gay/?avatar={url}"
+            link = f"https://some-random-api.com/canvas/gay/?avatar={url}"
         else:
-            link = f"https://some-random-api.ml/canvas/misc/lgbt/?avatar={url}"
+            link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}"
         e = discord.Embed(color=discord.Color.random())
         e.set_image(url=link)
         e.set_footer(text=f"Gay avatar: {user}")
