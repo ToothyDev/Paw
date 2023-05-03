@@ -1,4 +1,4 @@
-awoo = ["https://cdn.discordapp.com/attachments/715969701771083820/739429902402715748/unknown.gif",
+howl = ["https://cdn.discordapp.com/attachments/715969701771083820/739429902402715748/unknown.gif",
         "https://cdn.discordapp.com/attachments/726377118304305245/739430343962001468/unknown.gif",
         "https://cdn.discordapp.com/attachments/726377118304305245/739430488091000863/unknown.gif",
         "https://cdn.discordapp.com/attachments/726377118304305245/739430548895825930/unknown.gif",
@@ -99,17 +99,17 @@ rawr = ["https://media1.tenor.com/images/5393afcde44d4be4569108e40fddb3a1/tenor.
         "https://media1.tenor.com/images/78e79fa52e3934f693ce670a3a905e64/tenor.gif?itemid=16549140"
         "https://media1.tenor.com/images/84b80c7e1fa843fd4ea7b90e1bc269c4/tenor.gif?itemid=15426315"]
 
-smooch = ["https://media1.tenor.com/images/473c30ffa595a67a281d9b2fde7b48d6/tenor.gif?itemid=5373130",
-          "https://media.tenor.com/images/78aaf08e4cb6174a5d3a0d2826c43953/tenor.gif",
-          "https://media1.tenor.com/images/3fce8ce3fb358cc6fafd0517c6558653/tenor.gif?itemid=14802231",
-          "https://cdn.weasyl.com/~recurrent/submissions/1797089/3e4439c6a3b09383c2361d2db9f5d72f1e74f70dfaf26654b468875ee1d0071d/recurrent-c-kiss-under-the-moon.gif",
-          "https://pa1.narvii.com/6929/e06bf443286d81e79374a4374cac98a1e263ebb4r1-2000-2000_hq.gif",
-          "https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
-          "https://media1.tenor.com/images/12ff73f58a57174d6c6228f323e41c21/tenor.gif?itemid=11770367",
-          "https://d.facdn.net/art/kusuguttai/1550707158/1550707158.kusuguttai_kissandnibble.gif",
-          "https://i.imgur.com/ApV7HF5.gif",
-          "https://i.pinimg.com/originals/a2/64/72/a26472dd131d20dba037b81c1a633c61.gif",
-          "https://media1.tenor.com/images/5c8972db3df932240bb191be36c71b85/tenor.gif?itemid=7189564"]
+kiss = ["https://media1.tenor.com/images/473c30ffa595a67a281d9b2fde7b48d6/tenor.gif?itemid=5373130",
+        "https://media.tenor.com/images/78aaf08e4cb6174a5d3a0d2826c43953/tenor.gif",
+        "https://media1.tenor.com/images/3fce8ce3fb358cc6fafd0517c6558653/tenor.gif?itemid=14802231",
+        "https://cdn.weasyl.com/~recurrent/submissions/1797089/3e4439c6a3b09383c2361d2db9f5d72f1e74f70dfaf26654b468875ee1d0071d/recurrent-c-kiss-under-the-moon.gif",
+        "https://pa1.narvii.com/6929/e06bf443286d81e79374a4374cac98a1e263ebb4r1-2000-2000_hq.gif",
+        "https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
+        "https://media1.tenor.com/images/12ff73f58a57174d6c6228f323e41c21/tenor.gif?itemid=11770367",
+        "https://d.facdn.net/art/kusuguttai/1550707158/1550707158.kusuguttai_kissandnibble.gif",
+        "https://i.imgur.com/ApV7HF5.gif",
+        "https://i.pinimg.com/originals/a2/64/72/a26472dd131d20dba037b81c1a633c61.gif",
+        "https://media1.tenor.com/images/5c8972db3df932240bb191be36c71b85/tenor.gif?itemid=7189564"]
 
 snuggle = ["https://media1.tenor.com/images/ba7829e33a9392d38e15cdc4c650b897/tenor.gif?itemid=17325139",
            "https://media.giphy.com/media/kz01wlAoCLYx3v8F68/giphy.gif",
