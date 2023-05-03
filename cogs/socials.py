@@ -25,8 +25,8 @@ class socials(commands.Cog, name="social"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def hug(self, ctx, *, members):
         memberlist = await mentionconverter(self, ctx, members)
-        embed = await interactions(ctx, memberlist, "hugged", "https://some-random-api.com/animu/hug")
-        view = interactionsView(ctx, memberlist, "hugged",  "Hug", "https://some-random-api.com/animu/hug")
+        embed = await interactions(ctx, memberlist, "hugged", data.hug)
+        view = interactionsView(ctx, memberlist, "hugged",  "Hug", data.hug)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Boop someone")
@@ -145,8 +145,8 @@ class socials(commands.Cog, name="social"):
     async def pat(self, ctx, *, members):
         """ Pat the specified people """
         memberlist = await mentionconverter(self, ctx, members)
-        embed = await interactions(ctx, memberlist, "pats", "https://some-random-api.com/animu/pat")
-        view = interactionsView(ctx, memberlist, "pats", "Pat", "https://some-random-api.com/animu/pat", "Pat")
+        embed = await interactions(ctx, memberlist, "pats", data.pet)
+        view = interactionsView(ctx, memberlist, "pats", "Pat", data.pet, "Pat")
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Give a cookie to someone")

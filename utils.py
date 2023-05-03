@@ -11,11 +11,7 @@ class Colors:
 
 
 async def interactions(ctx, members, action, giflist):
-    if isinstance(giflist, str):
-        json = await apireq(giflist)
-        image = json['link']
-    else:
-        image = random.choice(giflist)
+    image = random.choice(giflist)
     memberlist = []
     for member in members:
         memberlist.append(member.display_name)
@@ -53,11 +49,7 @@ class interactionsView(discord.ui.View):
         if len(self.members) == 0:
             self.disable_all_items()
             await interaction.message.edit(view=self)
-        if isinstance(self.giflist, str):
-            json = await apireq(self.giflist)
-            image = json['link']
-        else:
-            image = random.choice(self.giflist)
+        image = random.choice(self.giflist)
         embed = discord.Embed(
             description=f"**{interaction.user.name}** {self.action} **" + self.ctx.author.name + "** back!",
             color=discord.Color.blue())
