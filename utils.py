@@ -37,6 +37,7 @@ class interactionsView(discord.ui.View):
         self.giflist = giflist
         self.action_error = action_error
         self.button_callback.label = f"{button_label} back!"
+        self.disable_on_timeout = True
 
     @discord.ui.button()
     async def button_callback(self, button, interaction):
