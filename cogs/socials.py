@@ -218,7 +218,7 @@ class socials(commands.Cog, name="social"):
     @bridge.bridge_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fox(self, ctx):
-        """ Get a random image of a fox """
+        """ Get a random fox image"""
         json = await apireq("https://randomfox.ca/floof/")
         embed = discord.Embed(title="Floofy fox!", color=discord.Color.orange())
         embed.set_image(url=json['image'])
