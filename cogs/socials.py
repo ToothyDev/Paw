@@ -268,15 +268,15 @@ class socials(commands.Cog, name="social"):
             "Content-Type": "application/json"
         }
         async with aiohttp.ClientSession() as session:
-            async with session.post(url, headers=headers, data=json.dumps(data)) as response:
-                if response.status_code == 200:
-                    response_json = json.loads(response.content)
+            async with session.post(url, headers=headers, data=json.dumps(adata)) as response:
+                if response.status == 200:
+                    response_json = await response.json()
                     content = response_json["choices"][0]["message"]["content"]
                     await ctx.respond(f"""**Prompt:** {text}\n**Paw**: {content}""")
-                elif response.status_code == 500:
+                elif response.status == 500:
                     await ctx.respond("Something went wrong with the API, try again")
                 else:
-                    await ctx.respond("Error: API call failed with status code", response.status_code)
+                    await ctx.respond("Error: API call failed with status code", response.status)
 
 
 def setup(bot):
