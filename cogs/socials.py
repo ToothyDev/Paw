@@ -261,7 +261,7 @@ class socials(commands.Cog, name="social"):
         url = "https://free.churchless.tech/v1/chat/completions"
         adata = {
             "model": "gpt-3.5-turbo",
-            "messages": [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Your name is "Paw" """},
+            "messages": [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."""},
                          {"role": "user", "content": text}],
             "max_tokens": 500
         }
