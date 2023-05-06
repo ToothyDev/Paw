@@ -272,7 +272,7 @@ class socials(commands.Cog, name="social"):
         if response.status_code == 200:
             response_json = json.loads(response.content)
             content = response_json["choices"][0]["message"]["content"]
-            await ctx.respond(content)
+            await ctx.respond(f"""**Prompt:** {text}\n**Paw**: {content}""")
         elif response.status_code == 500:
             await ctx.respond("Something went wrong with the API, try again")
         else:
