@@ -254,14 +254,15 @@ class socials(commands.Cog, name="social"):
         await ctx.respond(embed=e)
 
     @slash_command()
-    @option("text", str, description="Context to be given to GPT")
-    async def gpt(self, ctx: discord.ApplicationContext, text):
+    @option("text", str, description="What do you want to tell Paw?")
+    async def gpt(self, ctx, text):
+        """ Talk to Paw! """
         await ctx.defer()
         url = "https://free.churchless.tech/v1/chat/completions"
         adata = {
             "model": "gpt-3.5-turbo",
             "messages": [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Your name is "Paw" """},
-                         {"role": "user", "name": "Toothy Fernsan", "content": text}],
+                         {"role": "user", "content": text}],
             "max_tokens": 500
         }
         headers = {
