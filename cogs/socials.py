@@ -2,7 +2,8 @@ import data
 from discord.ext import commands, bridge
 from discord import slash_command, option
 from utils import *
-import aiohttp
+import requests
+import json
 
 
 class socials(commands.Cog, name="social"):
@@ -251,6 +252,30 @@ class socials(commands.Cog, name="social"):
         e.set_image(url=link)
         e.set_footer(text=f"Gay avatar: {user}")
         await ctx.respond(embed=e)
+
+    @slash_command()
+    @option("text", str, description="Context to be given to GPT")
+    async def gpt(self, ctx: discord.ApplicationContext, text):
+        await ctx.defer()
+        url = "https://free.churchless.tech/v1/chat/completions"
+        adata = {
+            "model": "gpt-3.5-turbo",
+            "messages": [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Your name is "Paw" """},
+                         {"role": "user", "name": "Toothy Fernsan", "content": text}],
+            "max_tokens": 500
+        }
+        headers = {
+            "Content-Type": "application/json"
+        }
+        response = requests.post(url, data=json.dumps(adata), headers=headers)
+        if response.status_code == 200:
+            response_json = json.loads(response.content)
+            content = response_json["choices"][0]["message"]["content"]
+            await ctx.respond(content)
+        elif response.status_code == 500:
+            await ctx.respond("Something went wrong with the API, try again")
+        else:
+            await ctx.respond("Error: API call failed with status code", response.status_code)
 
 
 def setup(bot):
