@@ -2,7 +2,6 @@ import data
 from discord.ext import commands, bridge
 from discord import slash_command, option
 from utils import *
-import requests
 import json
 
 
@@ -268,15 +267,16 @@ class socials(commands.Cog, name="social"):
         headers = {
             "Content-Type": "application/json"
         }
-        response = requests.post(url, data=json.dumps(adata), headers=headers)
-        if response.status_code == 200:
-            response_json = json.loads(response.content)
-            content = response_json["choices"][0]["message"]["content"]
-            await ctx.respond(f"""**Prompt:** {text}\n**Paw**: {content}""")
-        elif response.status_code == 500:
-            await ctx.respond("Something went wrong with the API, try again")
-        else:
-            await ctx.respond("Error: API call failed with status code", response.status_code)
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, headers=headers, data=json.dumps(data)) as response:
+                if response.status_code == 200:
+                    response_json = json.loads(response.content)
+                    content = response_json["choices"][0]["message"]["content"]
+                    await ctx.respond(f"""**Prompt:** {text}\n**Paw**: {content}""")
+                elif response.status_code == 500:
+                    await ctx.respond("Something went wrong with the API, try again")
+                else:
+                    await ctx.respond("Error: API call failed with status code", response.status_code)
 
 
 def setup(bot):
