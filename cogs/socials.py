@@ -254,15 +254,19 @@ class socials(commands.Cog, name="social"):
 
     @slash_command()
     @option("text", str, description="What do you want to tell Paw?")
-    @commands.cooldown(1, 60, commands.BucketType.user)
-    async def gpt(self, ctx, text):
+    async def gpt(self, ctx: discord.ApplicationContext, text):
         """ Talk to Paw! """
         await ctx.defer()
+        messages = await ctx.channel.history(limit=10).flatten()
+        messages.reverse()
         url = "https://free.churchless.tech/v1/chat/completions"
+        gpthistory = [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."""}]
+        for message in messages:
+            gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
+        gpthistory.append({"role": "user", "content": text})
         adata = {
             "model": "gpt-3.5-turbo",
-            "messages": [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."""},
-                         {"role": "user", "content": text}],
+            "messages": gpthistory,
             "max_tokens": 500
         }
         headers = {
