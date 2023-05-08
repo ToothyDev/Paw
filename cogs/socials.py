@@ -227,7 +227,7 @@ class socials(commands.Cog, name="social"):
     @bridge.bridge_command(brief="Give someone's avatar a rainbow overlay")
     @option("user", discord.Member, description="Select a user", required=False)
     @option("border", bool, description="Make it a border?", required=False, default=False)
-    @option("server-avatar", bool, description="Use their server avatar?", required=False, default=False)
+    @option("server_avatar", bool, description="Use their server avatar?", required=False, default=False)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def gay(self, ctx, user=None, border=False, server_avatar=False):
         """ Gay overlay on avatar """
