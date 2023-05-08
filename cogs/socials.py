@@ -254,6 +254,7 @@ class socials(commands.Cog, name="social"):
 
     @slash_command()
     @option("text", str, description="What do you want to tell Paw?")
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def gpt(self, ctx: discord.ApplicationContext, text):
         """ Talk to Paw! """
         await ctx.defer()
