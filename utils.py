@@ -104,17 +104,26 @@ class AutoVerify():
     def __init__(self, bot):
         self.bot = bot
         self.members = []
-        self.roles = [
-            866064455183892509
+        self.roles = [  # Level 1 at the top
+            715990806061645915,
+            715992589891010682,
+            715993060244455545,
+            715994868136280144,
+            715995443397525624,
+            715995916410028082,
+            715992374731472997,
+            724606719619235911,
+            724607040642613290,
+            724607481594118216
         ]
         self.memberkicker.start()
 
-    @tasks.loop(seconds=20)
+    @tasks.loop(minutes=60)
     async def memberkicker(self):
         for memberid, timestamp in self.members:
             guild = await self.bot.fetch_guild(715969701771083817)
             member = await guild.fetch_member(memberid)
-            if time.time() > (timestamp + 1):
+            if time.time() > (timestamp + 86400):
                 print("Time's up, boye!")
                 for role in member.roles:
                     if role.id not in self.roles:
