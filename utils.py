@@ -1,6 +1,8 @@
 import random
 import discord
 import aiohttp
+from discord.ext import tasks
+import time
 
 
 class Colors:
@@ -96,3 +98,28 @@ async def apireq(url):
         async with cs.get(url) as r:
             js = await r.json()
             return js
+
+
+class AutoVerify():
+    def __init__(self, bot):
+        self.bot = bot
+        self.members = []
+        self.roles = [
+            866064455183892509
+        ]
+        self.memberkicker.start()
+
+    @tasks.loop(seconds=20)
+    async def memberkicker(self):
+        for memberid, guildid, timestamp in self.members:
+            guild = await self.bot.fetch_guild(guildid)
+            member = await guild.fetch_member(memberid)
+            if time.time() > (timestamp + 1):
+                print("Time's up, boye!")
+                for role in member.roles:
+                    if not role.id in self.roles:
+                        await member.kick(reason="Didn't verify")
+                    self.members.remove((memberid, guildid, timestamp))
+
+    def addMember(self, item):
+        self.members.append(item)
