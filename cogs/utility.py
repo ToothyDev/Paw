@@ -83,6 +83,30 @@ class utility(commands.Cog, name="utility"):
             await channel.send(embed=message_embed)
         await ctx.respond("Message successfully sent!", ephemeral=True)
 
+    @slash_command(brief="Information about the server")
+    async def serverinfo(self, ctx):
+        """ Get the current server's info """
+        guild = ctx.guild
+        owner = await guild.fetch_member(guild.owner_id)
+        embed = discord.Embed(color=discord.Color.random(), title=guild.name)
+        embed.description = f"""
+**Owner:** {owner.mention}
+**Members:** {guild.member_count}
+**Roles:** {len(await guild.fetch_roles())}
+**Verification:** {str(guild.verification_level).title()}
+**Channels:** {len(guild.text_channels)} Text, {len(guild.voice_channels)} Voice
+**Created:** <t:{round(guild.created_at.timestamp())}:R>
+**Emojis:** {len(guild.emojis)}
+**Stickers:** {len(guild.stickers)}
+        """
+        embed.set_thumbnail(url=guild.icon.url)
+        embed.set_footer(text=f"ID: {guild.id}")
+        if guild.banner:
+            embed.set_image(url=guild.banner.url)
+        features = ", ".join(guild.features).replace("_", " ").title()
+        embed.add_field(name="Features", value=features)
+        await ctx.respond(embed=embed)
+
 
 class ConfirmView(discord.ui.View):
     def __init__(self):
