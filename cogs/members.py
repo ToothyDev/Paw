@@ -9,12 +9,12 @@ from cogs.utility import ConfirmView
 class Members(commands.Cog, name="Members"):
     def __init__(self, bot):
         self.bot = bot
-        self.memberkicker = utils.AutoVerify(self.bot)
+        self.inactives_checker = utils.AutoVerify(self.bot)
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
         if member.guild.id == 715969701771083817:
-            self.memberkicker.addMember((member.id, time.time()))
+            self.inactives_checker.addMember((member.id, time.time()))
 
     inactives = SlashCommandGroup(name="inactives", default_member_permissions=discord.Permissions(manage_guild=True, kick_members=True))
 
@@ -22,7 +22,7 @@ class Members(commands.Cog, name="Members"):
     @discord.default_permissions(manage_guild=True)
     async def get(self, ctx):
         """ Get all inactive members """
-        await ctx.respond(self.memberkicker.getMembers())
+        await ctx.respond(self.inactives_checker.getMembers())
 
     @inactives.command()
     @discord.default_permissions(manage_guild=True)
@@ -33,7 +33,7 @@ class Members(commands.Cog, name="Members"):
         await view.wait()
         if not view.confirmed:
             return
-        await ctx.respond(f"Kicked {await self.memberkicker.kickMembers()} members!")
+        await ctx.respond(f"Kicked {await self.inactives_checker.kickMembers()} members!")
 
 
 def setup(bot):
