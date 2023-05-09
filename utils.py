@@ -116,14 +116,19 @@ class AutoVerify():
             724607040642613290,
             724607481594118216
         ]
-        self.memberkicker.start()
+        self.memberchecker.start()
 
     @tasks.loop(minutes=60)
-    async def memberkicker(self):
+    async def memberchecker(self):
         for memberid, timestamp in self.members:
-            if not time.time() > (timestamp + 259200):
+            guild = await self.bot.fetch_guild(715969701771083817)
+            member = await guild.fetch_member(memberid)
+            if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
-            self.members.remove((memberid, timestamp))
+            for role in member.roles:   # Remove member from inactives list if role has been obtained
+                if role.id in self.roles:
+                    self.members.remove((memberid, timestamp))
+                    break
 
     async def kickMembers(self):
         kicked = 0
