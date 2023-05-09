@@ -111,15 +111,15 @@ class AutoVerify():
 
     @tasks.loop(seconds=20)
     async def memberkicker(self):
-        for memberid, guildid, timestamp in self.members:
-            guild = await self.bot.fetch_guild(guildid)
+        for memberid, timestamp in self.members:
+            guild = await self.bot.fetch_guild(715969701771083817)
             member = await guild.fetch_member(memberid)
             if time.time() > (timestamp + 1):
                 print("Time's up, boye!")
                 for role in member.roles:
                     if role.id not in self.roles:
                         await member.kick(reason="Didn't verify")
-                    self.members.remove((memberid, guildid, timestamp))
+                    self.members.remove((memberid, timestamp))
 
     def addMember(self, item):
         self.members.append(item)

@@ -10,8 +10,8 @@ class Members(commands.Cog, name="Members"):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        print(f"Member joined! {member.name}")
-        self.memberkicker.addMember((member.id, member.guild.id, time.time()))
+        if member.guild.id == 715969701771083817:
+            self.memberkicker.addMember((member.id, time.time()))
 
 
 def setup(bot):
