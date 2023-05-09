@@ -123,3 +123,10 @@ class AutoVerify():
 
     def addMember(self, item):
         self.members.append(item)
+
+    def getMembers(self):
+        output = ""
+        for memberid, timestamp in self.members:
+            output += f"<@{memberid}> "
+
+        return output if output else "No members found!"
