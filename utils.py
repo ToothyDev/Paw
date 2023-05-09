@@ -125,6 +125,14 @@ class AutoVerify():
             member = await guild.fetch_member(memberid)
             if not time.time() > (timestamp + 86400):
                 continue
+            self.members.remove((memberid, timestamp))
+
+    async def kickMembers(self):
+        for memberid, timestamp in self.members:
+            guild = await self.bot.fetch_guild(715969701771083817)
+            member = await guild.fetch_member(memberid)
+            if not time.time() > (timestamp + 86400):
+                continue
             for role in member.roles:
                 if role.id not in self.roles:
                     await member.kick(reason="Didn't verify")
@@ -137,5 +145,4 @@ class AutoVerify():
         output = ""
         for memberid, timestamp in self.members:
             output += f"<@{memberid}> "
-
         return output if output else "No members found!"
