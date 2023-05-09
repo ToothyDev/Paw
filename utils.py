@@ -117,7 +117,7 @@ class AutoVerify():
             if time.time() > (timestamp + 1):
                 print("Time's up, boye!")
                 for role in member.roles:
-                    if not role.id in self.roles:
+                    if role.id not in self.roles:
                         await member.kick(reason="Didn't verify")
                     self.members.remove((memberid, guildid, timestamp))
 
