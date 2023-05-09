@@ -121,9 +121,7 @@ class AutoVerify():
     @tasks.loop(minutes=60)
     async def memberkicker(self):
         for memberid, timestamp in self.members:
-            guild = await self.bot.fetch_guild(715969701771083817)
-            member = await guild.fetch_member(memberid)
-            if not time.time() > (timestamp + 86400):
+            if not time.time() > (timestamp + 259200):
                 continue
             self.members.remove((memberid, timestamp))
 
