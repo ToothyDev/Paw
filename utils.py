@@ -123,11 +123,12 @@ class AutoVerify():
         for memberid, timestamp in self.members:
             guild = await self.bot.fetch_guild(715969701771083817)
             member = await guild.fetch_member(memberid)
-            if time.time() > (timestamp + 86400):
-                for role in member.roles:
-                    if role.id not in self.roles:
-                        await member.kick(reason="Didn't verify")
-                    self.members.remove((memberid, timestamp))
+            if not time.time() > (timestamp + 86400):
+                continue
+            for role in member.roles:
+                if role.id not in self.roles:
+                    await member.kick(reason="Didn't verify")
+                self.members.remove((memberid, timestamp))
 
     def addMember(self, item):
         self.members.append(item)
