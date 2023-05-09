@@ -124,7 +124,6 @@ class AutoVerify():
             guild = await self.bot.fetch_guild(715969701771083817)
             member = await guild.fetch_member(memberid)
             if time.time() > (timestamp + 86400):
-                print("Time's up, boye!")
                 for role in member.roles:
                     if role.id not in self.roles:
                         await member.kick(reason="Didn't verify")
