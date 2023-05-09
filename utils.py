@@ -122,7 +122,11 @@ class AutoVerify():
     async def memberchecker(self):
         for memberid, timestamp in self.members:
             guild = await self.bot.fetch_guild(715969701771083817)
-            member = await guild.fetch_member(memberid)
+            try:
+                member = await guild.fetch_member(memberid)
+            except Exception:
+                self.members.remove((memberid, timestamp))
+                continue
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
             for role in member.roles:   # Remove member from inactives list if role has been obtained
@@ -139,7 +143,11 @@ class AutoVerify():
                 continue
             for role in member.roles:
                 if role.id not in self.roles:   # Remove member from inactives list if role has been obtained
-                    await member.kick(reason="Failed to verify")
+                    try:
+                        await member.kick(reason="Failed to verify")
+                    except Exception:
+                        self.members.remove((memberid, timestamp))
+                        continue
                     kicked += 1
                 self.members.remove((memberid, timestamp))
         return kicked
