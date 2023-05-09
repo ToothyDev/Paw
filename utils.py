@@ -128,6 +128,7 @@ class AutoVerify():
             self.members.remove((memberid, timestamp))
 
     async def kickMembers(self):
+        kicked = 0
         for memberid, timestamp in self.members:
             guild = await self.bot.fetch_guild(715969701771083817)
             member = await guild.fetch_member(memberid)
@@ -136,7 +137,9 @@ class AutoVerify():
             for role in member.roles:
                 if role.id not in self.roles:
                     await member.kick(reason="Didn't verify")
+                    kicked += 1
                 self.members.remove((memberid, timestamp))
+        return kicked
 
     def addMember(self, item):
         self.members.append(item)
