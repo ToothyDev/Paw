@@ -158,5 +158,6 @@ class AutoVerify():
     def getMembers(self):
         output = ""
         for memberid, timestamp in self.members:
-            output += f"<@{memberid}> "
+            if time.time() > (timestamp + 259200):
+                output += f"<@{memberid}> "
         return output if output else "No members found!"
