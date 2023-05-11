@@ -1,6 +1,8 @@
 import random
 import discord
 import aiohttp
+from discord.ext import tasks
+import time
 
 
 class Colors:
@@ -96,3 +98,66 @@ async def apireq(url):
         async with cs.get(url) as r:
             js = await r.json()
             return js
+
+
+class AutoVerify():
+    def __init__(self, bot):
+        self.bot = bot
+        self.members = []
+        self.roles = [  # Level 1 at the top
+            715990806061645915,
+            715992589891010682,
+            715993060244455545,
+            715994868136280144,
+            715995443397525624,
+            715995916410028082,
+            715992374731472997,
+            724606719619235911,
+            724607040642613290,
+            724607481594118216
+        ]
+        self.memberchecker.start()
+
+    @tasks.loop(minutes=60)
+    async def memberchecker(self):
+        for memberid, timestamp in self.members:
+            guild = await self.bot.fetch_guild(715969701771083817)
+            try:
+                member = await guild.fetch_member(memberid)
+            except Exception:
+                self.members.remove((memberid, timestamp))
+                continue
+            if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
+                continue
+            for role in member.roles:   # Remove member from inactives list if role has been obtained
+                if role.id in self.roles:
+                    self.members.remove((memberid, timestamp))
+                    break
+
+    async def kickMembers(self):
+        kicked = 0
+        for memberid, timestamp in self.members:
+            guild = await self.bot.fetch_guild(715969701771083817)
+            member = await guild.fetch_member(memberid)
+            if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
+                continue
+            for role in member.roles:
+                if role.id not in self.roles:   # Remove member from inactives list if role has been obtained
+                    try:
+                        await member.kick(reason="Failed to verify")
+                    except Exception:
+                        self.members.remove((memberid, timestamp))
+                        continue
+                    kicked += 1
+                self.members.remove((memberid, timestamp))
+        return kicked
+
+    def addMember(self, item):
+        self.members.append(item)
+
+    def getMembers(self):
+        output = ""
+        for memberid, timestamp in self.members:
+            if time.time() > (timestamp + 259200):
+                output += f"<@{memberid}> "
+        return output if output else "No members found!"
