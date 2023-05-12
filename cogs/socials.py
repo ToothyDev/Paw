@@ -287,7 +287,7 @@ class socials(commands.Cog, name="social"):
                     else:
                         retries += 1
         if not responded:
-            ctx.respond("Sorry, there has been an API error. Please try again.")
+            await ctx.respond("Sorry, there has been an API error. Please try again.")
 
 
 def setup(bot):
