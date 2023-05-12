@@ -282,7 +282,6 @@ class socials(commands.Cog, name="social"):
                         content = response_json["choices"][0]["message"]["content"]
                         return await ctx.respond(f"""**Prompt:** {text}\n**Paw:** {content}""")
                     else:
-                        print(f"failed! {retries}")
                         retries += 1
         await ctx.respond("Sorry, there has been an API error. Please try again.")
 
