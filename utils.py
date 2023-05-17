@@ -155,9 +155,15 @@ class AutoVerify():
     def addMember(self, item):
         self.members.append(item)
 
-    def getMembers(self):
+    async def getMembers(self):
         output = ""
         for memberid, timestamp in self.members:
-            if time.time() > (timestamp + 259200):
-                output += f"<@{memberid}> "
+            guild = await self.bot.fetch_guild(715969701771083817)
+            member = await guild.fetch_member(memberid)
+            if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
+                continue
+            for role in member.roles:
+                if role.id not in self.roles:   # Remove member from inactives list if role has been obtained
+                    output += f"<@{memberid}> "
+                self.members.remove((memberid, timestamp))
         return output if output else "No members found!"
