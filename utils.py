@@ -54,7 +54,7 @@ class interactionsView(discord.ui.View):
             await interaction.message.edit(view=self)
         image = random.choice(self.giflist)
         embed = discord.Embed(
-            description=f"**{interaction.user.name}** {self.action} **" + self.ctx.author.name + "** back!",
+            description=f"**{interaction.user.display_name}** {self.action} **" + self.ctx.author.display_name + "** back!",
             color=discord.Color.blue())
         embed.set_thumbnail(url=image)
         await interaction.response.send_message(embed=embed)
