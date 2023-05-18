@@ -162,8 +162,8 @@ class AutoVerify():
             member = await guild.fetch_member(memberid)
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
-            for role in member.roles:
-                if role.id not in self.roles:   # Remove member from inactives list if role has been obtained
-                    output += f"<@{memberid}> "
+            if set(member.roles).isdisjoint(self.roles):  # check if member doesn't have role (if no intersection exists)
+                output += f"<@{memberid}> "
+            else:  # if member does have the role
                 self.members.remove((memberid, timestamp))
         return output if output else "No members found!"
