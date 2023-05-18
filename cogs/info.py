@@ -12,7 +12,7 @@ class Info(commands.Cog):
     async def info(self, ctx):
         embed = Embed()
         embed.description = f"""
-{self.bot.user.name} is a bot developed by TPK to provide social interaction commands and other fun things!
+{self.bot.user.name} is a bot developed by TPK to provide social interaction commands and other fun things! Sponsored by [Blue Atomic](https://github.com/BlueAtomic)
 
 **Guilds:** {len(self.bot.guilds)}
 **Users:** {sum(x.member_count for x in self.bot.guilds)}
