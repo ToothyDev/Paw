@@ -141,15 +141,17 @@ class AutoVerify():
             member = await guild.fetch_member(memberid)
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
+            kick = True
             for role in member.roles:
-                if role.id not in self.roles:   # Remove member from inactives list if role has been obtained
-                    try:
-                        await member.kick(reason="Failed to verify")
-                    except Exception:
-                        self.members.remove((memberid, timestamp))
-                        continue
-                    kicked += 1
+                if role.id in self.roles:
+                    kick = False
+            if kick:
+                try:
+                    await member.kick(reason="Failed to verify")
+                except Exception as e:
+                    print(e)
                 self.members.remove((memberid, timestamp))
+                kicked += 1
         return kicked
 
     def addMember(self, item):
@@ -162,8 +164,10 @@ class AutoVerify():
             member = await guild.fetch_member(memberid)
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
-            if set(member.roles).isdisjoint(self.roles):  # check if member doesn't have role (if no intersection exists)
-                output += f"<@{memberid}> "
-            else:  # if member does have the role
-                self.members.remove((memberid, timestamp))
+            add = True
+            for role in member.roles:
+                if role.id in self.roles:
+                    add = False
+            if add:
+                output += f"<@{member.id}> "
         return output if output else "No members found!"
