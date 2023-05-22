@@ -66,7 +66,7 @@ class socials(commands.Cog, name="social"):
         """ Give bellyrubs to the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "rubbed the belly of", data.bellyrub)
-        view = interactionsView(ctx, memberlist, "rubed the belly off", "Rub", data.bellyrub, "given bellyrubs")
+        view = interactionsView(ctx, memberlist, "rubed the belly of", "Rub", data.bellyrub, "given bellyrubs")
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Nuzzle someone")
