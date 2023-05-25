@@ -257,7 +257,7 @@ class socials(commands.Cog, name="social"):
     # @commands.cooldown(1, 30, commands.BucketType.user)
     async def gpt(self, ctx: discord.ApplicationContext, text):
         """ Talk to Paw! """
-        messages = await ctx.channel.history(limit=10).flatten()
+        messages = await ctx.channel.history(limit=50).flatten()
         await ctx.defer()
         messages.reverse()
         url = "https://free.churchless.tech/v1/chat/completions"
