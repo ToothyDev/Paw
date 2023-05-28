@@ -1,7 +1,6 @@
 import random
 import discord
 import aiohttp
-from discord.ext import tasks
 import time
 
 
@@ -116,43 +115,6 @@ class AutoVerify():
             724607040642613290,
             724607481594118216
         ]
-        self.memberchecker.start()
-
-    @tasks.loop(minutes=60)
-    async def memberchecker(self):
-        for memberid, timestamp in self.members:
-            guild = await self.bot.fetch_guild(715969701771083817)
-            try:
-                member = await guild.fetch_member(memberid)
-            except Exception:
-                self.members.remove((memberid, timestamp))
-                continue
-            if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
-                continue
-            for role in member.roles:   # Remove member from inactives list if role has been obtained
-                if role.id in self.roles:
-                    self.members.remove((memberid, timestamp))
-                    break
-
-    async def kickMembers(self):
-        kicked = 0
-        for memberid, timestamp in self.members:
-            guild = await self.bot.fetch_guild(715969701771083817)
-            member = await guild.fetch_member(memberid)
-            if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
-                continue
-            kick = True
-            for role in member.roles:
-                if role.id in self.roles:
-                    kick = False
-            if kick:
-                try:
-                    await member.kick(reason="Failed to verify")
-                except Exception as e:
-                    print(e)
-                self.members.remove((memberid, timestamp))
-                kicked += 1
-        return kicked
 
     def addMember(self, item):
         self.members.append(item)
@@ -162,12 +124,17 @@ class AutoVerify():
         for memberid, timestamp in self.members:
             guild = await self.bot.fetch_guild(715969701771083817)
             member = await guild.fetch_member(memberid)
+            if not member:
+                self.members.remove((memberid, timestamp))
+                continue
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
             add = True
             for role in member.roles:
                 if role.id in self.roles:
                     add = False
+                    self.members.remove((memberid, timestamp))
+                    break
             if add:
                 output += f"<@{member.id}> "
         return output if output else "No members found!"

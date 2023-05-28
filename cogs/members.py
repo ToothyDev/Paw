@@ -3,7 +3,6 @@ import utils
 import time
 import discord
 from discord import SlashCommandGroup
-from cogs.utility import ConfirmView
 
 
 class Members(commands.Cog, name="Members"):
@@ -23,17 +22,6 @@ class Members(commands.Cog, name="Members"):
     async def get(self, ctx):
         """ Get all inactive members """
         await ctx.respond(await self.inactives_checker.getMembers())
-
-    @inactives.command()
-    @discord.default_permissions(manage_guild=True)
-    async def kick(self, ctx):
-        """ Kick all inactive members """
-        view = ConfirmView()
-        await ctx.respond("Are you sure?", view=view)
-        await view.wait()
-        if not view.confirmed:
-            return
-        await ctx.respond(f"Kicked {await self.inactives_checker.kickMembers()} members!")
 
 
 def setup(bot):
