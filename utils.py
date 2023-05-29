@@ -123,7 +123,10 @@ class AutoVerify():
         output = ""
         for memberid, timestamp in self.members:
             guild = await self.bot.fetch_guild(715969701771083817)
-            member = await guild.fetch_member(memberid)
+            try:
+                member = await guild.fetch_member(memberid)
+            except discord.HTTPException:
+                continue
             if not member:
                 self.members.remove((memberid, timestamp))
                 continue
