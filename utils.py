@@ -126,8 +126,6 @@ class AutoVerify():
             try:
                 member = await guild.fetch_member(memberid)
             except discord.HTTPException:
-                continue
-            if not member:
                 self.members.remove((memberid, timestamp))
                 continue
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
