@@ -268,22 +268,33 @@ class socials(commands.Cog, name="social"):
         adata = {
             "model": "gpt-4",
             "messages": gpthistory,
-            "max_tokens": 500
+            "max_tokens": 500,
+            "stream": True
         }
         headers = {
             "Content-Type": "application/json"
         }
-        retries = 0
-        while retries < 4:
-            async with aiohttp.ClientSession() as session:
-                async with session.post(url, headers=headers, data=json.dumps(adata)) as response:
-                    if response.status == 200:
-                        response_json = await response.json()
-                        content = response_json["choices"][0]["message"]["content"]
-                        return await ctx.respond(f"""**Prompt:** {text}\n**Paw:** {content}""")
-                    else:
-                        retries += 1
-        await ctx.respond("Sorry, there has been an API error. Please try again.")
+        message = await ctx.respond(f"""**Prompt:** {text}\n**Paw:** Generating...""")
+        current = ""
+        old = ""
+        final = False
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url, headers=headers, data=json.dumps(adata)) as response:
+                if not response.status == 200:
+                    return await message.edit("Sorry, there has been an API error. Please try again.")
+                async for line in response.content:
+                    decode = line.decode()
+                    try:
+                        string = json.loads(decode[6:len(decode)])['choices'][0]['delta']['content']
+                        if json.loads(decode[6:len(decode)])['choices'][0]['finish_reason'] == "stop":
+                            final = True
+                        current += string
+                    except json.JSONDecodeError:
+                        continue  # Skip the blank stream lines
+                    if len(current) > 25 or final:
+                        await message.edit(f"""**Prompt:** {text}\n**Paw:** {old+current}""")
+                        old += current
+                        current = ""
 
 
 def setup(bot):
