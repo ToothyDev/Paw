@@ -134,8 +134,9 @@ class AutoVerify():
             for role in member.roles:
                 if role.id in self.roles:
                     add = False
-                    self.members.remove((memberid, timestamp))
                     break
             if add:
                 output += f"<@{member.id}> "
+            else:
+                self.members.remove((memberid, timestamp))
         return output if output else "No members found!"
