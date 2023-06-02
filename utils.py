@@ -122,24 +122,23 @@ class AutoVerify():
     async def getMembers(self):
         try:
             output = ""
+            members_to_remove = []
             for memberid, timestamp in self.members:
                 guild = await self.bot.fetch_guild(715969701771083817)
                 try:
                     member = await guild.fetch_member(memberid)
                 except discord.HTTPException:
-                    self.members.remove((memberid, timestamp))
+                    members_to_remove.append((memberid, timestamp))
                     continue
                 if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                     continue
-                add = True
-                for role in member.roles:
-                    if role.id in self.roles:
-                        add = False
-                        break
-                if add:
+                if not any(role.id in self.roles for role in member.roles):
                     output += f"<@{member.id}> "
                 else:
-                    self.members.remove((memberid, timestamp))
+                    members_to_remove.append((memberid, timestamp))
+            for member in members_to_remove:
+                self.members.remove(member)
             return output if output else "No members found!"
+
         except Exception as e:
             return e
