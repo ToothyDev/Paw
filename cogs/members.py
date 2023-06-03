@@ -3,6 +3,7 @@ import utils
 import time
 import discord
 from discord import SlashCommandGroup
+import time
 
 
 class Members(commands.Cog, name="Members"):
@@ -13,7 +14,7 @@ class Members(commands.Cog, name="Members"):
     @commands.Cog.listener()
     async def on_member_join(self, member):
         if member.guild.id == 715969701771083817:
-            self.inactives_checker.addMember((member.id, time.time()))
+            await self.inactives_checker.addMember((member.id, time.time()))
 
     inactives = SlashCommandGroup(name="inactives", default_member_permissions=discord.Permissions(manage_guild=True, kick_members=True))
 

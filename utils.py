@@ -2,6 +2,8 @@ import random
 import discord
 import aiohttp
 import time
+import os
+import json
 
 
 class Colors:
@@ -102,7 +104,6 @@ async def apireq(url):
 class AutoVerify():
     def __init__(self, bot):
         self.bot = bot
-        self.members = []
         self.roles = [  # Level 1 at the top
             715990806061645915,
             715992589891010682,
@@ -116,29 +117,40 @@ class AutoVerify():
             724607481594118216
         ]
 
-    def addMember(self, item):
-        self.members.append(item)
+    async def addMember(self, item):
+        if os.path.exists('users.json'):
+            with open('users.json', 'r') as file:
+                data = json.load(file)
+        else:
+            data = {"users": []}
+        data['users'].append(item)
+        print(data)
+        with open('users.json', 'w') as file:
+            json.dump(data, file, indent=4)
 
     async def getMembers(self):
-        try:
-            output = ""
-            members_to_remove = []
-            for memberid, timestamp in self.members:
-                guild = await self.bot.fetch_guild(715969701771083817)
-                try:
-                    member = await guild.fetch_member(memberid)
-                except discord.HTTPException:
-                    members_to_remove.append((memberid, timestamp))
-                    continue
-                if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
-                    continue
-                if not any(role.id in self.roles for role in member.roles):
-                    output += f"<@{member.id}> "
-                else:
-                    members_to_remove.append((memberid, timestamp))
-            for member in members_to_remove:
-                self.members.remove(member)
-            return output if output else "No members found!"
-
-        except Exception as e:
-            return e
+        if os.path.exists('users.json'):
+            with open('users.json', 'r') as file:
+                data = json.load(file)
+        else:
+            data = {"users": []}
+        output = ""
+        members_to_remove = []
+        for memberid, timestamp in data["users"]:
+            guild = await self.bot.fetch_guild(715969701771083817)
+            try:
+                member = await guild.fetch_member(memberid)
+            except discord.HTTPException:
+                members_to_remove.append([memberid, timestamp])
+                continue
+            if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
+                continue
+            if not any(role.id in self.roles for role in member.roles):
+                output += f"<@{member.id}> "
+            else:
+                members_to_remove.append([memberid, timestamp])
+        for member in members_to_remove:
+            data["users"].remove(member)
+        with open('users.json', 'w') as file:
+            json.dump(data, file, indent=4)
+        return output if output else "No members found!"
