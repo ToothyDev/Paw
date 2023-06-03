@@ -22,6 +22,7 @@ class Members(commands.Cog, name="Members"):
     @discord.default_permissions(manage_guild=True)
     async def get(self, ctx):
         """ Get all inactive members """
+        await ctx.defer()
         await ctx.respond(await self.inactives_checker.getMembers())
 
 
