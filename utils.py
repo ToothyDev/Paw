@@ -19,9 +19,9 @@ async def interactions(ctx, members, action, giflist):
     for member in members:
         memberlist.append(member.display_name)
     if len(members) >= 3:
-        memberlist.append(f"and {memberlist.pop(-1)}")
+        memberlist.append(f"**and **{memberlist.pop(-1)}")
     if len(members) == 2:
-        memberlist = f"{memberlist[0]} and {memberlist[1]}"
+        memberlist = f"{memberlist[0]}** and **{memberlist[1]}"
     else:
         memberlist = ', '.join(memberlist)
     embed = discord.Embed(
