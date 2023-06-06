@@ -23,7 +23,8 @@ class Members(commands.Cog, name="Members"):
     async def get(self, ctx):
         """ Get all inactive members """
         await ctx.defer()
-        await ctx.respond(await self.inactives_checker.getMembers())
+        members = await self.inactives_checker.getMembers()
+        await ctx.respond(members)
 
 
 def setup(bot):
