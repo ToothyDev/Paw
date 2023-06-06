@@ -19,7 +19,7 @@ class Members(commands.Cog, name="Members"):
     inactives = SlashCommandGroup(name="inactives", default_member_permissions=discord.Permissions(manage_guild=True, kick_members=True))
 
     @inactives.command()
-    @discord.default_permissions(manage_guild=True)
+    @discord.default_permissions()
     async def get(self, ctx):
         """ Get all inactive members """
         await ctx.defer()
