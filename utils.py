@@ -27,7 +27,7 @@ async def interactions(ctx, members, action, giflist):
     embed = discord.Embed(
         description=f"**{ctx.author.display_name}** {action} **" + memberlist + "**",
         color=discord.Color.blue())
-    embed.set_thumbnail(url=image)
+    embed.set_image(url=image)
     return embed
 
 
@@ -57,7 +57,7 @@ class interactionsView(discord.ui.View):
         embed = discord.Embed(
             description=f"**{interaction.user.display_name}** {self.action} **" + self.ctx.author.display_name + "** back!",
             color=discord.Color.blue())
-        embed.set_thumbnail(url=image)
+        embed.set_image(url=image)
         await interaction.response.send_message(embed=embed)
 
 
@@ -77,7 +77,7 @@ async def mentionconverter(self, ctx, members):
 
 async def feelings(ctx, members, name, giflist):
     embed = discord.Embed(color=discord.Color.blue())
-    embed.set_thumbnail(url=random.choice(giflist))
+    embed.set_image(url=random.choice(giflist))
     if members is None:
         embed.description = f"**{ctx.author.display_name}** {name}!"
     else:
