@@ -255,15 +255,17 @@ class socials(commands.Cog, name="social"):
     @slash_command()
     @option("text", str, description="What do you want to tell Paw?")
     # @commands.cooldown(1, 30, commands.BucketType.user)
-    async def gpt(self, ctx: discord.ApplicationContext, text):
+    async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
-        messages = await ctx.channel.history(limit=50).flatten()
         await ctx.defer()
-        messages.reverse()
+        messages = await ctx.channel.history(limit=50, oldest_first=True).flatten()
         url = "https://free.churchless.tech/v1/chat/completions"
         gpthistory = [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."""}]
         for message in messages:
-            gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
+            if message.author == self.bot.user:
+                gpthistory.append({"role": "assistant", "content": message.content})
+            else:
+                gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
         gpthistory.append({"role": "user", "content": text})
         adata = {
             "model": "gpt-4",
@@ -277,24 +279,33 @@ class socials(commands.Cog, name="social"):
         message = await ctx.respond(f"""**Prompt:** {text}\n**Paw:** Generating...""")
         current = ""
         old = ""
-        final = False
+        #State list
+        #0 = Not finished
+        #1 = Finished (good)
+        #2 = Finished (token limit)
+        state = 0
         async with aiohttp.ClientSession() as session:
             async with session.post(url, headers=headers, data=json.dumps(adata)) as response:
-                if not response.status == 200:
+                if response.status != 200:
                     return await message.edit("Sorry, there has been an API error. Please try again.")
                 async for line in response.content:
                     decode = line.decode()
                     try:
                         string = json.loads(decode[6:len(decode)])['choices'][0]['delta']['content']
                         if json.loads(decode[6:len(decode)])['choices'][0]['finish_reason'] == "stop":
-                            final = True
+                            state = 1
+                        if json.loads(decode[6:len(decode)])['choices'][0]['finish_reason'] == "length":
+                            state = 2
                         current += string
                     except json.JSONDecodeError:
                         continue  # Skip the blank stream lines
-                    if len(current) > 25 or final:
-                        await message.edit(f"""**Prompt:** {text}\n**Paw:** {old+current}""")
+                    if len(current) > 25 or state == 1:
+                        await message.edit(f"""**Prompt:** {text}\n**Paw:** **Generating...** {old+current}""")
                         old += current
                         current = ""
+        if state == 2:
+            return await message.edit(f"""**Prompt:** {text}\n**Paw:** {old+current}\n\n**Paw:** **STOPPED DUE TO TOKEN LIMIT**""")
+        await message.edit(f"""**Prompt:** {text}\n**Paw:** {old+current}""")
 
 
 def setup(bot):
