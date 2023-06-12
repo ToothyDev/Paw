@@ -260,7 +260,7 @@ class socials(commands.Cog, name="social"):
         await ctx.defer()
         messages = await ctx.channel.history(limit=50, oldest_first=True).flatten()
         url = "https://free.churchless.tech/v1/chat/completions"
-        gpthistory = [{"role": "system", "content": f"""{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."""}]
+        gpthistory = [{"role": "system", "content": f"{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."}]
         for message in messages:
             if message.author == self.bot.user:
                 #Get the first line of the message
