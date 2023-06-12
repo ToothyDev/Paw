@@ -262,10 +262,14 @@ class socials(commands.Cog, name="social"):
         url = "https://free.churchless.tech/v1/chat/completions"
         gpthistory = [{"role": "system", "content": f"{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."}]
         for message in messages:
+            if message.content is None:
+                continue
             if message.author == self.bot.user:
                 #Get the first line of the message
                 usermessage = message.content.split("\n")[0][12:] #Get the first line of the message and remove the "Prompt" part
                 botmsg = message.content.split("\n")[1][9:] #Same thing but remove the "Paw" part
+                if botmsg == "Generating...":
+                    continue
                 gpthistory.append({"role": "user", "content": usermessage, "name": message.author.display_name})
                 gpthistory.append({"role": "assistant", "content": botmsg})
             else:
