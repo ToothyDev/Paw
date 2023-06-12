@@ -266,8 +266,6 @@ class socials(commands.Cog, name="social"):
             if message.content is None:
                 continue
             if message.author == self.bot.user:
-                print ("Yup", message.content)
-                #Get the first line of the message
                 try:
                     usermessage = message.content.split("\n")[0] #Get the first line of the message and remove the "Prompt" part
                     botmsg = message.content.split("\n")[1] #Same thing but remove the "Paw" part
