@@ -267,10 +267,10 @@ class socials(commands.Cog, name="social"):
                 continue
             if message.author == self.bot.user:
                 try:
-                    usermessage = message.content.split("\n")[0] #Get the first line of the message and remove the "Prompt" part
-                    botmsg = message.content.split("\n")[1] #Same thing but remove the "Paw" part
+                    usermessage = message.content.split("\n")[0]  # Get the first line of the message and remove the "Prompt" part
+                    botmsg = message.content.split("\n")[1]  # Same thing but remove the "Paw" part
                 except IndexError:
-                    continue #I guess it wasn't a gpt request like I thought
+                    continue  # I guess it wasn't a gpt request like I thought
                 if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
                     continue
                 if botmsg[9:] == "Generating...":
@@ -292,10 +292,10 @@ class socials(commands.Cog, name="social"):
         message = await ctx.respond(f"""**Prompt:** {text}\n**Paw:** Generating...""")
         current = ""
         old = ""
-        #State list
-        #0 = Not finished
-        #1 = Finished (good)
-        #2 = Finished (token limit)
+        # State list
+        # 0 = Not finished
+        # 1 = Finished (good)
+        # 2 = Finished (token limit)
         state = 0
         async with aiohttp.ClientSession() as session:
             async with session.post(url, headers=headers, data=json.dumps(adata)) as response:
