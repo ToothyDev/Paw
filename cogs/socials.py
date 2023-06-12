@@ -257,8 +257,8 @@ class socials(commands.Cog, name="social"):
     # @commands.cooldown(1, 30, commands.BucketType.user)
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
-        await ctx.defer()
         messages = await ctx.channel.history(limit=50).flatten()
+        await ctx.defer()
         messages.reverse()
         url = "https://free.churchless.tech/v1/chat/completions"
         gpthistory = [{"role": "system", "content": f"{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."}]
@@ -266,13 +266,17 @@ class socials(commands.Cog, name="social"):
             if message.content is None:
                 continue
             if message.author == self.bot.user:
-                #Get the first line of the message
-                usermessage = message.content.split("\n")[0][12:] #Get the first line of the message and remove the "Prompt" part
-                botmsg = message.content.split("\n")[1][9:] #Same thing but remove the "Paw" part
-                if botmsg == "Generating...":
+                try:
+                    usermessage = message.content.split("\n")[0] #Get the first line of the message and remove the "Prompt" part
+                    botmsg = message.content.split("\n")[1] #Same thing but remove the "Paw" part
+                except IndexError:
+                    continue #I guess it wasn't a gpt request like I thought
+                if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
                     continue
-                gpthistory.append({"role": "user", "content": usermessage, "name": message.author.display_name})
-                gpthistory.append({"role": "assistant", "content": botmsg})
+                if botmsg[9:] == "Generating...":
+                    continue
+                gpthistory.append({"role": "user", "content": usermessage[12:], "name": message.author.display_name})
+                gpthistory.append({"role": "assistant", "content": botmsg[9:]})
             else:
                 gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
         gpthistory.append({"role": "user", "content": text})
