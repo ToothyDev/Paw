@@ -267,12 +267,17 @@ class socials(commands.Cog, name="social"):
                 continue
             if message.author == self.bot.user:
                 #Get the first line of the message
-                usermessage = message.content.split("\n")[0][12:] #Get the first line of the message and remove the "Prompt" part
-                botmsg = message.content.split("\n")[1][9:] #Same thing but remove the "Paw" part
+                try:
+                    usermessage = message.content.split("\n")[0] #Get the first line of the message and remove the "Prompt" part
+                    botmsg = message.content.split("\n")[1] #Same thing but remove the "Paw" part
+                except IndexError:
+                    continue #I guess it wasn't a paw message like I thought
+                if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
+                    continue
                 if botmsg == "Generating...":
                     continue
-                gpthistory.append({"role": "user", "content": usermessage, "name": message.author.display_name})
-                gpthistory.append({"role": "assistant", "content": botmsg})
+                gpthistory.append({"role": "user", "content": usermessage, "name": message.author.display_name[12:]})
+                gpthistory.append({"role": "assistant", "content": botmsg[9:]})
             else:
                 gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
         gpthistory.append({"role": "user", "content": text})
