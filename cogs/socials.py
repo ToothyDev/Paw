@@ -273,7 +273,7 @@ class socials(commands.Cog, name="social"):
                     continue #I guess it wasn't a gpt request like I thought
                 if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
                     continue
-                if botmsg == "Generating...":
+                if botmsg[9:] == "Generating...":
                     continue
                 gpthistory.append({"role": "user", "content": usermessage[12:], "name": message.author.display_name})
                 gpthistory.append({"role": "assistant", "content": botmsg[9:]})
