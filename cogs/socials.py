@@ -257,8 +257,8 @@ class socials(commands.Cog, name="social"):
     # @commands.cooldown(1, 30, commands.BucketType.user)
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
-        await ctx.defer()
         messages = await ctx.channel.history(limit=50).flatten()
+        await ctx.defer()
         messages.reverse()
         url = "https://free.churchless.tech/v1/chat/completions"
         gpthistory = [{"role": "system", "content": f"{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."}]
@@ -266,12 +266,13 @@ class socials(commands.Cog, name="social"):
             if message.content is None:
                 continue
             if message.author == self.bot.user:
+                print ("Yup", message.content)
                 #Get the first line of the message
                 try:
                     usermessage = message.content.split("\n")[0] #Get the first line of the message and remove the "Prompt" part
                     botmsg = message.content.split("\n")[1] #Same thing but remove the "Paw" part
                 except IndexError:
-                    continue #I guess it wasn't a paw message like I thought
+                    continue #I guess it wasn't a gpt request like I thought
                 if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
                     continue
                 if botmsg == "Generating...":
