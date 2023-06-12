@@ -275,7 +275,7 @@ class socials(commands.Cog, name="social"):
                     continue
                 if botmsg == "Generating...":
                     continue
-                gpthistory.append({"role": "user", "content": usermessage, "name": message.author.display_name[12:]})
+                gpthistory.append({"role": "user", "content": usermessage[12:], "name": message.author.display_name})
                 gpthistory.append({"role": "assistant", "content": botmsg[9:]})
             else:
                 gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
