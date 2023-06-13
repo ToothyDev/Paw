@@ -3,6 +3,9 @@ import random
 import discord
 from discord import option, slash_command
 import data
+import os
+import zipfile
+import aiohttp
 
 
 class utility(commands.Cog, name="utility"):
@@ -33,6 +36,20 @@ class utility(commands.Cog, name="utility"):
 """)
 
         return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
+
+    @slash_command(brief="Get all server stickers & emojis!")
+    @discord.default_permissions(manage_guild=True)
+    async def emoji_downloader(self, ctx):
+        await ctx.defer()
+        with zipfile.ZipFile('emoji_and_stickers.zip', 'w') as zipped_f:
+            for emoji in ctx.guild.emojis:
+                zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
+            for sticker in await ctx.guild.fetch_stickers():
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url=sticker.url) as response:
+                        zipped_f.writestr(sticker.name + ".png", await response.read())
+        await ctx.respond("Here are all emojis and stickers of this guild!", file=discord.File("emoji_and_stickers.zip"))
+        os.remove("emoji_and_stickers.zip")
 
     @bridge.bridge_command(brief="Get rid of bots")
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
