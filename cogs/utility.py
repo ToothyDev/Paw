@@ -54,10 +54,7 @@ class utility(commands.Cog, name="utility"):
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url=sticker.url) as response:
                         zipped_f.writestr(sticker.name + ".png", await response.read())
-        try:
-            await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File("emoji_and_stickers.zip"))
-        except Exception as e:
-            print(e)
+        await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File("emoji_and_stickers.zip"))
         os.remove("emoji_and_stickers.zip")
 
     @bridge.bridge_command(brief="Get rid of bots")
