@@ -261,7 +261,7 @@ class socials(commands.Cog, name="social"):
         await ctx.defer()
         messages.reverse()
         url = "https://free.churchless.tech/v1/chat/completions"
-        gpthistory = [{"role": "system", "content": f"{data.gaslight} The user's name is {ctx.author.display_name}. Do not use the user's full name, use their call name derived from their full name."}]
+        gpthistory = [{"role": "system", "content": f"{get_gaslight(ctx.guild.emojis, ctx.author.display_name)}"}]
         for message in messages:
             if message.content is None:
                 continue
