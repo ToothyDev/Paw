@@ -13,7 +13,7 @@ class Colors:
     orange = 0xfaa61a
 
 
-async def get_gaslight(emojis: discord.Emoji, author_name: str) -> str:
+def get_gaslight(emojis: discord.Emoji, author_name: str) -> str:
     regular_emojis = ""
     animated_emojis = ""
     for emoji in emojis:
