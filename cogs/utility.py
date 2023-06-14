@@ -6,6 +6,7 @@ import data
 import os
 import zipfile
 import aiohttp
+import asyncio
 
 
 class utility(commands.Cog, name="utility"):
@@ -40,15 +41,23 @@ class utility(commands.Cog, name="utility"):
     @slash_command(brief="Get all server stickers & emojis!")
     @discord.default_permissions(manage_guild=True)
     async def emoji_downloader(self, ctx):
-        await ctx.defer()
+        total = len(ctx.guild.emojis) + len(ctx.guild.stickers)
+        current = 0
+        message = await ctx.respond(f"Downloading, this might take some time... (0 of {total})")
         with zipfile.ZipFile('emoji_and_stickers.zip', 'w') as zipped_f:
             for emoji in ctx.guild.emojis:
                 zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
+                current += 1
+                await message.edit_original_response(content=f"Downloading, this might take some time... ({current} of {total})")
+                await asyncio.sleep(1)
             for sticker in await ctx.guild.fetch_stickers():
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url=sticker.url) as response:
                         zipped_f.writestr(sticker.name + ".png", await response.read())
-        await ctx.respond("Here are all emojis and stickers of this guild!", file=discord.File("emoji_and_stickers.zip"))
+        try:
+            await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File("emoji_and_stickers.zip"))
+        except Exception as e:
+            print(e)
         os.remove("emoji_and_stickers.zip")
 
     @bridge.bridge_command(brief="Get rid of bots")
