@@ -30,6 +30,7 @@ If asked about what happened in earlier messages, use the chat history given to 
 Do not under any circumstances say 'Generating...' or 'Sending request to API...', no exceptions.
 Do not use the user's full name, use their call name derived from their full name."""
 
+
 async def interactions(ctx, members, action, giflist):
     image = random.choice(giflist)
     memberlist = []
