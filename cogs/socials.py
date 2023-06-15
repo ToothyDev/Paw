@@ -279,7 +279,6 @@ class socials(commands.Cog, name="social"):
                 gpthistory.append({"role": "assistant", "content": botmsg[9:]})
             else:
                 gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
-        print(ctx.author.display_name)
         gpthistory.append({"role": "user", "content": text, "name": ctx.author.display_name})
         adata = {
             "model": "gpt-4-32k",
