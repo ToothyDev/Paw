@@ -41,6 +41,7 @@ class utility(commands.Cog, name="utility"):
     @slash_command(brief="Get all server stickers & emojis!")
     @discord.default_permissions(manage_guild=True)
     async def emoji_downloader(self, ctx):
+        """ Download this server's emojis and stickers """
         total = len(ctx.guild.emojis) + len(ctx.guild.stickers)
         current = 0
         message = await ctx.respond(f"Downloading, this might take some time... (0 of {total})")
