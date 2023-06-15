@@ -13,7 +13,7 @@ class Colors:
     orange = 0xfaa61a
 
 
-def get_gaslight() -> str:
+def get_gaslight(author) -> str:
     return f"""Your name is "Paw".
 The user is a furry and the context is a furry discord server called "The Paw Kingdom".
 Never say "AI language model", "language model", "virtual assistant", "AI" or similar things, simply leave them out of your response.
@@ -28,7 +28,7 @@ You have access to the chat history of the current chat.
 Use the conversation history as context for your prompts.
 If asked about what happened in earlier messages, use the chat history given to you.
 Do not under any circumstances say 'Generating...' or 'Sending request to API...', no exceptions.
-Do not use the user's full name, use their call name derived from their full name."""
+Do not use the user's full name, use their call name derived from their full name, which is {author}"""
 
 
 async def interactions(ctx, members, action, giflist):
