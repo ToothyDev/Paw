@@ -261,7 +261,7 @@ class socials(commands.Cog, name="social"):
         await ctx.defer()
         messages.reverse()
         url = "https://free.churchless.tech/v1/chat/completions"
-        gpthistory = [{"role": "system", "content": f"{get_gaslight(ctx.guild.emojis, ctx.author.display_name)}"}]
+        gpthistory = [{"role": "system", "content": get_gaslight()}]
         for message in messages:
             if message.content is None:
                 continue
@@ -273,13 +273,13 @@ class socials(commands.Cog, name="social"):
                     continue  # I guess it wasn't a gpt request like I thought
                 if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
                     continue
-                if botmsg[9:] == "Generating...":
+                if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
                     continue
                 gpthistory.append({"role": "user", "content": usermessage[12:], "name": message.author.display_name})
                 gpthistory.append({"role": "assistant", "content": botmsg[9:]})
             else:
                 gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
-        gpthistory.append({"role": "user", "content": text})
+        gpthistory.append({"role": "user", "content": text, "name": ctx.author.display_name})
         adata = {
             "model": "gpt-4-32k",
             "messages": gpthistory,
@@ -290,7 +290,7 @@ class socials(commands.Cog, name="social"):
             "Content-Type": "application/json",
             "Authorization": "Bearer BetterChatGPT"
         }
-        message = await ctx.respond(f"""**Prompt:** {text}\n**Paw:** Generating...""")
+        message = await ctx.respond(f"**Prompt:** {text}\n**Paw:** Sending request to API...")
         current = ""
         old = ""
         # State list
@@ -315,7 +315,7 @@ class socials(commands.Cog, name="social"):
                     except json.JSONDecodeError:
                         continue  # Skip the blank stream lines
                     if len(current) > 25 or state == 1:
-                        await message.edit(f"""**Prompt:** {text}\n**Paw:** **Generating...** {old+current}""")
+                        await message.edit(f"""**Prompt:** {text}\n**Paw:** Generating...\n{old+current}""")
                         old += current
                         current = ""
         if state == 2:
