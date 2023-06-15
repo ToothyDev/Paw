@@ -281,13 +281,14 @@ class socials(commands.Cog, name="social"):
                 gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
         gpthistory.append({"role": "user", "content": text})
         adata = {
-            "model": "gpt-4",
+            "model": "gpt-4-32k",
             "messages": gpthistory,
             "max_tokens": 500,
             "stream": True
         }
         headers = {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer BetterChatGPT"
         }
         message = await ctx.respond(f"""**Prompt:** {text}\n**Paw:** Generating...""")
         current = ""
