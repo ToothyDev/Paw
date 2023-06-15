@@ -305,10 +305,11 @@ class socials(commands.Cog, name="social"):
                     decode = line.decode()
                     try:
                         string = json.loads(decode[6:len(decode)])['choices'][0]['delta']['content']
-                        if json.loads(decode[6:len(decode)])['choices'][0]['finish_reason'] == "stop":
-                            state = 1
-                        if json.loads(decode[6:len(decode)])['choices'][0]['finish_reason'] == "length":
-                            state = 2
+                        match json.loads(decode[6:len(decode)])['choices'][0]['finish_reason']:
+                            case "stop":
+                                state = 1
+                            case "length":
+                                state = 2
                         current += string
                     except json.JSONDecodeError:
                         continue  # Skip the blank stream lines
