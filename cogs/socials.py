@@ -281,7 +281,7 @@ class socials(commands.Cog, name="social"):
                 gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
         gpthistory.append({"role": "user", "content": text, "name": ctx.author.display_name})
         adata = {
-            "model": "gpt-4-32k",
+            "model": "gpt-3.5-turbo-16k",
             "messages": gpthistory,
             "max_tokens": 500,
             "stream": True
