@@ -312,7 +312,7 @@ class socials(commands.Cog, name="social"):
                             case "length":
                                 state = 2
                         current += string
-                    except json.JSONDecodeError:
+                    except Exception:
                         continue  # Skip the blank stream lines
                     if len(current) > 25 or state == 1:
                         await message.edit(f"""**Prompt:** {text}\n**Paw:** Generating...\n{old+current}""")
