@@ -111,8 +111,7 @@ kiss = ["https://media1.tenor.com/images/473c30ffa595a67a281d9b2fde7b48d6/tenor.
         "https://i.pinimg.com/originals/a2/64/72/a26472dd131d20dba037b81c1a633c61.gif",
         "https://media1.tenor.com/images/5c8972db3df932240bb191be36c71b85/tenor.gif?itemid=7189564"]
 
-snuggle = ["https://media1.tenor.com/images/ba7829e33a9392d38e15cdc4c650b897/tenor.gif?itemid=17325139",
-           "https://media.giphy.com/media/kz01wlAoCLYx3v8F68/giphy.gif",
+snuggle = ["https://media.giphy.com/media/kz01wlAoCLYx3v8F68/giphy.gif",
            "https://media.giphy.com/media/DAX8RixOTrWuY/giphy.gif"]
 
 wag = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gif",
