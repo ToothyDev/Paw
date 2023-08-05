@@ -142,7 +142,6 @@ class AutoVerify():
         else:
             data = {"users": []}
         data['users'].append(item)
-        print(data)
         with open('users.json', 'w') as file:
             json.dump(data, file, indent=4)
 
