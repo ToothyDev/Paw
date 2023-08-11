@@ -3,12 +3,12 @@ import random
 import discord
 from discord import option, slash_command
 import data
-import os
 import zipfile
 import aiohttp
 import asyncio
 import psutil
 import utils
+import io
 
 
 class utility(commands.Cog, name="utility"):
@@ -47,7 +47,8 @@ class utility(commands.Cog, name="utility"):
         total = len(ctx.guild.emojis) + len(ctx.guild.stickers)
         current = 0
         message = await ctx.respond(f"Downloading, this might take some time... (0 of {total})")
-        with zipfile.ZipFile('emoji_and_stickers.zip', 'w') as zipped_f:
+        zip_buffer = io.BytesIO()  # Create a BytesIO object to hold the ZIP file
+        with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
             for emoji in ctx.guild.emojis:
                 zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
                 current += 1
@@ -57,8 +58,9 @@ class utility(commands.Cog, name="utility"):
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url=sticker.url) as response:
                         zipped_f.writestr(sticker.name + ".png", await response.read())
-        await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File("emoji_and_stickers.zip"))
-        os.remove("emoji_and_stickers.zip")
+
+        zip_buffer.seek(0)  # Reset the buffer position to the beginning, I do not know why
+        await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emoji_and_stickers.zip"))
 
     @bridge.bridge_command(brief="Get rid of bots")
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
