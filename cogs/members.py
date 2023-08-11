@@ -3,7 +3,6 @@ import utils
 import time
 import discord
 from discord import SlashCommandGroup
-import time
 
 
 class Members(commands.Cog, name="Members"):
