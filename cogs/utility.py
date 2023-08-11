@@ -44,20 +44,29 @@ class utility(commands.Cog, name="utility"):
     @discord.default_permissions(manage_guild=True)
     async def emoji_downloader(self, ctx):
         """ Download this server's emojis and stickers """
+        saved_emotes = []
         total = len(ctx.guild.emojis) + len(ctx.guild.stickers)
         current = 0
         message = await ctx.respond(f"Downloading, this might take some time... (0 of {total})")
         zip_buffer = io.BytesIO()  # Create a BytesIO object to hold the ZIP file
         with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
             for emoji in ctx.guild.emojis:
-                zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
+                if emoji.name in saved_emotes():
+                    zipped_f.writestr(emoji.name + "_emoji" + emoji.url[-4:], await emoji.read())
+                else:
+                    zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
+                saved_emotes.append(emoji.name)
                 current += 1
                 await message.edit_original_response(content=f"Downloading, this might take some time... ({current} of {total})")
                 await asyncio.sleep(1)
             for sticker in await ctx.guild.fetch_stickers():
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url=sticker.url) as response:
-                        zipped_f.writestr(sticker.name + ".png", await response.read())
+                        if sticker.name in saved_emotes:
+                            zipped_f.writestr(sticker.name + "_sticker.png", await response.read())
+                        else:
+                            zipped_f.writestr(sticker.name + ".png", await response.read())
+                        saved_emotes.append(sticker.name)
 
         zip_buffer.seek(0)  # Reset the buffer position to the beginning, I do not know why
         await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emoji_and_stickers.zip"))
