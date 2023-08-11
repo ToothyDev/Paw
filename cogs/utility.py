@@ -52,7 +52,7 @@ class utility(commands.Cog, name="utility"):
         with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
             for emoji in ctx.guild.emojis:
                 if emoji.name in saved_emotes:
-                    zipped_f.writestr(emoji.name + "_" + saved_emotes.count(emoji.name) + emoji.url[-4:], await emoji.read())
+                    zipped_f.writestr(emoji.name + "_" + (saved_emotes.count(emoji.name) + 1) + emoji.url[-4:], await emoji.read())
                 else:
                     zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
                 saved_emotes.append(emoji.name)
@@ -67,8 +67,7 @@ class utility(commands.Cog, name="utility"):
                         else:
                             zipped_f.writestr(sticker.name + ".png", await response.read())
                         saved_emotes.append(sticker.name)
-
-        zip_buffer.seek(0)  # Reset the buffer position to the beginning, I do not know why
+        zip_buffer.seek(0)  # Reset the buffer position to the beginning so the file is read from the start in the next line
         await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emoji_and_stickers.zip"))
 
     @bridge.bridge_command(brief="Get rid of bots")
