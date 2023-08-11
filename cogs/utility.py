@@ -52,7 +52,7 @@ class utility(commands.Cog, name="utility"):
         with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
             for emoji in ctx.guild.emojis:
                 if emoji.name in saved_emotes:
-                    zipped_f.writestr(emoji.name + "_emoji" + emoji.url[-4:], await emoji.read())
+                    zipped_f.writestr(emoji.name + "_" + saved_emotes.count(emoji.name) + emoji.url[-4:], await emoji.read())
                 else:
                     zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
                 saved_emotes.append(emoji.name)
