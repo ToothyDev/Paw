@@ -17,7 +17,7 @@ class socials(commands.Cog, name="social"):
         """ Snuggle the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "snuggled", data.snuggle)
-        view = interactionsView(ctx, memberlist, "snuggled",  "Snuggle", data.snuggle)
+        view = interactionsView(ctx, memberlist, "snuggled", "Snuggle", data.snuggle)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Hug someone")
@@ -26,7 +26,7 @@ class socials(commands.Cog, name="social"):
     async def hug(self, ctx, *, members):
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "hugged", data.hug)
-        view = interactionsView(ctx, memberlist, "hugged",  "Hug", data.hug)
+        view = interactionsView(ctx, memberlist, "hugged", "Hug", data.hug)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Boop someone")
@@ -179,6 +179,7 @@ class socials(commands.Cog, name="social"):
         """ Blush (optionally because of specified people) """
         if not members:
             memberlist = None
+
         else:
             memberlist = await mentionconverter(self, ctx, members)
         await feelings(ctx, memberlist, "blushes", data.blush)
