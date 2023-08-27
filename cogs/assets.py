@@ -1,11 +1,11 @@
-import data
-from discord.ext import commands, bridge
 import random
+from discord.ext import commands, bridge
 import discord
+import data
 from utils import Colors
 
 
-class assets(commands.Cog, name="assets"):
+class Assets(commands.Cog, name="assets"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -18,4 +18,4 @@ class assets(commands.Cog, name="assets"):
 
 
 def setup(bot):
-    bot.add_cog(assets(bot))
+    bot.add_cog(Assets(bot))

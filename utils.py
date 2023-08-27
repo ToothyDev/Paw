@@ -1,9 +1,9 @@
 import random
-import discord
-import aiohttp
 import time
 import os
 import json
+import aiohttp
+import discord
 
 
 class Colors:
@@ -100,8 +100,8 @@ async def feelings(ctx, members, name, giflist):
         embed.description = f"**{ctx.author.display_name}** {name}!"
     else:
         display_giflist = []
-        for x in members:
-            display_giflist.append(x.display_name)
+        for member in members:
+            display_giflist.append(member.display_name)
         if len(members) >= 3:
             display_giflist.append(f"**and **{display_giflist.pop(-1)}")
         if len(members) == 2:
@@ -113,10 +113,10 @@ async def feelings(ctx, members, name, giflist):
 
 
 async def apireq(url):
-    async with aiohttp.ClientSession() as cs:
-        async with cs.get(url) as r:
-            js = await r.json()
-            return js
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            json_data = await response.json()
+            return json_data
 
 
 class AutoVerify():

@@ -1,17 +1,17 @@
-from discord.ext import commands, bridge
 import random
+import zipfile
+import asyncio
+import io
+import aiohttp
+import psutil
+from discord.ext import commands, bridge
 import discord
 from discord import option, slash_command
 import data
-import zipfile
-import aiohttp
-import asyncio
-import psutil
 import utils
-import io
 
 
-class utility(commands.Cog, name="utility"):
+class Utility(commands.Cog, name="utility"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -143,7 +143,7 @@ class utility(commands.Cog, name="utility"):
         embed.add_field(name="Features", value=features)
         await ctx.respond(embed=embed)
 
-    @bridge.bridge_command(aliases=["information", "ping", "latency", "pong", "servers", "guilds", "support", "invite"], description=f"Displays information about Paw")
+    @bridge.bridge_command(aliases=["information", "ping", "latency", "pong", "servers", "guilds", "support", "invite"], description="Displays information about Paw")
     async def info(self, ctx: bridge.BridgeContext):
         embed = discord.Embed()
         vram = psutil.virtual_memory()
@@ -184,4 +184,4 @@ class ConfirmView(discord.ui.View):
 
 
 def setup(bot):
-    bot.add_cog(utility(bot))
+    bot.add_cog(Utility(bot))

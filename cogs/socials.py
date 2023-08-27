@@ -1,11 +1,11 @@
-import data
+import json
 from discord.ext import commands, bridge
 from discord import slash_command, option
+import data
 from utils import *
-import json
 
 
-class socials(commands.Cog, name="social"):
+class Socials(commands.Cog, name="social"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "♥️"
@@ -220,9 +220,9 @@ class socials(commands.Cog, name="social"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fox(self, ctx):
         """ Get a random fox image"""
-        json = await apireq("https://randomfox.ca/floof/")
+        json_data = await apireq("https://randomfox.ca/floof/")
         embed = discord.Embed(title="Floofy fox!", color=discord.Color.orange())
-        embed.set_image(url=json['image'])
+        embed.set_image(url=json_data['image'])
         await ctx.respond(embed=embed)
 
     @bridge.bridge_command(brief="Give someone's avatar a rainbow overlay")
@@ -248,10 +248,10 @@ class socials(commands.Cog, name="social"):
             link = f"https://some-random-api.com/canvas/gay/?avatar={url}"
         else:
             link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}"
-        e = discord.Embed(color=discord.Color.random())
-        e.set_image(url=link)
-        e.set_footer(text=f"Gay avatar: {user}")
-        await ctx.respond(embed=e)
+        embed = discord.Embed(color=discord.Color.random())
+        embed.set_image(url=link)
+        embed.set_footer(text=f"Gay avatar: {user}")
+        await ctx.respond(embed=embed)
 
     @slash_command()
     @option("text", str, description="What do you want to tell Paw?")
@@ -325,4 +325,4 @@ class socials(commands.Cog, name="social"):
 
 
 def setup(bot):
-    bot.add_cog(socials(bot))
+    bot.add_cog(Socials(bot))
