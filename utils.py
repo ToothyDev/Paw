@@ -99,9 +99,7 @@ async def feelings(ctx, members, name, giflist):
     if members is None:
         embed.description = f"**{ctx.author.display_name}** {name}!"
     else:
-        display_giflist = []
-        for member in members:
-            display_giflist.append(member.display_name)
+        display_giflist = [member.display_name for member in members]
         if len(members) >= 3:
             display_giflist.append(f"**and **{display_giflist.pop(-1)}")
         if len(members) == 2:
@@ -115,8 +113,7 @@ async def feelings(ctx, members, name, giflist):
 async def apireq(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
-            json_data = await response.json()
-            return json_data
+            return await response.json()
 
 
 class AutoVerify():
@@ -171,4 +168,4 @@ class AutoVerify():
             data["users"].remove(member)
         with open('users.json', 'w') as file:
             json.dump(data, file, indent=4)
-        return output if output else "No members found!"
+        return output or "No members found!"
