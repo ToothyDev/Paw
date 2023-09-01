@@ -258,6 +258,7 @@ class Socials(commands.Cog, name="social"):
     # @commands.cooldown(1, 30, commands.BucketType.user)
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
+        return await ctx.respond("This command is disabled indefinitely.", ephemeral=True)
         messages = await ctx.channel.history(limit=50).flatten()
         await ctx.defer()
         messages.reverse()
