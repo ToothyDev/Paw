@@ -262,7 +262,7 @@ class Socials(commands.Cog, name="social"):
         messages = await ctx.channel.history(limit=50).flatten()
         await ctx.defer()
         messages.reverse()
-        url = "https://free.churchless.tech/v1/chat/completions"
+        url = "GPT-API-URL-HERE"
         gpthistory = [{"role": "system", "content": get_gaslight(ctx.author.display_name)}]
         for message in messages:
             if message.content is None:
