@@ -162,7 +162,7 @@ class AutoVerify():
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
             if not any(role.id in self.roles for role in member.roles):
-                if (time.time() < (timestamp + 1296000)) and not added:
+                if (time.time() < (timestamp + 2592000)) and not added:
                     output += f"<@{member.id}> **|** "
                     added = True
                 else:
