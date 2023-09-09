@@ -150,6 +150,7 @@ class AutoVerify():
         else:
             data = {"users": []}
         output = ""
+        added = False
         members_to_remove = []
         for memberid, timestamp in data["users"]:
             guild = await self.bot.fetch_guild(715969701771083817)
@@ -161,7 +162,11 @@ class AutoVerify():
             if not time.time() > (timestamp + 259200):  # check if 3 days have passed, if not, continue with next member
                 continue
             if not any(role.id in self.roles for role in member.roles):
-                output += f"<@{member.id}> "
+                if (time.time() < (timestamp + 1296000)) and not added:
+                    output += f"<@{member.id} **|** "
+                    added = True
+                else:
+                    output += f"<@{member.id}> "
             else:
                 members_to_remove.append([memberid, timestamp])
         for member in members_to_remove:
