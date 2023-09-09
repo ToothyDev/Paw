@@ -163,7 +163,7 @@ class AutoVerify():
                 continue
             if not any(role.id in self.roles for role in member.roles):
                 if (time.time() < (timestamp + 1296000)) and not added:
-                    output += f"<@{member.id} **|** "
+                    output += f"<@{member.id}> **|** "
                     added = True
                 else:
                     output += f"<@{member.id}> "
