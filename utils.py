@@ -153,7 +153,7 @@ class AutoVerify():
         output = ""
         added = False
         members_to_remove = []
-        guild = await self.bot.fetch_guild(715969701771083817)
+        guild = await utils.get_or_fetch(self.bot, 'guild', 715969701771083817)
         for memberid, timestamp in data["users"]:
             try:
                 member = await utils.get_or_fetch(guild, 'member', memberid)
