@@ -159,7 +159,7 @@ class AutoVerify():
             except discord.HTTPException:
                 members_to_remove.append([memberid, timestamp])
                 continue
-            if (time.time() - timestamp) > 259200:  # check if 3 days have passed, if not, continue with next member
+            if (time.time() - timestamp) < 259200:  # check if 3 days have passed, if not, continue with next member
                 continue
             if not any(role.id in self.roles for role in member.roles):
                 if (time.time() - timestamp) < 1728000:
