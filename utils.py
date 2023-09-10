@@ -4,6 +4,7 @@ import os
 import json
 import aiohttp
 import discord
+from discord import utils
 
 
 class Colors:
@@ -155,7 +156,7 @@ class AutoVerify():
         guild = await self.bot.fetch_guild(715969701771083817)
         for memberid, timestamp in data["users"]:
             try:
-                member = await guild.fetch_member(memberid)
+                member = await utils.get_or_fetch(guild, 'member', memberid)
             except discord.HTTPException:
                 members_to_remove.append([memberid, timestamp])
                 continue
