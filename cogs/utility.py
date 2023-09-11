@@ -123,7 +123,8 @@ class Utility(commands.Cog, name="utility"):
     async def serverinfo(self, ctx):
         """ Get the current server's info """
         guild = ctx.guild
-        owner = await guild.fetch_member(guild.owner_id)
+        print(guild.roles)
+        owner = await discord.utils.get_or_fetch(guild, 'member', guild.owner_id)
         embed = discord.Embed(color=discord.Color.random(), title=guild.name)
         embed.description = f"""
 **Owner:** {owner.mention}
