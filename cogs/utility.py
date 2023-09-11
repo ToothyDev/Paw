@@ -128,7 +128,7 @@ class Utility(commands.Cog, name="utility"):
         embed.description = f"""
 **Owner:** {owner.mention}
 **Members:** {guild.member_count}
-**Roles:** {len(await guild.fetch_roles())}
+**Roles:** {len(guild.roles)}
 **Verification:** {str(guild.verification_level).title()}
 **Channels:** {len(guild.text_channels)} Text, {len(guild.voice_channels)} Voice
 **Created:** <t:{round(guild.created_at.timestamp())}:R>
