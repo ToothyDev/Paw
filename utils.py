@@ -66,8 +66,7 @@ class interactionsView(discord.ui.View):
         if interaction.user not in self.members:
             if not self.action_error:
                 return await interaction.response.send_message(f"You weren't {self.action}!", ephemeral=True)
-            else:
-                return await interaction.response.send_message(f"You weren't {self.action_error}!", ephemeral=True)
+            return await interaction.response.send_message(f"You weren't {self.action_error}!", ephemeral=True)
         self.members.remove(interaction.user)
         if len(self.members) == 0:
             self.disable_all_items()
