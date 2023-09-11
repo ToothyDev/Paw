@@ -85,7 +85,7 @@ async def mentionconverter(self, ctx, members):
     guild = self.bot.get_guild(ctx.guild.id)
     members = discord.utils.raw_mentions(members)
     for member in members:
-        member = await guild.fetch_member(member)
+        member = await utils.get_or_fetch(guild, 'member', member)
         memberlist.append(member)
     if not memberlist:
         return await ctx.respond('Sorry, but you need to specify someone with a mention.', ephemeral=True)
