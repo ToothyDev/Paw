@@ -1,6 +1,6 @@
 import discord
-import config
 from discord.ext import commands
+import config
 
 
 # from cogs.admin import admin_only
