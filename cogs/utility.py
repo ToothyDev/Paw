@@ -89,6 +89,17 @@ class Utility(commands.Cog, name="utility"):
             output = "No one found!"
         await message.edit_original_response(content=output)
 
+    @bridge.bridge_command(brief="Get all non-verified accounts")
+    @bridge.has_permissions(ban_members=True)
+    async def unverified(self, ctx: discord.ApplicationContext):
+        output = ""
+        async for member in ctx.guild.fetch_members():
+            if member.pending:
+                output += " " + member.mention
+        if not output:
+            output = "No members found!"
+        await ctx.respond(output)
+
     @slash_command(brief="Announce something!")
     @option("channel", discord.TextChannel, description="The channel to announce in")
     @option("message", str, description="The message to announce")
