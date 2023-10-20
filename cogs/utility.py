@@ -23,7 +23,7 @@ class Utility(commands.Cog, name="utility"):
         color = random.choice(data.colors)
         species = random.choice(list(data.species))
         sonatype = random.choice(["Feral", "Anthro"])
-        sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Hermaphrodite"])
+        sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Intersex"])
 
         if sonatype == "Feral":
             heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
