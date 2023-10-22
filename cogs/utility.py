@@ -122,16 +122,21 @@ class Utility(commands.Cog, name="utility"):
 
         # Remove the role from everyone who doesn't need it anymore
         async for member in ctx.guild.fetch_members():
-            if any(role.id in verified_roles for role in member.roles):
-                for role in member.roles:
-                    if role.id == unverified_role:
-                        await member.remove_roles(unverified_role)
-                        unverified_removed = - 1
-                        break
-            else:
-                # Add the unverified role to people who don't yet have it
-                await member.add_roles(unverified_role)
-                unverified_added += 1
+            try:
+                if member.bot:
+                    continue
+                if any(role.id in verified_roles for role in member.roles):
+                    for role in member.roles:
+                        if role.id == unverified_role:
+                            await member.remove_roles(unverified_role)
+                            unverified_removed = - 1
+                            break
+                else:
+                    # Add the unverified role to people who don't yet have it
+                    await member.add_roles(unverified_role)
+                    unverified_added += 1
+            except Exception as e:
+                print(e)
 
         await ctx.respond(f"**{unverified_removed}** people verified since last time, **{unverified_added}** new people are unverified")
 
