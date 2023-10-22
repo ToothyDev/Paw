@@ -134,10 +134,11 @@ class Utility(commands.Cog, name="utility"):
                         await asyncio.sleep(0.025)
                         break
             else:
-                # Add the unverified role to people who don't yet have it
-                await member.add_roles(unverified_role)
-                unverified_added += 1
-                await asyncio.sleep(0.025)
+                if not any(role.id == unverified_role for role in member.roles):
+                    # Add the unverified role to people who don't yet have it
+                    await member.add_roles(unverified_role)
+                    unverified_added += 1
+                    await asyncio.sleep(0.025)
 
         await ctx.respond(f"**{unverified_removed}** people verified since last time, **{unverified_added}** new people are unverified")
 
