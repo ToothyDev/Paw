@@ -136,7 +136,7 @@ class Utility(commands.Cog, name="utility"):
                     await member.add_roles(unverified_role)
                     unverified_added += 1
             except Exception as e:
-                print(e)
+                await ctx.respond(e)
 
         await ctx.respond(f"**{unverified_removed}** people verified since last time, **{unverified_added}** new people are unverified")
 
