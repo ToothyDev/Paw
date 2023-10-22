@@ -102,44 +102,8 @@ class Utility(commands.Cog, name="utility"):
     @bridge.has_permissions(ban_members=True)
     async def unverified(self, ctx: discord.ApplicationContext):
         await ctx.defer()
-        verified_roles = [  # Level 1 at the top
-            715990806061645915,
-            715992589891010682,
-            715993060244455545,
-            715994868136280144,
-            715995443397525624,
-            715995916410028082,
-            715992374731472997,
-            724606719619235911,
-            724607040642613290,
-            724607481594118216,  # Level 10
-            716590668905971752  # Partners
-        ]
-
-        unverified_role = discord.Object(1165755854730035301)
-        unverified_id = 1165755854730035301
-        unverified_added = 0
-        unverified_removed = 0
-
-        # Remove the role from everyone who doesn't need it anymore
-        for member in ctx.guild.members:
-            if member.bot:
-                continue
-            if any(role.id in verified_roles for role in member.roles):
-                if any(role.id == unverified_id for role in member.roles):
-                    await member.remove_roles(unverified_role)
-                    unverified_removed += 1
-                    break
-            else:
-                if not any(role.id == unverified_id for role in member.roles):
-                    # Add the unverified role to people who don't yet have it
-                    await member.add_roles(unverified_role)
-                    unverified_added += 1
-
-        await ctx.respond(f"**{unverified_removed}** people verified since last time, **{unverified_added}** new people are unverified")
-
-        # numbers = await utils.unverified(ctx.guild)
-        # await ctx.respond(f"**{numbers[0]}** people verified since last time, **{numbers[1]}** new people are unverified")
+        numbers = await utils.unverified(ctx.guild)
+        await ctx.respond(f"**{numbers[0]}** people verified since last time, **{numbers[1]}** new people are unverified")
 
     @slash_command(brief="Announce something!")
     @option("channel", discord.TextChannel, description="The channel to announce in")

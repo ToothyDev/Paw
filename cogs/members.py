@@ -16,7 +16,7 @@ class Members(commands.Cog, name="Members"):
             await self.inactives_checker.addMember((member.id, time.time()))
 
     @commands.Cog.listener()
-    async def on_member_update(self, member):
+    async def on_member_update(self, member, member_new):
         if member.guild.id == 715969701771083817:
             await utils.unverified(member.guild)
 
