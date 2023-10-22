@@ -15,6 +15,10 @@ class Members(commands.Cog, name="Members"):
         if member.guild.id == 715969701771083817:
             await self.inactives_checker.addMember((member.id, time.time()))
 
+    @commands.Cog.listener()
+    async def on_member_update(self, member):
+        await utils.unverified(member.guild)
+
     inactives = SlashCommandGroup(name="inactives", default_member_permissions=discord.Permissions(manage_guild=True, kick_members=True))
 
     @inactives.command()
