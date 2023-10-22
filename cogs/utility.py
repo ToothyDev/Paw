@@ -102,7 +102,6 @@ class Utility(commands.Cog, name="utility"):
     @bridge.has_permissions(ban_members=True)
     async def unverified(self, ctx: discord.ApplicationContext):
         await ctx.defer()
-        await ctx.defer()
         verified_roles = [  # Level 1 at the top
             715990806061645915,
             715992589891010682,
