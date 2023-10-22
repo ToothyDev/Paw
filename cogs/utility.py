@@ -130,7 +130,7 @@ class Utility(commands.Cog, name="utility"):
                 for role in member.roles:
                     if role.id == unverified_role:
                         await member.remove_roles(unverified_role)
-                        unverified_removed -= 1
+                        unverified_removed += 1
                         await asyncio.sleep(0.025)
                         break
             else:
