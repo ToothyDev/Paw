@@ -1,6 +1,5 @@
 import random
 import zipfile
-import asyncio
 import io
 import aiohttp
 import psutil
