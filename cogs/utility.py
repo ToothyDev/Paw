@@ -58,7 +58,6 @@ class Utility(commands.Cog, name="utility"):
                 saved_emotes.append(emoji.name)
                 current += 1
                 await message.edit_original_response(content=f"Downloading, this might take some time... ({current} of {total})")
-                await asyncio.sleep(1)
             for sticker in await ctx.guild.fetch_stickers():
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url=sticker.url) as response:
@@ -131,14 +130,12 @@ class Utility(commands.Cog, name="utility"):
                     if role.id == unverified_role:
                         await member.remove_roles(unverified_role)
                         unverified_removed += 1
-                        await asyncio.sleep(0.025)
                         break
             else:
                 if not any(role.id == 1165755854730035301 for role in member.roles):
                     # Add the unverified role to people who don't yet have it
                     await member.add_roles(unverified_role)
                     unverified_added += 1
-                    await asyncio.sleep(0.025)
 
         await ctx.respond(f"**{unverified_removed}** people verified since last time, **{unverified_added}** new people are unverified")
 
