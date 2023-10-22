@@ -134,7 +134,7 @@ class Utility(commands.Cog, name="utility"):
                         await asyncio.sleep(0.025)
                         break
             else:
-                if not any(role.id == unverified_role for role in member.roles):
+                if not any(role.id == 1165755854730035301 for role in member.roles):
                     # Add the unverified role to people who don't yet have it
                     await member.add_roles(unverified_role)
                     unverified_added += 1
