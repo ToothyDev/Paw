@@ -103,6 +103,7 @@ class Utility(commands.Cog, name="utility"):
     @bridge.bridge_command(brief="Assign everyone an unverified role")
     @bridge.has_permissions(ban_members=True)
     async def unverified(self, ctx: discord.ApplicationContext):
+        await ctx.defer()
         try:
             verified_roles = [  # Level 1 at the top
                 715990806061645915,
