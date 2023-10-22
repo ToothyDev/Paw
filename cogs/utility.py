@@ -123,7 +123,7 @@ class Utility(commands.Cog, name="utility"):
         unverified_removed = 0
 
         # Remove the role from everyone who doesn't need it anymore
-        async for member in ctx.guild.fetch_members():
+        for member in ctx.guild.members:
             if member.bot:
                 continue
             if any(role.id in verified_roles for role in member.roles):
