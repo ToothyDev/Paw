@@ -116,9 +116,10 @@ class Utility(commands.Cog, name="utility"):
             724607481594118216,  # Level 10
             716590668905971752  # Partners
         ]
-        unverified_role = 1165755854730035301
+        unverified_role = ctx.guild.get_role(1165755854730035301)
         unverified_added = 0
         unverified_removed = 0
+
         # Remove the role from everyone who doesn't need it anymore
         async for member in ctx.guild.fetch_members():
             if any(role.id in verified_roles for role in member.roles):
