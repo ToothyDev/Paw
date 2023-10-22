@@ -116,7 +116,7 @@ class Utility(commands.Cog, name="utility"):
             716590668905971752  # Partners
         ]
 
-        unverified_role = discord.Object(1165755854730035301)
+        unverified_role = discord.utils.get(ctx.guild.roles, id=1165755854730035301)
         unverified_added = 0
         unverified_removed = 0
 
