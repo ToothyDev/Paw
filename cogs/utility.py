@@ -57,7 +57,7 @@ class Utility(commands.Cog, name="utility"):
                 saved_emotes.append(emoji.name)
                 current += 1
                 await message.edit_original_response(content=f"Downloading, this might take some time... ({current} of {total})")
-            for sticker in await ctx.guild.fetch_stickers():
+            for sticker in ctx.guild.stickers:
                 async with aiohttp.ClientSession() as session:
                     async with session.get(url=sticker.url) as response:
                         if sticker.name in saved_emotes:
@@ -77,9 +77,8 @@ class Utility(commands.Cog, name="utility"):
         if day == 0 or month == 0:
             return await ctx.respond("0 is not a valid number!")
         output = ""
-        guild = self.bot.get_guild(ctx.guild.id)
         message = await ctx.respond("Fetching...")
-        async for member in guild.fetch_members():
+        for member in ctx.guild.members:
             if not member.bot:
                 if member.created_at.day == day and member.created_at.month == month:
                     output += f"{member.mention} "
@@ -91,7 +90,7 @@ class Utility(commands.Cog, name="utility"):
     @bridge.has_permissions(ban_members=True)
     async def pending(self, ctx: discord.ApplicationContext):
         output = ""
-        async for member in ctx.guild.fetch_members():
+        for member in ctx.guild.members:
             if member.pending:
                 output += " " + member.mention
         if not output:
