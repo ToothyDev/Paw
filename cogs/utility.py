@@ -98,13 +98,6 @@ class Utility(commands.Cog, name="utility"):
             output = "No members found!"
         await ctx.respond(output)
 
-    @bridge.bridge_command(brief="Assign everyone an unverified role")
-    @bridge.has_permissions(ban_members=True)
-    async def unverified(self, ctx: discord.ApplicationContext):
-        await ctx.defer()
-        numbers = await utils.unverified(ctx.guild)
-        await ctx.respond(f"**{numbers[0]}** people verified since last time, **{numbers[1]}** new people are unverified")
-
     @slash_command(brief="Announce something!")
     @option("channel", discord.TextChannel, description="The channel to announce in")
     @option("message", str, description="The message to announce")
