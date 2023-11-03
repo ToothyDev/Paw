@@ -89,6 +89,7 @@ class Utility(commands.Cog, name="utility"):
     @bridge.bridge_command(brief="Get all non-verified accounts")
     @bridge.has_permissions(ban_members=True)
     async def pending(self, ctx: discord.ApplicationContext):
+        """Get all non-verified accounts (unsure what that means)"""
         output = ""
         for member in ctx.guild.members:
             if member.pending:
