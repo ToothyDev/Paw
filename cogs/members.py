@@ -28,6 +28,8 @@ class Members(commands.Cog, name="Members"):
                 except Exception:
                     pass
                 await member.kick(reason="Bot")
+                channel = member_new.guild.get_channel(1066357407443333190)
+                await channel.purge(limit=1, reason="Deleting bot join message")
                 return
             await utils.unverified(member_new.guild)
 
