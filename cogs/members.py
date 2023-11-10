@@ -17,8 +17,19 @@ class Members(commands.Cog, name="Members"):
 
     @commands.Cog.listener()
     async def on_member_update(self, member, member_new):
-        if member.guild.id == 715969701771083817:
-            await utils.unverified(member.guild)
+        if member_new.guild.id == 715969701771083817:
+            botroles_list = [715969701771083817, 778893728701087744, 891021633505071174, 731233454716354710]  # Everyone, townsfolk, red, bear
+            botroles_list2 = [715969701771083817, 778893728701087744, 891021633505071174, 731233454716354710,
+                              731245341495787541, 731241481284616282, 731241703100383242, 738350937659408484,
+                              738356235841175594]  # Above plus hetero, male, single, europe, chat revival
+            if all(role.id in botroles_list for role in member_new.roles) or all(role.id in botroles_list2 for role in member_new.roles):
+                try:
+                    await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
+                    await member.kick(reason="Bot")
+                    return
+                except Exception:
+                    return
+            await utils.unverified(member_new.guild)
 
     inactives = SlashCommandGroup(name="inactives", default_member_permissions=discord.Permissions(manage_guild=True, kick_members=True))
 
