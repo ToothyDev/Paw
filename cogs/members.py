@@ -23,7 +23,10 @@ class Members(commands.Cog, name="Members"):
                               731245341495787541, 731241481284616282, 731241703100383242, 738350937659408484,
                               738356235841175594]  # Above plus hetero, male, single, europe, chat revival
             if all(role.id in botroles_list for role in member_new.roles) or all(role.id in botroles_list2 for role in member_new.roles):
-                await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
+                try:
+                    await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
+                except Exception:
+                    pass
                 await member.kick(reason="Bot")
                 return
             await utils.unverified(member_new.guild)
