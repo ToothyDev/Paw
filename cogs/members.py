@@ -31,7 +31,10 @@ class Members(commands.Cog, name="Members"):
                     pass
                 await member.kick(reason="Bot")
                 channel = member_new.guild.get_channel(1066357407443333190)
-                await channel.purge(limit=1, reason="Deleting bot join message")
+                async for message in channel.history(limit=15):
+                    if member in message.content.mentions:
+                        await message.delete(reason="Deleting bot join message")
+                        break
                 return
             await utils.unverified(member_new.guild)
 
