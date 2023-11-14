@@ -18,9 +18,9 @@ class Members(commands.Cog, name="Members"):
     @commands.Cog.listener()
     async def on_member_update(self, member, member_new):
         if member_new.guild.id == 715969701771083817:
-            botroles_list = [891021633505071174, 731233454716354710]  # Everyone, townsfolk, red, bear
+            botroles_list = [891021633505071174, 731233454716354710]  # Red, Bear
             botroles_list2 = [891021633505071174, 731233454716354710, 731245341495787541,
-                              731241481284616282, 731241703100383242, 738350937659408484, 738356235841175594]  # Above plus hetero, male, single, europe, chat revival
+                              731241481284616282, 731241703100383242, 738350937659408484, 738356235841175594]  # Red, Bear Hetero, Male, Single, Europe, Chat Revival
             ignored_roles = [1165755854730035301,  # Unverified role
                              715969701771083817,  # Everyone
                              778893728701087744  # Townsfolk
