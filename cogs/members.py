@@ -18,12 +18,14 @@ class Members(commands.Cog, name="Members"):
     @commands.Cog.listener()
     async def on_member_update(self, member, member_new):
         if member_new.guild.id == 715969701771083817:
-            botroles_list = [715969701771083817, 778893728701087744, 891021633505071174, 731233454716354710]  # Everyone, townsfolk, red, bear
-            botroles_list2 = [715969701771083817, 778893728701087744, 891021633505071174, 731233454716354710,
-                              731245341495787541, 731241481284616282, 731241703100383242, 738350937659408484,
-                              738356235841175594]  # Above plus hetero, male, single, europe, chat revival
-            ignored_role = 1165755854730035301  # Unverified role
-            member_roles = [role.id for role in member_new.roles if role.id != ignored_role]
+            botroles_list = [891021633505071174, 731233454716354710]  # Everyone, townsfolk, red, bear
+            botroles_list2 = [891021633505071174, 731233454716354710, 731245341495787541,
+                              731241481284616282, 731241703100383242, 738350937659408484, 738356235841175594]  # Above plus hetero, male, single, europe, chat revival
+            ignored_roles = [1165755854730035301,  # Unverified role
+                             715969701771083817,  # Everyone
+                             778893728701087744  # Townsfolk
+                             ]
+            member_roles = [role.id for role in member_new.roles if role.id not in ignored_roles]
             if set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2):
                 try:
                     await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
