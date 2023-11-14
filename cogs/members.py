@@ -38,7 +38,7 @@ class Members(commands.Cog, name="Members"):
                 channel = member_new.guild.get_channel(1066357407443333190)
                 logchannel = member_new.guild.get_channel(760181839033139260)
                 embed = discord.Embed(color=utils.Colors.orange)
-                embed.set_author(name=f"Bot Kick | {member_new.display_name}", icon_url=member_new.avatar.url)
+                embed.set_author(name=f"Bot Kick | {member_new.display_name}", icon_url=member_new.display_avatar.url)
                 embed.set_footer(text=member_new.id)
                 embed.description = f"**User**: {member_new.mention}\n**User ID**: {member_new.id}"
                 await logchannel.send(embed=embed)
