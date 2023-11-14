@@ -29,7 +29,11 @@ class Members(commands.Cog, name="Members"):
                     await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
                 except Exception:
                     pass
-                await member.kick(reason="Bot")
+                try:
+                    await member.kick(reason="Bot")
+                except Exception as e:
+                    print(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
+                    return
                 channel = member_new.guild.get_channel(1066357407443333190)
                 async for message in channel.history(limit=15):
                     if member in message.content.mentions:
