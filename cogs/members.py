@@ -42,11 +42,6 @@ class Members(commands.Cog, name="Members"):
                 embed.set_footer(text=member_new.id)
                 embed.description = f"**User**: {member_new.mention}\n**User ID**: {member_new.id}"
                 await logchannel.send(embed=embed)
-                embed = discord.Embed(color=utils.Colors.orange)
-                embed.set_author(name=f"Bot Kick | {member_new.display_name}", icon_url=member_new.avatar.url)
-                embed.set_footer(text=member_new.id)
-                embed.description = f"**User**: {member_new.mention}\n**User ID**: {member_new.id}"
-                await logchannel.send(embed=embed)
                 async for message in channel.history(limit=15):
                     if member in message.content.mentions:
                         await message.delete(reason="Deleting bot join message")
