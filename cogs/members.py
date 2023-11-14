@@ -23,8 +23,7 @@ class Members(commands.Cog, name="Members"):
                               731241481284616282, 731241703100383242, 738350937659408484, 738356235841175594]  # Red, Bear Hetero, Male, Single, Europe, Chat Revival
             ignored_roles = [1165755854730035301,  # Unverified role
                              715969701771083817,  # Everyone
-                             778893728701087744  # Townsfolk
-                             ]
+                             778893728701087744]  # Townsfolk
             member_roles = [role.id for role in member_new.roles if role.id not in ignored_roles]
             if set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2):
                 try:
