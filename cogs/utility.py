@@ -23,7 +23,6 @@ class Utility(commands.Cog, name="utility"):
         species = random.choice(list(data.species))
         sonatype = random.choice(["Feral", "Anthro"])
         sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Intersex"])
-
         if sonatype == "Feral":
             heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
         else:
@@ -36,7 +35,6 @@ class Utility(commands.Cog, name="utility"):
 {heightstring}
 **Sex**: {sex}
 """)
-
         return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
 
     @slash_command(brief="Get all server stickers & emojis!")
@@ -115,24 +113,22 @@ class Utility(commands.Cog, name="utility"):
             await view.wait()
             if not view.confirmed:
                 return
-        if not embed:
-            if not attachment:
-                await channel.send(message)
-            else:
-                file = await attachment.to_file()
-                await channel.send(content=message, file=file)
-        else:
             message_embed = discord.Embed(colour=discord.Color.random(), description=message)
             if attachment:
-                message_embed.set_thumbnail(url=attachment.url)
+                message_embed.set_image(url=attachment.url)
             await channel.send(embed=message_embed)
+        else:
+            if attachment:
+                file = await attachment.to_file()
+                await channel.send(content=message, file=file)
+            else:
+                await channel.send(message)
         await ctx.respond("Message successfully sent!", ephemeral=True)
 
     @slash_command(brief="Information about the server")
     async def serverinfo(self, ctx):
         """ Get the current server's info """
         guild = ctx.guild
-        print(guild.roles)
         owner = await discord.utils.get_or_fetch(guild, 'member', guild.owner_id)
         embed = discord.Embed(color=discord.Color.random(), title=guild.name)
         embed.description = f"""

@@ -179,7 +179,6 @@ class Socials(commands.Cog, name="social"):
         """ Blush (optionally because of specified people) """
         if not members:
             memberlist = None
-
         else:
             memberlist = await mentionconverter(self, ctx, members)
         await feelings(ctx, memberlist, "blushes", data.blush)
@@ -240,14 +239,8 @@ class Socials(commands.Cog, name="social"):
                     user = reference.author
             else:
                 user = ctx.author
-        if not server_avatar:
-            url = user.avatar.url
-        else:
-            url = user.display_avatar.url
-        if not border:
-            link = f"https://some-random-api.com/canvas/gay/?avatar={url}"
-        else:
-            link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}"
+        url = user.display_avatar.url if server_avatar else user.avatar.url
+        link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}" if border else f"https://some-random-api.com/canvas/gay/?avatar={url}"
         embed = discord.Embed(color=discord.Color.random())
         embed.set_image(url=link)
         embed.set_footer(text=f"Gay avatar: {user}")

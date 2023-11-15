@@ -34,11 +34,9 @@ Do not use the user's full name, use their call name derived from their full nam
 
 async def interactions(ctx, members, action, giflist):
     image = random.choice(giflist)
-    memberlist = []
-    for member in members:
-        memberlist.append(member.display_name)
+    memberlist = [member.display_name for member in members]
     if len(members) >= 3:
-        memberlist.append(f"**and **{memberlist.pop(-1)}")
+        memberlist.append(f"**and **{memberlist.pop()}")
     if len(members) == 2:
         memberlist = f"{memberlist[0]}** and **{memberlist[1]}"
     else:
@@ -78,7 +76,6 @@ async def unverified(guild):
                 break
         else:
             if not any(role.id == unverified_id for role in member.roles):
-                # Add the unverified role to people who don't yet have it
                 await member.add_roles(unverified_role)
 
 

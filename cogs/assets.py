@@ -14,7 +14,7 @@ class Assets(commands.Cog, name="assets"):
         """ Get random art of me, Paw """
         embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
         embed.set_image(url=random.choice(data.paw))
-        return await ctx.respond(embed=embed)
+        await ctx.respond(embed=embed)
 
 
 def setup(bot):
