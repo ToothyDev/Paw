@@ -27,13 +27,13 @@ class Members(commands.Cog, name="Members"):
             member_roles = [role.id for role in member_new.roles if role.id not in ignored_roles]
             if set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2):
                 try:
-                    await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
+                    await member_new.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
                 except Exception:
                     pass
                 try:
-                    await member.kick(reason="Bot")
+                    await member_new.kick(reason="Bot")
                 except Exception as e:
-                    print(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
+                    print(f"Unable to kick bot {member_new.display_name} ({member_new.id}). Error:\n{e}")
                     return
                 channel = member_new.guild.get_channel(1066357407443333190)
                 logchannel = member_new.guild.get_channel(760181839033139260)
@@ -43,7 +43,7 @@ class Members(commands.Cog, name="Members"):
                 embed.description = f"**User**: {member_new.mention}\n**User ID**: {member_new.id}"
                 await logchannel.send(embed=embed)
                 async for message in channel.history(limit=15):
-                    if member in message.mentions:
+                    if member_new in message.mentions:
                         await message.delete(reason="Deleting bot join message")
                         break
                 return
