@@ -43,7 +43,7 @@ class Members(commands.Cog, name="Members"):
                 embed.description = f"**User**: {member_new.mention}\n**User ID**: {member_new.id}"
                 await logchannel.send(embed=embed)
                 async for message in channel.history(limit=15):
-                    if member in message.content.mentions:
+                    if member in message.mentions:
                         await message.delete(reason="Deleting bot join message")
                         break
                 return
