@@ -27,7 +27,7 @@ class Members(commands.Cog, name="Members"):
                              715969701771083817,  # Everyone
                              778893728701087744]  # Townsfolk
             member_roles = [role.id for role in member_new.roles if role.id not in ignored_roles]
-            if set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2):
+            if set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2) or len(member_new.roles) == 78:
                 try:
                     await member_new.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
                 except Exception:
