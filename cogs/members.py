@@ -27,7 +27,10 @@ class Members(commands.Cog, name="Members"):
                              715969701771083817,  # Everyone
                              778893728701087744]  # Townsfolk
             member_roles = [role.id for role in member_new.roles if role.id not in ignored_roles]
-            if set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2) or len(member_new.roles) == 78:
+            old_member_roles = [role.id for role in member.roles if role.id not in ignored_roles]
+            member_roles_match = set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2)  # boolean for both role checks on the new member
+            old_member_roles_match = set(old_member_roles) == set(botroles_list) or set(old_member_roles) == set(botroles_list2)  # boolean for both role checks on the old member
+            if member_roles_match or old_member_roles_match or len(member_new.roles) == 78:
                 try:
                     await member_new.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
                 except Exception:
