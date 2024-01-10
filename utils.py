@@ -12,6 +12,7 @@ class Colors:
     red = 0xf04747
     green = 0x90ee90
     orange = 0xfaa61a
+    purple = 0x5D327B
 
 
 def get_gaslight(author) -> str:
