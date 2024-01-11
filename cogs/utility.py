@@ -41,29 +41,28 @@ class Utility(commands.Cog, name="utility"):
     @discord.default_permissions(manage_guild=True)
     async def emoji_downloader(self, ctx):
         """ Download this server's emojis and stickers """
-        saved_emotes = []
+        saved_emojis = []
+        saved_stickers = []
         total = len(ctx.guild.emojis) + len(ctx.guild.stickers)
         current = 0
         message = await ctx.respond(f"Downloading, this might take some time... (0 of {total})")
         zip_buffer = io.BytesIO()  # Create a BytesIO object to hold the ZIP file
         with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
             for emoji in ctx.guild.emojis:
-                if emoji.name in saved_emotes:
-                    zipped_f.writestr(emoji.name + "_" + (saved_emotes.count(emoji.name) + 1) + emoji.url[-4:], await emoji.read())
-                else:
-                    zipped_f.writestr(emoji.name + emoji.url[-4:], await emoji.read())
-                saved_emotes.append(emoji.name)
+                emoji_file_name = (emoji.name if emoji.name not in saved_emojis else emoji.name + str(saved_emojis.count(emoji.name) + 1)) + emoji.url[-4:]
+                zipped_f.writestr(f"emojis/{emoji_file_name}", await emoji.read())
+                saved_emojis.append(emoji.name)
                 current += 1
                 await message.edit_original_response(content=f"Downloading, this might take some time... ({current} of {total})")
-            for sticker in ctx.guild.stickers:
-                async with aiohttp.ClientSession() as session:
-                    async with session.get(url=sticker.url) as response:
-                        if sticker.name in saved_emotes:
-                            zipped_f.writestr(sticker.name + "_sticker.png", await response.read())
-                        else:
-                            zipped_f.writestr(sticker.name + ".png", await response.read())
-                        saved_emotes.append(sticker.name)
-        zip_buffer.seek(0)  # Reset the buffer position to the beginning so the file is read from the start in the next line
+
+            async with aiohttp.ClientSession() as session:
+                for sticker in ctx.guild.stickers:
+                    async with session.get(sticker.url) as response:
+                        sticker_file_name = (sticker.name if sticker.name not in saved_stickers else sticker.name + str(saved_stickers.count(sticker.name) + 1)) + ".png"
+                        zipped_f.writestr(f"stickers/{sticker_file_name}", await response.read())
+                        saved_stickers.append(sticker.name)
+
+        zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
         await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emoji_and_stickers.zip"))
 
     @bridge.bridge_command(brief="Get rid of bots")
