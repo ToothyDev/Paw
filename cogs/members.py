@@ -15,7 +15,7 @@ class Members(commands.Cog, name="Members"):
     async def on_member_join(self, member):
         if member.guild.id == 715969701771083817:
             await asyncio.sleep(20)
-            if member in member.guild.members:
+            if member in member.guild.members:  # If member isn't a bot (95% accurate)
                 channel = member.guild.get_channel(1066357407443333190)
                 embed = discord.Embed(color=utils.Colors.purple)
                 embed.set_thumbnail(url=member.display_avatar)
