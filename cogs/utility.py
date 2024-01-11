@@ -63,7 +63,7 @@ class Utility(commands.Cog, name="utility"):
                         saved_stickers.append(sticker.name)
 
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
-        await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emoji_and_stickers.zip"))
+        await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emojis_and_stickers.zip"))
 
     @bridge.bridge_command(brief="Get rid of bots")
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
