@@ -80,6 +80,42 @@ async def unverified(guild):
                 await member.add_roles(unverified_role)
 
 
+async def botChecker(member: discord.Member):
+    member = member.guild.get_member(member.id)  # Get updated member object for up-to-date roles
+    botroles_list = [891021633505071174, 731233454716354710]  # Red, Bear
+    botroles_list2 = [891021633505071174, 731233454716354710, 731245341495787541,
+                      731241481284616282, 731241703100383242, 738350937659408484, 738356235841175594]  # Red, Bear Hetero, Male, Single, Europe, Chat Revival
+    ignored_roles = [1165755854730035301,  # Unverified role
+                     715969701771083817,  # Everyone
+                     778893728701087744]  # Townsfolk
+    member_roles = [role.id for role in member.roles if role.id not in ignored_roles]
+    member_roles_match = set(member_roles) == set(botroles_list) or set(member_roles) == set(botroles_list2)  # boolean for both role checks on the member
+    if member_roles_match or len(member.roles) == 78:  # 78 is the number of selfroles + the "mandatory" roles
+        try:
+            await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
+        except Exception:
+            pass
+        try:
+            await member.kick(reason="Bot")
+        except Exception as e:
+            print(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
+            return False  # Failsafe
+        embed = discord.Embed(color=utils.Colors.orange)
+        embed.set_author(name=f"Bot Kick | {member.display_name}", icon_url=member.display_avatar.url)
+        embed.set_footer(text=member.id)
+        embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
+        logchannel = member.guild.get_channel(760181839033139260)
+        await logchannel.send(embed=embed)
+        return True
+    return False
+    # Commented out as Paw handles welcome messages. Will be removed once proven working
+    # welcome_channel = member.guild.get_channel(1066357407443333190)
+    # async for message in welcome_channel.history(limit=15):
+    #    if member in message.mentions:
+    #        await message.delete(reason="Deleting bot join message")
+    #        break
+
+
 class interactionsView(discord.ui.View):
     def __init__(self, ctx, members, action, button_label, giflist, action_error=None):
         super().__init__(timeout=600)
