@@ -15,7 +15,6 @@ class Members(commands.Cog, name="Members"):
     async def on_member_join(self, member):
         if member.guild.id == 715969701771083817:
             await asyncio.sleep(20)
-            await utils.botChecker(member)
             if member in member.guild.members:  # If member isn't a bot (95% accurate)
                 if utils.botChecker(member):
                     return
