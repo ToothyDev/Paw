@@ -100,7 +100,7 @@ async def botChecker(member: discord.Member):
         except Exception as e:
             print(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
             return False  # Failsafe
-        embed = discord.Embed(color=utils.Colors.orange)
+        embed = discord.Embed(color=Colors.orange)
         embed.set_author(name=f"Bot Kick | {member.display_name}", icon_url=member.display_avatar.url)
         embed.set_footer(text=member.id)
         embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
