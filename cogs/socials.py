@@ -1,4 +1,3 @@
-import json
 from discord.ext import commands, bridge
 from discord import slash_command, option
 import data
