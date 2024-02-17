@@ -80,7 +80,7 @@ async def unverified(guild):
                 await member.add_roles(unverified_role)
 
 
-async def botChecker(member: discord.Member):
+async def botchecker(member: discord.Member):
     member = member.guild.get_member(member.id)  # Get updated member object for up-to-date roles
     botroles_list = [891021633505071174, 731233454716354710]  # Red, Bear
     botroles_list2 = [891021633505071174, 731233454716354710, 731245341495787541,
@@ -182,7 +182,7 @@ async def apireq(url):
             return await response.json()
 
 
-class AutoVerify():
+class AutoVerify:
     def __init__(self, bot):
         self.bot = bot
         self.roles = [  # Level 1 at the top
@@ -199,7 +199,7 @@ class AutoVerify():
             716590668905971752  # Partners
         ]
 
-    async def addMember(self, item):
+    async def addmember(self, item):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
@@ -209,7 +209,7 @@ class AutoVerify():
         with open('users.json', 'w') as file:
             json.dump(data, file, indent=4)
 
-    async def getMembers(self):
+    async def getmembers(self):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
