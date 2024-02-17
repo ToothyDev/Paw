@@ -95,8 +95,8 @@ async def botchecker(member: discord.Member):
             await member.send("You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
         except discord.Forbidden:
             pass
-        except discord.HTTPException:
-            return print(f"Kicking member {member.display_name} failed {discord.HTTPException}")
+        except discord.HTTPException as e:
+            return print(f"Kicking member {member.display_name} failed {e}")
         try:
             await member.kick(reason="Bot")
         except Exception as e:
