@@ -1,11 +1,13 @@
+import io
 import random
 import zipfile
-import io
+
 import aiohttp
-import psutil
-from discord.ext import commands, bridge
 import discord
+import psutil
 from discord import option, slash_command
+from discord.ext import commands, bridge
+
 import data
 import utils
 
@@ -170,7 +172,7 @@ class Utility(commands.Cog, name="utility"):
 class ConfirmView(discord.ui.View):
     def __init__(self):
         super().__init__(timeout=120)
-        self.confirmed: bool = None
+        self.confirmed = False
         self.disable_on_timeout = True
 
     @discord.ui.button(label="Confirm", style=discord.ButtonStyle.green)
