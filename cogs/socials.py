@@ -230,7 +230,6 @@ class Socials(commands.Cog, name="social"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def gay(self, ctx, user=None, border=False, server_avatar=True):
         """ Gay overlay on avatar """
-        link = ""
         if not user:
             if ctx.message:  # additional check to make slash commands not break at .message.reference
                 if ctx.message.reference:
