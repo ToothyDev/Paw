@@ -118,7 +118,7 @@ async def botchecker(member: discord.Member):
     #        break
 
 
-class interactionsView(discord.ui.View):
+class InteractionsView(discord.ui.View):
     def __init__(self, ctx, members, action, button_label, giflist, action_error=None):
         super().__init__(timeout=600)
         self.ctx = ctx

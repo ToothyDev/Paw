@@ -16,7 +16,7 @@ class Socials(commands.Cog, name="social"):
         """ Snuggle the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "snuggled", data.snuggle)
-        view = interactionsView(ctx, memberlist, "snuggled", "Snuggle", data.snuggle)
+        view = InteractionsView(ctx, memberlist, "snuggled", "Snuggle", data.snuggle)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Hug someone")
@@ -25,7 +25,7 @@ class Socials(commands.Cog, name="social"):
     async def hug(self, ctx, *, members):
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "hugged", data.hug)
-        view = interactionsView(ctx, memberlist, "hugged", "Hug", data.hug)
+        view = InteractionsView(ctx, memberlist, "hugged", "Hug", data.hug)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Boop someone")
@@ -35,7 +35,7 @@ class Socials(commands.Cog, name="social"):
         """ Boop the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "booped", data.boop)
-        view = interactionsView(ctx, memberlist, "booped", "Boop", data.boop)
+        view = InteractionsView(ctx, memberlist, "booped", "Boop", data.boop)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Kiss someone")
@@ -45,7 +45,7 @@ class Socials(commands.Cog, name="social"):
         """ Kiss the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "kissed", data.kiss)
-        view = interactionsView(ctx, memberlist, "kissed", "Kiss", data.kiss)
+        view = InteractionsView(ctx, memberlist, "kissed", "Kiss", data.kiss)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Lick someone")
@@ -55,7 +55,7 @@ class Socials(commands.Cog, name="social"):
         """ Lick the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "licked", data.lick)
-        view = interactionsView(ctx, memberlist, "licked", "Lick", data.lick)
+        view = InteractionsView(ctx, memberlist, "licked", "Lick", data.lick)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Give someone bellyrubs")
@@ -65,7 +65,7 @@ class Socials(commands.Cog, name="social"):
         """ Give bellyrubs to the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "rubbed the belly of", data.bellyrub)
-        view = interactionsView(ctx, memberlist, "rubbed the belly of", "Rub", data.bellyrub, "given bellyrubs")
+        view = InteractionsView(ctx, memberlist, "rubbed the belly of", "Rub", data.bellyrub, "given bellyrubs")
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Nuzzle someone")
@@ -75,7 +75,7 @@ class Socials(commands.Cog, name="social"):
         """ Nuzzle the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "nuzzled", data.nuzzle)
-        view = interactionsView(ctx, memberlist, "nuzzled", "Nuzzle", data.nuzzle)
+        view = InteractionsView(ctx, memberlist, "nuzzled", "Nuzzle", data.nuzzle)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Cuddle someone")
@@ -85,7 +85,7 @@ class Socials(commands.Cog, name="social"):
         """ Cuddle the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "cuddled", data.cuddle)
-        view = interactionsView(ctx, memberlist, "cuddled", "Cuddle", data.cuddle)
+        view = InteractionsView(ctx, memberlist, "cuddled", "Cuddle", data.cuddle)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Feed someone")
@@ -95,7 +95,7 @@ class Socials(commands.Cog, name="social"):
         """ Feed the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "fed", data.feed)
-        view = interactionsView(ctx, memberlist, "fed", "Feed", data.feed)
+        view = InteractionsView(ctx, memberlist, "fed", "Feed", data.feed)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Glomp someone")
@@ -105,7 +105,7 @@ class Socials(commands.Cog, name="social"):
         """ Glomp on the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "glomped", data.glomp)
-        view = interactionsView(ctx, memberlist, "glomped", "Glomp", data.glomp)
+        view = InteractionsView(ctx, memberlist, "glomped", "Glomp", data.glomp)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Highfive someone")
@@ -115,7 +115,7 @@ class Socials(commands.Cog, name="social"):
         """ Highfive the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "highfived", data.highfive)
-        view = interactionsView(ctx, memberlist, "highfived", "Highfive", data.highfive)
+        view = InteractionsView(ctx, memberlist, "highfived", "Highfive", data.highfive)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Rawr")
@@ -125,7 +125,7 @@ class Socials(commands.Cog, name="social"):
         """ Rawr at the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "rawred at", data.rawr)
-        view = interactionsView(ctx, memberlist, "rawred at", "Rawr", data.rawr)
+        view = InteractionsView(ctx, memberlist, "rawred at", "Rawr", data.rawr)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Howl to the moon, or someone")
@@ -135,7 +135,7 @@ class Socials(commands.Cog, name="social"):
         """ Howl at the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "howled at", data.howl)
-        view = interactionsView(ctx, memberlist, "howled at", "Howl", data.howl)
+        view = InteractionsView(ctx, memberlist, "howled at", "Howl", data.howl)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Pat someone")
@@ -145,7 +145,7 @@ class Socials(commands.Cog, name="social"):
         """ Pat the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "pats", data.pet)
-        view = interactionsView(ctx, memberlist, "pats", "Pat", data.pet, "Pat")
+        view = InteractionsView(ctx, memberlist, "pats", "Pat", data.pet, "Pat")
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Give a cookie to someone")
@@ -155,7 +155,7 @@ class Socials(commands.Cog, name="social"):
         """ Give cookies to the specified people """
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "gave a cookie to", data.cookie)
-        view = interactionsView(ctx, memberlist, "gave a cookie to", "Give a cookie", data.cookie, "given a cookie")
+        view = InteractionsView(ctx, memberlist, "gave a cookie to", "Give a cookie", data.cookie, "given a cookie")
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Dance with someone")
@@ -168,7 +168,7 @@ class Socials(commands.Cog, name="social"):
             return await feelings(ctx, memberlist, "dances", data.dance)
         memberlist = await mentionconverter(self, ctx, members)
         embed = await interactions(ctx, memberlist, "danced with", data.dance)
-        view = interactionsView(ctx, memberlist, "danced with", "Dance", data.dance)
+        view = InteractionsView(ctx, memberlist, "danced with", "Dance", data.dance)
         await ctx.respond(embed=embed, view=view)
 
     @bridge.bridge_command(brief="Blush")
