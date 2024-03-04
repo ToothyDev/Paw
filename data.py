@@ -14,8 +14,7 @@ bellyrub = ["https://i.imgur.com/VnoVdts.gif",
             "https://i.imgur.com/PbYykOz.gif",
             "https://i.imgur.com/xxx0Ykb.gif",
             "https://media1.tenor.com/images/904ca94bb9335013cf8e1d57115de5c5/tenor.gif?itemid=13642623",
-            "https://media1.tenor.com/images/d13c4bcb8939ab000deab59bb46ec189/tenor.gif?itemid=18000915",
-            "https://media1.tenor.com/images/93b76d5e74f7b39dc4404aaa2a5c6fa4/tenor.gif?itemid=7325356"]
+            "https://media1.tenor.com/images/d13c4bcb8939ab000deab59bb46ec189/tenor.gif?itemid=18000915"]
 
 blush = ["https://media1.tenor.com/images/68e8bca8e90cb37fdcc9cc798bbc13f5/tenor.gif?itemid=10296487",
          "https://media1.tenor.com/images/2c5fc8253882a23b7eb0f3077cfcd290/tenor.gif?itemid=5971288",
@@ -31,8 +30,7 @@ boop = ["https://media1.tenor.com/images/36d187af3d5e876ec0d8f11cabe1a8d4/tenor.
         "https://media1.tenor.com/images/5c0b2e9661b5ea40834fc6bd6b84a806/tenor.gif?itemid=14796547",
         "https://media.tenor.com/images/aa41ce7ea8f138eb8e0be635cd4664d9/tenor.gif"]
 
-cuddle = ["https://thumbs.gfycat.com/WaterloggedFabulousIbis-small.gif",
-          "https://media3.giphy.com/media/h4BprYiFYNxRe/giphy.gif",
+cuddle = ["https://media3.giphy.com/media/h4BprYiFYNxRe/giphy.gif",
           "https://media1.tenor.com/images/304d8bf0315c3096603afd7e6562833c/tenor.gif?itemid=12304006",
           "https://media1.tenor.com/images/64ffd0c97258e49fd08f17397792c6c0/tenor.gif?itemid=5581481",
           "https://media.tenor.com/images/5c02ca01064b6c2f75c6e1dbbbc5de90/tenor.gif",
@@ -105,7 +103,6 @@ kiss = ["https://media1.tenor.com/images/473c30ffa595a67a281d9b2fde7b48d6/tenor.
         "https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
         "https://media1.tenor.com/images/12ff73f58a57174d6c6228f323e41c21/tenor.gif?itemid=11770367",
         "https://d.facdn.net/art/kusuguttai/1550707158/1550707158.kusuguttai_kissandnibble.gif",
-        "https://i.imgur.com/ApV7HF5.gif",
         "https://i.pinimg.com/originals/a2/64/72/a26472dd131d20dba037b81c1a633c61.gif",
         "https://media1.tenor.com/images/5c8972db3df932240bb191be36c71b85/tenor.gif?itemid=7189564"]
 
@@ -116,7 +113,6 @@ wag = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gi
        "https://media.tenor.com/images/bac4a23e4a961a274c94d2631cf63e19/tenor.gif",
        "https://media1.tenor.com/images/3562622d1c072ba2c30645b19e13bd2f/tenor.gif?itemid=7910058",
        "https://media.tenor.com/images/4a53db6c0267f84b180d7b9d3c34f120/tenor.gif",
-       "https://media.tenor.com/images/dd137df1f2badd31405967a12d862f28/tenor.gif",
        "https://media.tenor.com/images/7bd999202fde3cb64395725964ff34ac/tenor.gif"]
 
 cookie = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-ms-fields-cookies-024-1544735513.jpg',
