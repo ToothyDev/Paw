@@ -70,7 +70,7 @@ class Utility(commands.Cog, name="utility"):
     @slash_command(brief="Get rid of bots")
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
     @option("month", int, description="Select the desired month number", min_value=1, max_value=12)
-    @commands.has_permissions(ban_members=True)
+    @discord.default_permissions(ban_members=True)
     async def botcollector(self, ctx, day: int, month: int):
         """ Get members created on a certain day """
         if day == 0 or month == 0:
@@ -86,7 +86,7 @@ class Utility(commands.Cog, name="utility"):
         await message.edit_original_response(content=output)
 
     @slash_command(brief="Get all non-verified accounts")
-    @commands.has_permissions(ban_members=True)
+    @discord.default_permissions(ban_members=True)
     async def pending(self, ctx: discord.ApplicationContext):
         """ Get all non-verified accounts (unsure what that means) """
         output = ""
