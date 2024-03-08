@@ -6,7 +6,7 @@ import aiohttp
 import discord
 import psutil
 from discord import option, slash_command
-from discord.ext import commands, bridge
+from discord.ext import commands
 
 import data
 import utils
@@ -16,7 +16,7 @@ class Utility(commands.Cog, name="utility"):
     def __init__(self, bot):
         self.bot = bot
 
-    @bridge.bridge_command(brief="Generate a sona!")
+    @slash_command(brief="Generate a sona!")
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def sonagen(self, ctx):
         """ Generate a random sona """
@@ -67,10 +67,10 @@ class Utility(commands.Cog, name="utility"):
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
         await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emojis_and_stickers.zip"))
 
-    @bridge.bridge_command(brief="Get rid of bots")
+    @slash_command(brief="Get rid of bots")
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
     @option("month", int, description="Select the desired month number", min_value=1, max_value=12)
-    @bridge.has_permissions(ban_members=True)
+    @commands.has_permissions(ban_members=True)
     async def botcollector(self, ctx, day: int, month: int):
         """ Get members created on a certain day """
         if day == 0 or month == 0:
@@ -85,8 +85,8 @@ class Utility(commands.Cog, name="utility"):
             output = "No one found!"
         await message.edit_original_response(content=output)
 
-    @bridge.bridge_command(brief="Get all non-verified accounts")
-    @bridge.has_permissions(ban_members=True)
+    @slash_command(brief="Get all non-verified accounts")
+    @commands.has_permissions(ban_members=True)
     async def pending(self, ctx: discord.ApplicationContext):
         """ Get all non-verified accounts (unsure what that means) """
         output = ""
@@ -150,8 +150,9 @@ class Utility(commands.Cog, name="utility"):
         embed.add_field(name="Features", value=features)
         await ctx.respond(embed=embed)
 
-    @bridge.bridge_command(aliases=["information", "ping", "latency", "pong", "servers", "guilds", "support", "invite"], description="Displays information about Paw")
-    async def info(self, ctx: bridge.BridgeContext):
+    @slash_command(aliases=["information", "ping", "latency", "pong", "servers", "guilds", "support", "invite"],
+                   description="Displays information about Paw")
+    async def info(self, ctx: discord.ApplicationContext):
         embed = discord.Embed()
         vram = psutil.virtual_memory()
         disk_usage = psutil.disk_usage('/')
