@@ -16,7 +16,7 @@ class Utility(commands.Cog, name="utility"):
     def __init__(self, bot):
         self.bot = bot
 
-    @slash_command(brief="Generate a sona!")
+    @slash_command()
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def sonagen(self, ctx):
         """ Generate a random sona """
@@ -39,7 +39,7 @@ class Utility(commands.Cog, name="utility"):
 """)
         return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
 
-    @slash_command(brief="Get all server stickers & emojis!")
+    @slash_command()
     @discord.default_permissions(manage_guild=True)
     async def emoji_downloader(self, ctx):
         """ Download this server's emojis and stickers """
@@ -67,7 +67,7 @@ class Utility(commands.Cog, name="utility"):
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
         await message.edit_original_response(content="Here are all emojis and stickers of this guild!", file=discord.File(zip_buffer, filename="emojis_and_stickers.zip"))
 
-    @slash_command(brief="Get rid of bots")
+    @slash_command()
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
     @option("month", int, description="Select the desired month number", min_value=1, max_value=12)
     @discord.default_permissions(ban_members=True)
@@ -85,7 +85,7 @@ class Utility(commands.Cog, name="utility"):
             output = "No one found!"
         await message.edit_original_response(content=output)
 
-    @slash_command(brief="Get all non-verified accounts")
+    @slash_command()
     @discord.default_permissions(ban_members=True)
     async def pending(self, ctx: discord.ApplicationContext):
         """ Get all non-verified accounts (unsure what that means) """
@@ -97,7 +97,7 @@ class Utility(commands.Cog, name="utility"):
             output = "No members found!"
         await ctx.respond(output)
 
-    @slash_command(brief="Announce something!")
+    @slash_command()
     @option("channel", discord.TextChannel, description="The channel to announce in")
     @option("message", str, description="The message to announce")
     @option("embed", bool, description="Whether to make it an embed", required=False, default=False)
@@ -126,7 +126,7 @@ class Utility(commands.Cog, name="utility"):
                 await channel.send(message)
         await ctx.respond("Message successfully sent!", ephemeral=True)
 
-    @slash_command(brief="Information about the server")
+    @slash_command()
     async def serverinfo(self, ctx):
         """ Get the current server's info """
         guild = ctx.guild
@@ -150,9 +150,9 @@ class Utility(commands.Cog, name="utility"):
         embed.add_field(name="Features", value=features)
         await ctx.respond(embed=embed)
 
-    @slash_command(aliases=["information", "ping", "latency", "pong", "servers", "guilds", "support", "invite"],
-                   description="Displays information about Paw")
+    @slash_command()
     async def info(self, ctx: discord.ApplicationContext):
+        """ Displays information about Paw """
         embed = discord.Embed()
         vram = psutil.virtual_memory()
         disk_usage = psutil.disk_usage('/')

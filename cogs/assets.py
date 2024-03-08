@@ -10,7 +10,7 @@ class Assets(commands.Cog, name="assets"):
     def __init__(self, bot):
         self.bot = bot
 
-    @slash_command(brief="Art of Paw")
+    @slash_command()
     async def paw(self, ctx):
         """ Get random art of me, Paw """
         embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
