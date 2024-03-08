@@ -1,12 +1,11 @@
 from discord import Intents, Status, Activity, ActivityType
-from discord.ext import commands, bridge
+from discord.ext import commands
 import discord
 from config import token
 
 intents = Intents(guilds=True, guild_messages=True, message_content=True, members=True)
-# intents.message_content = True #Uncomment this if you use prefixed command that are not mentions
-bot = bridge.Bot(intents=intents, command_prefix=">>", status=Status.dnd,
-                 activity=Activity(type=ActivityType.watching, name="you (prefix: >>)"))
+
+bot = discord.Bot(intents=intents, status=Status.dnd, activity=Activity(type=ActivityType.watching, name="you"))
 
 
 class MyNewHelp(commands.MinimalHelpCommand):
@@ -19,7 +18,6 @@ class MyNewHelp(commands.MinimalHelpCommand):
 
 bot.help_command = MyNewHelp()
 
-bot.load_extension('jishaku')
 bot.load_extensions("cogs")  # Loads all cogs in the cogs folder
 bot.load_extensions("cogs.events")
 print(bot.extensions)
