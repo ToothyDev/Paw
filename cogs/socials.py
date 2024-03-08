@@ -231,12 +231,7 @@ class Socials(commands.Cog, name="social"):
     async def gay(self, ctx, user=None, border=False, server_avatar=True):
         """ Gay overlay on avatar """
         if not user:
-            if ctx.message:  # additional check to make slash commands not break at .message.reference
-                if ctx.message.reference:
-                    reference = await ctx.fetch_message(ctx.message.reference.message_id)
-                    user = reference.author
-            else:
-                user = ctx.author
+            user = ctx.author
         url = user.display_avatar.url if server_avatar else user.avatar.url
         link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}" if border else f"https://some-random-api.com/canvas/gay/?avatar={url}"
         embed = discord.Embed(color=discord.Color.random())
