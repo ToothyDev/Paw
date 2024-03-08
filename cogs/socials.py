@@ -225,8 +225,8 @@ class Socials(commands.Cog, name="social"):
 
     @slash_command(brief="Give someone's avatar a rainbow overlay")
     @option("user", discord.Member, description="Select a user", required=False)
-    @option("border", bool, description="Make it a border?", required=False, default=False)
-    @option("server_avatar", bool, description="Use their server avatar?", required=False, default=True)
+    @option("border", bool, description="Make it a border?", required=False)
+    @option("server_avatar", bool, description="Use their server avatar?", required=False)
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def gay(self, ctx, user=None, border=False, server_avatar=True):
         """ Gay overlay on avatar """
@@ -236,7 +236,7 @@ class Socials(commands.Cog, name="social"):
         link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}" if border else f"https://some-random-api.com/canvas/gay/?avatar={url}"
         embed = discord.Embed(color=discord.Color.random())
         embed.set_image(url=link)
-        embed.set_footer(text=f"Gay avatar: {user}")
+        embed.set_footer(text=f"Gay avatar: {user.display_name if server_avatar and user.guild_avatar else user.name}")
         await ctx.respond(embed=embed)
 
     @slash_command()
