@@ -26,7 +26,7 @@ Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for 
 __**IMPORTANT**__: To gain access to the rest of the server, you need to first gain a level by chatting in this channel.
 Thank you for reading and have fun!"""
                 await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
-                await self.inactives_checker.addmember((member.id, time.time()))
+                await self.inactives_checker.add_member((member.id, time.time()))
 
     @commands.Cog.listener()
     async def on_member_update(self, member, member_new: discord.Member):
@@ -39,7 +39,7 @@ Thank you for reading and have fun!"""
     async def get(self, ctx):
         """ Get all inactive members """
         await ctx.defer()
-        members = await self.inactives_checker.getmembers()
+        members = await self.inactives_checker.get_members()
         await ctx.respond(members)
 
 

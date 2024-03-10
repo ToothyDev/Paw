@@ -201,7 +201,7 @@ class AutoVerify:
             716590668905971752  # Partners
         ]
 
-    async def addmember(self, item):
+    async def add_member(self, item):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
@@ -211,7 +211,7 @@ class AutoVerify:
         with open('users.json', 'w') as file:
             json.dump(data, file, indent=4)
 
-    async def getmembers(self):
+    async def get_members(self):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
