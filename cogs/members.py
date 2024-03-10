@@ -3,13 +3,13 @@ import asyncio
 from discord.ext import commands
 import discord
 from discord import SlashCommandGroup
-from utils import botchecker, unverified
+from utils import botchecker, unverified, AutoVerify, Colors
 
 
 class Members(commands.Cog, name="Members"):
     def __init__(self, bot):
         self.bot = bot
-        self.inactives_checker = utils.AutoVerify(self.bot)
+        self.inactives_checker = AutoVerify(self.bot)
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
@@ -19,7 +19,7 @@ class Members(commands.Cog, name="Members"):
                 if await botchecker(member):
                     return
                 channel = member.guild.get_channel(1066357407443333190)
-                embed = discord.Embed(color=utils.Colors.purple)
+                embed = discord.Embed(color=Colors.purple)
                 embed.set_thumbnail(url=member.display_avatar)
                 embed.description = f"""
 Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for roles & channels and <id:guide> for some useful info!
