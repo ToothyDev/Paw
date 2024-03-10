@@ -4,7 +4,6 @@ import os
 import json
 import aiohttp
 import discord
-from discord import utils
 
 
 class Colors:
@@ -123,7 +122,7 @@ async def mentionconverter(self, ctx, members):
     guild = self.bot.get_guild(ctx.guild.id)
     members = discord.utils.raw_mentions(members)
     for member in members:
-        member = await utils.get_or_fetch(guild, 'member', member)
+        member = await discord.utils.get_or_fetch(guild, 'member', member)
         memberlist.append(member)
     if not memberlist:
         return await ctx.respond('Sorry, but you need to specify someone with a mention.', ephemeral=True)
@@ -191,10 +190,10 @@ class AutoVerify:
         output = ""
         added = False
         members_to_remove = []
-        guild = await utils.get_or_fetch(self.bot, 'guild', 715969701771083817)
+        guild = await discord.utils.get_or_fetch(self.bot, 'guild', 715969701771083817)
         for memberid, timestamp in data["users"]:
             try:
-                member = await utils.get_or_fetch(guild, 'member', memberid)
+                member = await discord.utils.get_or_fetch(guild, 'member', memberid)
             except discord.HTTPException:
                 members_to_remove.append([memberid, timestamp])
                 continue
