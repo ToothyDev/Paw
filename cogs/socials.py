@@ -1,7 +1,10 @@
 from discord.ext import commands
 from discord import slash_command, option
+import discord
+import random
 import data
-from utils import *
+from utils import mentionconverter, interactions, feelings, apireq
+from views import InteractionsView
 
 
 class Socials(commands.Cog, name="social"):

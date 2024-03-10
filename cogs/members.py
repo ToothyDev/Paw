@@ -3,7 +3,7 @@ import asyncio
 from discord.ext import commands
 import discord
 from discord import SlashCommandGroup
-import utils
+from utils import botchecker, unverified
 
 
 class Members(commands.Cog, name="Members"):
@@ -16,7 +16,7 @@ class Members(commands.Cog, name="Members"):
         if member.guild.id == 715969701771083817:
             await asyncio.sleep(20)
             if member in member.guild.members:  # If member isn't a bot (95% accurate)
-                if await utils.botchecker(member):
+                if await botchecker(member):
                     return
                 channel = member.guild.get_channel(1066357407443333190)
                 embed = discord.Embed(color=utils.Colors.purple)
@@ -31,7 +31,7 @@ Thank you for reading and have fun!"""
     @commands.Cog.listener()
     async def on_member_update(self, member, member_new: discord.Member):
         if member_new.guild.id == 715969701771083817:
-            await utils.unverified(member_new.guild)
+            await unverified(member_new.guild)
 
     inactives = SlashCommandGroup(name="inactives", default_member_permissions=discord.Permissions(manage_guild=True, kick_members=True))
 
