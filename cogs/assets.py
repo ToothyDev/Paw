@@ -1,6 +1,7 @@
 import random
-from discord.ext import commands, bridge
 import discord
+from discord import slash_command
+from discord.ext import commands
 import data
 from utils import Colors
 
@@ -9,7 +10,7 @@ class Assets(commands.Cog, name="assets"):
     def __init__(self, bot):
         self.bot = bot
 
-    @bridge.bridge_command(brief="Art of Paw")
+    @slash_command()
     async def paw(self, ctx):
         """ Get random art of me, Paw """
         embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
