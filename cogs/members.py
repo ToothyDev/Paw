@@ -2,7 +2,6 @@ import time
 import asyncio
 from discord.ext import commands
 import discord
-from discord import SlashCommandGroup
 from utils import botchecker, unverified, AutoVerify, Colors
 
 
@@ -33,7 +32,9 @@ Thank you for reading and have fun!"""
         if member_new.guild.id == 715969701771083817:
             await unverified(member_new.guild)
 
-    inactives = SlashCommandGroup(name="inactives", default_member_permissions=discord.Permissions(manage_guild=True, kick_members=True))
+    inactives = discord.SlashCommandGroup(name="inactives",
+                                          default_member_permissions=discord.Permissions(manage_guild=True,
+                                                                                         kick_members=True))
 
     @inactives.command()
     async def get(self, ctx):
