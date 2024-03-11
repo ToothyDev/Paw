@@ -9,7 +9,7 @@ from discord import option, slash_command
 from discord.ext import commands
 
 import data
-import utils
+from utils import Colors
 from views import ConfirmView
 
 
@@ -167,7 +167,7 @@ class Utility(commands.Cog, name="utility"):
 
 [[Github]](https://github.com/MiataBoy/Paw) [[Privacy Policy]](https://gist.github.com/MiataBoy/20fda9024f277ea5eb2421adbebc2f23) [[Terms of Service]](https://gist.github.com/MiataBoy/81e96023a2aa055a038edab02e7e7792)
         """
-        embed.colour = utils.Colors.blue
+        embed.colour = Colors.blue
         await ctx.respond(embed=embed)
 
 

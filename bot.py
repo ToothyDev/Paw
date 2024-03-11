@@ -1,6 +1,7 @@
+import discord
 from discord import Intents, Status, Activity, ActivityType
 from discord.ext import commands
-import discord
+
 from config import token
 
 intents = Intents(guilds=True, guild_messages=True, message_content=True, members=True)

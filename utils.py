@@ -1,7 +1,8 @@
+import json
+import os
 import random
 import time
-import os
-import json
+
 import aiohttp
 import discord
 
