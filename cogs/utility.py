@@ -7,7 +7,9 @@ import discord
 import psutil
 from discord import option, slash_command
 from discord.ext import commands
+import google.generativeai as genai
 
+import config
 import data
 from utils import Colors
 from views import ConfirmView
@@ -31,14 +33,34 @@ class Utility(commands.Cog, name="utility"):
         else:
             heightstring = f"**Height**: {random.randint(130, 240)}cm"
 
+        genai.configure(api_key=config.api_key)
+        model = genai.GenerativeModel("gemini-pro")
+        await ctx.defer()
+        response = model.generate_content(
+            f"""Generate a small, 2-3 sentence fursona description based on the following values:
+            Species: {species}.
+            Sona type: {sonatype}.
+            Gender: {sex}.
+            Color: {primary_color}.
+            Secondary Color: {color}.
+            Standing Height in cm (shoulder height for feral sonas): {heightstring}.
+            Consider a height of 175cm average for anthro sonas.
+            The user already knows all of these values, so just make an accompanying description to make it come alive!
+            Always add a description of their physical features, traits or behaviours, never simply descripe their "stats".
+            Finally, make up a name that may incorporate any of the sona's attributes, but does not have to.
+            Always say colors by name and not in hexadecimal form.
+            Return your output seperated by ; in the following order: Name;Description""")
+        name = response.text.split(";")[0]
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
-**Species**: {sonatype} {species}
-**Primary Color**: {str(primary_color)} (embed color)
-**Secondary Color**: {color}
-{heightstring}
-**Sex**: {sex}
-""")
-        return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
+        **Name**: {name}
+        **Species**: {sonatype} {species}
+        **Primary Color**: {str(primary_color)} (embed color)
+        **Secondary Color**: {color}
+        {heightstring}
+        **Sex**: {sex}
+        **Description**: {response.text.split(";")[1]}
+        """)
+        await ctx.respond(content=f"Sure, here's your freshly generated sona!", embed=embed)
 
     @slash_command()
     @discord.default_permissions(manage_guild=True)
