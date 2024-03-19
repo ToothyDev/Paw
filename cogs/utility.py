@@ -44,7 +44,7 @@ class Utility(commands.Cog, name="utility"):
             Color: {primary_color}.
             Secondary Color: {color}.
             Standing Height in cm (shoulder height for feral sonas): {heightstring}.
-            Consider a height of 175cm average for anthro sonas.
+            Consider a height of 175cm average / normal for anthro sonas.
             The user already knows all of these values, so just make an accompanying description to make it come alive!
             Always add a description of their physical features, traits or behaviours, never simply describe their "stats".
             Finally, make up a name that may incorporate any of the sona's attributes, but does not have to.
