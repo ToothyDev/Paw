@@ -3,9 +3,11 @@ import random
 import discord
 from discord import slash_command, option
 from discord.ext import commands
+import google.generativeai as genai
 
+import config
 import data
-from utils import mentionconverter, interactions, feelings, apireq
+from utils import mentionconverter, interactions, feelings, apireq, get_gaslight
 from views import InteractionsView
 
 
@@ -250,12 +252,14 @@ class Socials(commands.Cog, name="social"):
     # @commands.cooldown(1, 30, commands.BucketType.user)
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
-        return await ctx.respond("This command is disabled indefinitely.", ephemeral=True)
-        messages = await ctx.channel.history(limit=50).flatten()
         await ctx.defer()
+
+        genai.configure(api_key=config.api_key)
+        model = genai.GenerativeModel("gemini-pro")
+
+        messages = await ctx.channel.history(limit=50).flatten()
         messages.reverse()
-        url = "GPT-API-URL-HERE"
-        gpthistory = [{"role": "system", "content": get_gaslight(ctx.author.display_name)}]
+        input_history = f"System: {get_gaslight(ctx.author.display_name)}"
         for message in messages:
             if message.content is None:
                 continue
@@ -269,52 +273,15 @@ class Socials(commands.Cog, name="social"):
                     continue
                 if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
                     continue
-                gpthistory.append({"role": "user", "content": usermessage[12:], "name": message.author.display_name})
-                gpthistory.append({"role": "assistant", "content": botmsg[9:]})
+                input_history += f"\nUser (Name: {message.author.display_name}): {usermessage[12:]}"
+                input_history += f"\nPaw: {botmsg[9:]}"
             else:
-                gpthistory.append({"role": "user", "content": message.content, "name": message.author.display_name})
-        gpthistory.append({"role": "user", "content": text, "name": ctx.author.display_name})
-        adata = {
-            "model": "gpt-3.5-turbo-16k",
-            "messages": gpthistory,
-            "max_tokens": 500,
-            "stream": True
-        }
-        headers = {
-            "Content-Type": "application/json",
-            "Authorization": "Bearer BetterChatGPT"
-        }
-        message = await ctx.respond(f"**Prompt:** {text}\n**Paw:** Sending request to API...")
-        current = ""
-        old = ""
-        # State list
-        # 0 = Not finished
-        # 1 = Finished (good)
-        # 2 = Finished (token limit)
-        state = 0
-        async with aiohttp.ClientSession() as session:
-            async with session.post(url, headers=headers, data=json.dumps(adata)) as response:
-                if response.status != 200:
-                    return await message.edit("Sorry, there has been an API error. Please try again.")
-                async for line in response.content:
-                    decode = line.decode()
-                    try:
-                        string = json.loads(decode[6:len(decode)])['choices'][0]['delta']['content']
-                        match json.loads(decode[6:len(decode)])['choices'][0]['finish_reason']:
-                            case "stop":
-                                state = 1
-                            case "length":
-                                state = 2
-                        current += string
-                    except Exception:
-                        continue  # Skip the blank stream lines
-                    if len(current) > 25 or state == 1:
-                        await message.edit(f"""**Prompt:** {text}\n**Paw:** Generating...\n{old+current}""")
-                        old += current
-                        current = ""
-        if state == 2:
-            return await message.edit(f"""**Prompt:** {text}\n**Paw:** {old+current}\n\n**Paw:** **STOPPED DUE TO TOKEN LIMIT**""")
-        await message.edit(f"""**Prompt:** {text}\n**Paw:** {old+current}""")
+                input_history += f"\nUser (Name: {message.author.display_name}): {message.content}"
+        input_history += f"\nUser (Name: {ctx.author.display_name}): {text}"
+
+        response = model.generate_content(
+            f"Here is the chat history:\n{input_history}\nAnd here is the user prompt: {text}")
+        await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response.text}")
 
 
 def setup(bot):
