@@ -242,7 +242,7 @@ class Socials(commands.Cog, name="social"):
         link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}" if border else f"https://some-random-api.com/canvas/gay/?avatar={url}"
         embed = discord.Embed(color=discord.Color.random())
         embed.set_image(url=link)
-        embed.set_footer(text=f"Gay avatar: {user.display_name if server_avatar and user.guild_avatar else user.name}")
+        embed.set_footer(text=f"Gay avatar: {user.display_name}")
         await ctx.respond(embed=embed)
 
     @slash_command()
