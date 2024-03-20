@@ -18,10 +18,9 @@ async def generate_stream(ctx: discord.ApplicationContext, prompt: str):
     edited = False
     text = ""
     async for chunk in response:
+        text += chunk.text
         if edited:
-            text += chunk.text
             await ctx.edit(content=text)
         else:
-            text += chunk.text
             await ctx.respond(text)
             edited = True
