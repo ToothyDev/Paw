@@ -7,9 +7,8 @@ import discord
 import psutil
 from discord import option, slash_command
 from discord.ext import commands
-import google.generativeai as genai
 
-import config
+import ai_handler
 import data
 from utils import Colors
 from views import ConfirmView
@@ -23,6 +22,7 @@ class Utility(commands.Cog, name="utility"):
     @commands.cooldown(1, 3, commands.BucketType.user)
     async def sonagen(self, ctx):
         """ Generate a random sona """
+        await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(data.colors)
         species = random.choice(list(data.species))
@@ -32,11 +32,7 @@ class Utility(commands.Cog, name="utility"):
             heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
         else:
             heightstring = f"**Height**: {random.randint(130, 240)}cm"
-
-        genai.configure(api_key=config.api_key)
-        model = genai.GenerativeModel("gemini-pro")
-        await ctx.defer()
-        response = model.generate_content(
+        response = await ai_handler.generate(
             f"""Generate a small, 2-3 sentence fursona description based on the following values:
             Species: {species}.
             Sona type: {sonatype}.
@@ -50,7 +46,7 @@ class Utility(commands.Cog, name="utility"):
             Finally, make up a name that may incorporate any of the sona's attributes, but does not have to.
             Always say colors by name and not in hexadecimal form.
             Return your output seperated by ; in the following order: Name;Description""")
-        name = response.text.split(";")[0]
+        name = response.split(";")[0]
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
         **Name**: {name}
         **Species**: {sonatype} {species}
@@ -58,7 +54,7 @@ class Utility(commands.Cog, name="utility"):
         **Secondary Color**: {color}
         {heightstring}
         **Sex**: {sex}
-        **Description**: {response.text.split(";")[1]}
+        **Description**: {response.split(";")[1]}
         """)
         await ctx.respond(content=f"Sure, here's your freshly generated sona!", embed=embed)
 

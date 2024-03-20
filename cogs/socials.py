@@ -3,9 +3,8 @@ import random
 import discord
 from discord import slash_command, option
 from discord.ext import commands
-import google.generativeai as genai
 
-import config
+import ai_handler
 import data
 from utils import mentionconverter, interactions, feelings, apireq, get_gaslight
 from views import InteractionsView
@@ -253,10 +252,6 @@ class Socials(commands.Cog, name="social"):
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
         await ctx.defer()
-
-        genai.configure(api_key=config.api_key)
-        model = genai.GenerativeModel("gemini-pro")
-
         messages = await ctx.channel.history(limit=50).flatten()
         messages.reverse()
         input_history = f"System: {get_gaslight(ctx.author.display_name)}"
@@ -278,10 +273,9 @@ class Socials(commands.Cog, name="social"):
             else:
                 input_history += f"\nUser (Name: {message.author.display_name}): {message.content}"
         input_history += f"\nUser (Name: {ctx.author.display_name}): {text}"
-
-        response = model.generate_content(
+        response = await ai_handler.generate(
             f"Here is the chat history:\n{input_history}\nAnd here is the user prompt: {text}")
-        await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response.text}")
+        await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
 
 def setup(bot):
