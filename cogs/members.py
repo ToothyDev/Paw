@@ -13,7 +13,10 @@ class Members(commands.Cog, name="Members"):
         self.inactives_checker = AutoVerify(self.bot)
 
     @commands.Cog.listener()
-    async def on_member_join(self, member):
+    async def on_member_join(self, member: discord.Member):
+        if member.created_at.timestamp() > time.time() - 60 * 60 * 24 * 7: # 7 days
+            await member.kick(reason=f"You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin {60 * 60 * 24 * 7 - (time.time() - member.created_at.timestamp()):.0f}:R")
+            return
         if member.guild.id == 715969701771083817:
             await asyncio.sleep(20)
             if member in member.guild.members:  # If member isn't a bot (95% accurate)
