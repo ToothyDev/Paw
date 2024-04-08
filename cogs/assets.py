@@ -2,7 +2,6 @@ import random
 
 import discord
 from discord import slash_command
-from discord.ext import commands
 
 import data
 from utils import Colors
