@@ -7,7 +7,7 @@ from discord.ext import commands
 from utils import botchecker, unverified, AutoVerify, Colors
 
 
-class Members(commands.Cog, name="Members"):
+class Members(discord.Cog, name="Members"):
     def __init__(self, bot):
         self.bot = bot
         self.inactives_checker = AutoVerify(self.bot)

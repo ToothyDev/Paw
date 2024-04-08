@@ -8,7 +8,7 @@ import data
 from utils import Colors
 
 
-class Assets(commands.Cog, name="assets"):
+class Assets(discord.Cog, name="assets"):
     def __init__(self, bot):
         self.bot = bot
 

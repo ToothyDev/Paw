@@ -9,7 +9,7 @@ from utils import mentionconverter, interactions, feelings, apireq
 from views import InteractionsView
 
 
-class Socials(commands.Cog, name="social"):
+class Socials(discord.Cog, name="social"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "♥️"

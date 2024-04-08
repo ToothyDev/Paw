@@ -13,7 +13,7 @@ from utils import Colors
 from views import ConfirmView
 
 
-class Utility(commands.Cog, name="utility"):
+class Utility(discord.Cog, name="utility"):
     def __init__(self, bot):
         self.bot = bot
 
