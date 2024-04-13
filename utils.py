@@ -155,7 +155,7 @@ async def apireq(url):
             return await response.json()
 
 
-class AutoVerify:
+class InactivesTracker:
     def __init__(self, bot):
         self.bot = bot
         self.roles = [  # Level 1 at the top
