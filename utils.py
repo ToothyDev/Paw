@@ -49,7 +49,7 @@ async def interactions(ctx, members, action, giflist):
     return embed
 
 
-async def unverified(guild):
+async def unverified_role_handler(guild):
     verified_roles = [  # Level 1 at the top
         715990806061645915,
         715992589891010682,
@@ -80,7 +80,7 @@ async def unverified(guild):
                 await member.add_roles(unverified_role)
 
 
-async def botchecker(member: discord.Member):
+async def is_userbot(member: discord.Member):
     member = member.guild.get_member(member.id)  # Get updated member object for up-to-date roles
     botroles_list = [891021633505071174, 731233454716354710]  # Red, Bear
     botroles_list2 = [891021633505071174, 731233454716354710, 731245341495787541,
@@ -118,7 +118,7 @@ async def botchecker(member: discord.Member):
     #        break
 
 
-async def mentionconverter(self, ctx, members):
+async def mention_converter(self, ctx, members):
     memberlist = []
     guild = self.bot.get_guild(ctx.guild.id)
     members = discord.utils.raw_mentions(members)
@@ -172,7 +172,8 @@ class AutoVerify:
             716590668905971752  # Partners
         ]
 
-    async def add_member(self, item):
+    @staticmethod
+    async def add_member(item):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)

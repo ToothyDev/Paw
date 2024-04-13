@@ -3,7 +3,7 @@ import time
 
 import discord
 
-from utils import botchecker, unverified, AutoVerify, Colors
+from utils import is_userbot, unverified_role_handler, AutoVerify, Colors
 
 
 class Members(discord.Cog, name="Members"):
@@ -19,7 +19,7 @@ class Members(discord.Cog, name="Members"):
             await asyncio.sleep(20)  # Timer to let bots assign roles
             if member not in member.guild.members:
                 return
-            if await botchecker(member):  # If member is a bot (95% accurate)
+            if await is_userbot(member):  # If member is a bot (95% accurate)
                 return
             channel = member.guild.get_channel(1066357407443333190)
             embed = discord.Embed(color=Colors.purple)
@@ -29,12 +29,12 @@ Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for 
 __**IMPORTANT**__: To gain access to the rest of the server, you need to first gain a level by chatting in this channel.
 Thank you for reading and have fun!"""
             await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
-            await self.inactives_checker.add_member((member.id, time.time()))
+            await AutoVerify.add_member((member.id, time.time()))
 
     @discord.Cog.listener()
     async def on_member_update(self, member, member_new: discord.Member):
         if member_new.guild.id == 715969701771083817:
-            await unverified(member_new.guild)
+            await unverified_role_handler(member_new.guild)
 
     inactives = discord.SlashCommandGroup(name="inactives",
                                           default_member_permissions=discord.Permissions(manage_guild=True,
