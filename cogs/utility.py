@@ -86,7 +86,6 @@ class Utility(discord.Cog, name="utility"):
             output = "No one found!"
         await message.edit_original_response(content=output)
 
-
     @slash_command()
     @option("channel", discord.TextChannel, description="The channel to announce in")
     @option("message", str, description="The message to announce")

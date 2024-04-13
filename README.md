@@ -1,6 +1,6 @@
 # Introduction
 
-Paw is the open-source github repository for Paw, the discord bot powering [The Paw Kingdom](https://discord.gg/tpk)!
+Paw is the open-source GitHub repository for Paw, the discord bot powering [The Paw Kingdom](https://discord.gg/tpk)!
 
 Paw was built on code from a former project known as [exorium](https://github.com/MiataBoy/exorium) by current developers MiataBoy and ToothyDev.
 
@@ -11,7 +11,7 @@ Paw can provide a variety of things to your server! For example:
 
 🐕 Sona generators!
 
-# Self hosting
+# Self-hosting
 Paw is self-hosted with ease, as it was made to be minimal and compact.
 
 1. Create a bot account on https://discord.com/developers/applications
