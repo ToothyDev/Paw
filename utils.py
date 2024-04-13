@@ -156,9 +156,7 @@ async def apireq(url):
 
 
 class InactivesTracker:
-    def __init__(self, bot):
-        self.bot = bot
-        self.roles = [  # Level 1 at the top
+    roles = [  # Level 1 at the top
             715990806061645915,
             715992589891010682,
             715993060244455545,
@@ -183,7 +181,8 @@ class InactivesTracker:
         with open('users.json', 'w') as file:
             json.dump(data, file, indent=4)
 
-    async def get_members(self):
+    @staticmethod
+    async def get_members(bot):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
@@ -192,7 +191,7 @@ class InactivesTracker:
         output = ""
         added = False
         members_to_remove = []
-        guild = await discord.utils.get_or_fetch(self.bot, 'guild', 715969701771083817)
+        guild = await discord.utils.get_or_fetch(bot, 'guild', 715969701771083817)
         for memberid, timestamp in data["users"]:
             try:
                 member = await discord.utils.get_or_fetch(guild, 'member', memberid)
@@ -201,7 +200,7 @@ class InactivesTracker:
                 continue
             if (time.time() - timestamp) < 259200:  # check if 3 days have passed, if not, continue with next member
                 continue
-            if not any(role.id in self.roles for role in member.roles):
+            if not any(role.id in InactivesTracker.roles for role in member.roles):
                 if (time.time() - timestamp) < 1209600:
                     if added is False:
                         output += f"**|** <@{member.id}> "

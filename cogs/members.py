@@ -9,7 +9,6 @@ import utils
 class Members(discord.Cog, name="Members"):
     def __init__(self, bot):
         self.bot = bot
-        self.inactives_checker = utils.InactivesTracker(self.bot)
 
     @discord.Cog.listener()
     async def on_member_join(self, member):
@@ -44,7 +43,7 @@ Thank you for reading and have fun!"""
     async def get(self, ctx):
         """ Get all inactive members """
         await ctx.defer()
-        members = await self.inactives_checker.get_members()
+        members = await utils.InactivesTracker.get_members(self.bot)
         await ctx.respond(members)
 
     @inactives.command()
