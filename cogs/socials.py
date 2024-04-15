@@ -1,4 +1,5 @@
 import random
+import time
 
 import discord
 from discord import slash_command, option
@@ -13,6 +14,23 @@ class Socials(discord.Cog, name="social"):
     def __init__(self, bot):
         self.bot = bot
         self.help_icon = "♥️"
+        self.last_revived = 0
+
+    @slash_command()
+    @option("topic", str, description="The topic to revive chat with", required=False)
+    async def chat_revival(self, ctx, topic):
+        revival_role = ctx.guild.get_role(738356235841175594)
+        if revival_role not in ctx.author.roles:
+            return await ctx.respond("You need the chat revival role to revive the chat! Get it in <id:customize>",
+                                     ephemeral=True)
+        if time.time() - 7200 <= self.last_revived:
+            return await ctx.respond("Chat was revived less than 2 hours ago!", ephemeral=True)
+        self.last_revived = time.time()
+        await ctx.respond(
+            f"<@&738356235841175594>! {topic if topic else 'Talk about something interesting!'}",
+            allowed_mentions=discord.AllowedMentions(everyone=False, roles=[revival_role]))
+
+
 
     @slash_command()
     @option("members", str, description="Mention users to snuggle")
