@@ -19,6 +19,7 @@ class Socials(discord.Cog, name="social"):
     @slash_command()
     @option("topic", str, description="The topic to revive chat with", required=False)
     async def chat_revival(self, ctx, topic):
+        """ Revive the chat! """
         revival_role = ctx.guild.get_role(738356235841175594)
         if revival_role not in ctx.author.roles:
             return await ctx.respond("You need the chat revival role to revive the chat! Get it in <id:customize>",
