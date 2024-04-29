@@ -31,7 +31,6 @@ class Socials(discord.Cog, name="social"):
             f"<@&738356235841175594>! {topic if topic else 'Talk about something interesting!'}",
             allowed_mentions=discord.AllowedMentions(everyone=False, roles=[revival_role]))
 
-
     @slash_command()
     @option("members", str, description="Mention users to snuggle")
     @commands.cooldown(1, 5, commands.BucketType.user)
