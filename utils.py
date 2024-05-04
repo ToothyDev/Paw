@@ -50,7 +50,7 @@ async def interactions(ctx, members, action, giflist):
     return embed
 
 
-async def unverified(guild):
+async def unverified_role_handler(guild):
     verified_roles = [  # Level 1 at the top
         715990806061645915,
         715992589891010682,
@@ -81,7 +81,7 @@ async def unverified(guild):
                 await member.add_roles(unverified_role)
 
 
-async def botchecker(member: discord.Member):
+async def is_userbot(member: discord.Member):
     member = member.guild.get_member(member.id)  # Get updated member object for up-to-date roles
     botroles_list = [891021633505071174, 731233454716354710]  # Red, Bear
     botroles_list2 = [891021633505071174, 731233454716354710, 731245341495787541,
@@ -119,7 +119,7 @@ async def botchecker(member: discord.Member):
     #        break
 
 
-async def mentionconverter(self, ctx, members):
+async def mention_converter(self, ctx, members):
     memberlist = []
     guild = self.bot.get_guild(ctx.guild.id)
     members = discord.utils.raw_mentions(members)
@@ -156,10 +156,8 @@ async def apireq(url):
             return await response.json()
 
 
-class AutoVerify:
-    def __init__(self, bot):
-        self.bot = bot
-        self.roles = [  # Level 1 at the top
+class InactivesTracker:
+    roles = [  # Level 1 at the top
             715990806061645915,
             715992589891010682,
             715993060244455545,
@@ -173,7 +171,8 @@ class AutoVerify:
             716590668905971752  # Partners
         ]
 
-    async def add_member(self, item):
+    @staticmethod
+    async def add_member(item):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
@@ -183,7 +182,8 @@ class AutoVerify:
         with open('users.json', 'w') as file:
             json.dump(data, file, indent=4)
 
-    async def get_members(self):
+    @staticmethod
+    async def get_members(bot):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
@@ -192,7 +192,7 @@ class AutoVerify:
         output = ""
         added = False
         members_to_remove = []
-        guild = await discord.utils.get_or_fetch(self.bot, 'guild', 715969701771083817)
+        guild = await discord.utils.get_or_fetch(bot, 'guild', 715969701771083817)
         for memberid, timestamp in data["users"]:
             try:
                 member = await discord.utils.get_or_fetch(guild, 'member', memberid)
@@ -201,7 +201,7 @@ class AutoVerify:
                 continue
             if (time.time() - timestamp) < 259200:  # check if 3 days have passed, if not, continue with next member
                 continue
-            if not any(role.id in self.roles for role in member.roles):
+            if not any(role.id in InactivesTracker.roles for role in member.roles):
                 if (time.time() - timestamp) < 1209600:
                     if added is False:
                         output += f"**|** <@{member.id}> "

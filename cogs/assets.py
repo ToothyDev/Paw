@@ -2,13 +2,12 @@ import random
 
 import discord
 from discord import slash_command
-from discord.ext import commands
 
 import data
 from utils import Colors
 
 
-class Assets(commands.Cog, name="assets"):
+class Assets(discord.Cog, name="assets"):
     def __init__(self, bot):
         self.bot = bot
 

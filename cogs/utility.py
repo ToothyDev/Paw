@@ -14,7 +14,7 @@ from utils import Colors
 from views import ConfirmView
 
 
-class Utility(commands.Cog, name="utility"):
+class Utility(discord.Cog, name="utility"):
     def __init__(self, bot):
         self.bot = bot
 
@@ -103,18 +103,6 @@ class Utility(commands.Cog, name="utility"):
         if output == "":
             output = "No one found!"
         await message.edit_original_response(content=output)
-
-    @slash_command()
-    @discord.default_permissions(ban_members=True)
-    async def pending(self, ctx: discord.ApplicationContext):
-        """ Get all non-verified accounts (unsure what that means) """
-        output = ""
-        for member in ctx.guild.members:
-            if member.pending:
-                output += " " + member.mention
-        if not output:
-            output = "No members found!"
-        await ctx.respond(output)
 
     @slash_command()
     @option("channel", discord.TextChannel, description="The channel to announce in")
