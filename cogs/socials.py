@@ -285,7 +285,7 @@ class Socials(discord.Cog, name="social"):
                     continue
                 if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
                     continue
-                input_history += f"\nUser (Name: {message.author.display_name}): {usermessage[12:]}"
+                input_history += f"\nUser (Name: {message.interaction.user.display_name}): {usermessage[12:]}"
                 input_history += f"\nPaw: {botmsg[9:]}"
             else:
                 input_history += f"\nUser (Name: {message.author.display_name}): {message.content}"
