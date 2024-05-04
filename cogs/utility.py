@@ -45,7 +45,9 @@ class Utility(discord.Cog, name="utility"):
             Always add a description of their physical features, traits or behaviours, never simply describe their "stats".
             Finally, make up a name that may incorporate any of the sona's attributes, but does not have to.
             Always say colors by name and not in hexadecimal form.
-            Return your output seperated by ; in the following order: Name;Description""")
+            Return your output seperated by ; in the following order: Name;Description
+            Do not add any extras to the name, simply state the name
+            Do not say anything towards the user, simply act like a sona text generator""")
         name = response.split(";")[0]
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
         **Name**: {name}
