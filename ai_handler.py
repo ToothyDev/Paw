@@ -1,10 +1,11 @@
-import discord
-import google.generativeai as genai
+# import discord
+# import google.generativeai as genai
 from groq import Groq
 
 import config
 
 
+# Old google snippets, might become useful later
 # async def generate(prompt: str):
 #    genai.configure(api_key=config.api_key)
 #    model = genai.GenerativeModel("gemini-pro")
@@ -26,8 +27,15 @@ import config
 #            await ctx.respond(text)
 #            edited = True
 
-async def generate(history: list[dict]) -> str:
+async def generate_from_history(history: list[dict]) -> str:
     client = Groq(api_key=config.groq_api_key)
     chat_completion = client.chat.completions.create(messages=history,
+                                                     model="llama3-70b-8192")
+    return chat_completion.choices[0].message.content
+
+
+async def generate_single(prompt: str) -> str:
+    client = Groq(api_key=config.groq_api_key)
+    chat_completion = client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
                                                      model="llama3-70b-8192")
     return chat_completion.choices[0].message.content

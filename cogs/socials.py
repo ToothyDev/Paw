@@ -292,7 +292,7 @@ class Socials(discord.Cog, name="social"):
             else:
                 input_history.append({"role": "user", "name": message.author.display_name, "content": message.content})
         input_history.append({"role": "user", "name": ctx.author.display_name, "content": text})
-        response = await ai_handler.generate(input_history)
+        response = await ai_handler.generate_from_history(input_history)
         print(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 

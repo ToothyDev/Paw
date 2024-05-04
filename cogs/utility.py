@@ -32,7 +32,7 @@ class Utility(discord.Cog, name="utility"):
             heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
         else:
             heightstring = f"**Height**: {random.randint(130, 240)}cm"
-        response = await ai_handler.generate(
+        response = await ai_handler.generate_single(
             f"""Generate a small, 2-3 sentence fursona description based on the following values:
             Species: {species}.
             Sona type: {sonatype}.
