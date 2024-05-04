@@ -20,14 +20,16 @@ class Utility(discord.Cog, name="utility"):
 
     @slash_command()
     @commands.cooldown(1, 3, commands.BucketType.user)
-    async def sonagen(self, ctx):
+    @option("species", str, choices=data.species, required=False, default=random.choice(list(data.species)))
+    @option("sex", str, choices=["Male", "Female", "Intersex"], required=False,
+            default=random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Intersex"]))
+    @option("type", str, parameter_name="sonatype", choices=["Feral", "Anthro"], required=False,
+            default=random.choice(["Feral", "Anthro"]))
+    async def sonagen(self, ctx, species, sex, sonatype):
         """ Generate a random sona """
         await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(data.colors)
-        species = random.choice(list(data.species))
-        sonatype = random.choice(["Feral", "Anthro"])
-        sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Intersex"])
         if sonatype == "Feral":
             heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
         else:
