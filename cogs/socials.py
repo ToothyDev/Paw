@@ -271,7 +271,7 @@ class Socials(discord.Cog, name="social"):
         await ctx.defer()
         messages = await ctx.channel.history(limit=50).flatten()
         messages.reverse()
-        input_history = f"System: {get_gaslight(ctx.author.display_name)}"
+        input_history = [{"role": "system", "content": get_gaslight(ctx.author.display_name)}]
         for message in messages:
             if message.content is None:
                 continue
@@ -285,13 +285,15 @@ class Socials(discord.Cog, name="social"):
                     continue
                 if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
                     continue
-                input_history += f"\nUser (Name: {message.interaction.user.display_name}): {usermessage[12:]}"
-                input_history += f"\nPaw: {botmsg[9:]}"
+                input_history.append(
+                    {"role": "user", "name": ctx.guild.get_member(message.interaction.user.id).display_name,
+                     "content": usermessage[12:]})
+                input_history.append({"role": "assistant", "content": botmsg[9:]})
             else:
-                input_history += f"\nUser (Name: {message.author.display_name}): {message.content}"
-        input_history += f"\nUser (Name: {ctx.author.display_name}): {text}"
-        response = await ai_handler.generate(
-            f"Here is the chat history:\n{input_history}\nAnd here is the user prompt: {text}")
+                input_history.append({"role": "user", "name": message.author.display_name, "content": message.content})
+        input_history.append({"role": "user", "name": ctx.author.display_name, "content": text})
+        response = await ai_handler.generate(input_history)
+        print(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
 

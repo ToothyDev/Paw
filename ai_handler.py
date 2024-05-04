@@ -26,8 +26,8 @@ import config
 #            await ctx.respond(text)
 #            edited = True
 
-async def generate(prompt: str) -> str:
+async def generate(history: list[dict]) -> str:
     client = Groq(api_key=config.groq_api_key)
-    chat_completion = client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
+    chat_completion = client.chat.completions.create(messages=history,
                                                      model="llama3-70b-8192")
     return chat_completion.choices[0].message.content
