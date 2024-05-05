@@ -8,6 +8,7 @@ import psutil
 from discord import option, slash_command
 from discord.ext import commands
 
+import ai_handler
 import data
 from utils import Colors
 from views import ConfirmView
@@ -19,26 +20,47 @@ class Utility(discord.Cog, name="utility"):
 
     @slash_command()
     @commands.cooldown(1, 3, commands.BucketType.user)
-    async def sonagen(self, ctx):
+    @option("species", str, choices=data.species, required=False, default=random.choice(list(data.species)))
+    @option("sex", str, choices=["Male", "Female", "Intersex"], required=False,
+            default=random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Intersex"]))
+    @option("type", str, parameter_name="sonatype", choices=["Feral", "Anthro"], required=False,
+            default=random.choice(["Feral", "Anthro"]))
+    async def sonagen(self, ctx, species, sex, sonatype):
         """ Generate a random sona """
+        await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(data.colors)
-        species = random.choice(list(data.species))
-        sonatype = random.choice(["Feral", "Anthro"])
-        sex = random.choice(["Male", "Male", "Male", "Male", "Female", "Female", "Female", "Female", "Intersex"])
         if sonatype == "Feral":
             heightstring = f"**Height to shoulders**: {random.randint(data.species[species][0], data.species[species][1])}cm"
         else:
             heightstring = f"**Height**: {random.randint(130, 240)}cm"
-
+        response = await ai_handler.generate_single(
+            f"""Generate a small, 2-3 sentence fursona description based on the following values:
+            Species: {species}.
+            Sona type: {sonatype}.
+            Gender: {sex}.
+            Color: {primary_color}.
+            Secondary Color: {color}.
+            Standing Height in cm (shoulder height for feral sonas): {heightstring}.
+            Consider a height of 175cm average / normal for anthro sonas.
+            The user already knows all of these values, so just make an accompanying description to make it come alive!
+            Always add a description of their physical features, traits or behaviours, never simply describe their "stats".
+            Finally, make up a name that may incorporate any of the sona's attributes, but does not have to.
+            Always say colors by name and not in hexadecimal form.
+            Return your output seperated by ; in the following order: Name;Description
+            Do not add any extras to the name, simply state the name
+            Do not say anything towards the user, simply act like a sona text generator""")
+        name = response.split(";")[0]
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
-**Species**: {sonatype} {species}
-**Primary Color**: {str(primary_color)} (embed color)
-**Secondary Color**: {color}
-{heightstring}
-**Sex**: {sex}
-""")
-        return await ctx.respond("Sure, here's your freshly generated sona!", embed=embed)
+        **Name**: {name}
+        **Species**: {sonatype} {species}
+        **Primary Color**: {str(primary_color)} (embed color)
+        **Secondary Color**: {color}
+        {heightstring}
+        **Sex**: {sex}
+        **Description**: {response.split(";")[1]}
+        """)
+        await ctx.respond(content=f"Sure, here's your freshly generated sona!", embed=embed)
 
     @slash_command()
     @discord.default_permissions(manage_guild=True)
