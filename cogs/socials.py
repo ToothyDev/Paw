@@ -280,7 +280,8 @@ class Socials(discord.Cog, name="social"):
                     usermessage = message.content.split("\n")[0]  # Get the first line of the message and remove the "Prompt" part
                     botmsg = message.content.split("\n")[1]  # Same thing but remove the "Paw" part
                 except IndexError:
-                    continue  # I guess it wasn't a gpt request like I thought
+                    input_history.append({"role": "assistant", "content": message.content})
+                    continue
                 if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
                     continue
                 if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
