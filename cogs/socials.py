@@ -275,24 +275,26 @@ class Socials(discord.Cog, name="social"):
         for message in messages:
             if message.content is None:
                 continue
-            if message.author == self.bot.user:
-                try:
-                    usermessage = message.content.split("\n")[0]  # Get the first line of the message and remove the "Prompt" part
-                    botmsg = message.content.split("\n")[1]  # Same thing but remove the "Paw" part
-                except IndexError:
-                    input_history.append({"role": "assistant", "content": message.content})
-                    continue
-                if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
-                    continue
-                if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
-                    continue
-                input_history.append(
-                    {"role": "user", "name": ctx.guild.get_member(message.interaction.user.id).display_name,
-                     "content": usermessage[12:]})
-                input_history.append({"role": "assistant", "content": botmsg[9:]})
-            else:
+            if not message.author == self.bot.user:
                 input_history.append({"role": "user", "name": message.author.display_name, "content": message.content})
+                continue
+            try:
+                usermessage = message.content.split("\n")[
+                    0]  # Get the first line of the message and remove the "Prompt" part
+                botmsg = message.content.split("\n")[1]  # Same thing but remove the "Paw" part
+            except IndexError:
+                input_history.append({"role": "assistant", "content": message.content})
+                continue
+            if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
+                continue
+            if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
+                continue
+            input_history.append(
+                {"role": "user", "name": ctx.guild.get_member(message.interaction.user.id).display_name,
+                 "content": usermessage[12:]})
+            input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append({"role": "user", "name": ctx.author.display_name, "content": text})
+        print(input_history)
         response = await ai_handler.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
