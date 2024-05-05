@@ -273,10 +273,14 @@ class Socials(discord.Cog, name="social"):
         messages.reverse()
         input_history = [{"role": "system", "content": get_gaslight(ctx.author.display_name)}]
         for message in messages:
-            if message.content is None or message.content == "":
-                continue
             if not message.author == self.bot.user:
-                input_history.append({"role": "user", "name": message.author.display_name, "content": message.content})
+                if message.content is None or message.content == "":
+                    input_history.append(
+                        {"role": "user", "name": message.author.display_name,
+                         "content": "<image or other type of message>"})
+                else:
+                    input_history.append(
+                        {"role": "user", "name": message.author.display_name, "content": message.content})
                 continue
             try:
                 usermessage = message.content.split("\n")[
@@ -294,6 +298,7 @@ class Socials(discord.Cog, name="social"):
                  "content": usermessage[12:]})
             input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append({"role": "user", "name": ctx.author.display_name, "content": text})
+        print(input_history)
         response = await ai_handler.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
