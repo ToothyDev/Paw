@@ -273,7 +273,7 @@ class Socials(discord.Cog, name="social"):
         messages.reverse()
         input_history = [{"role": "system", "content": get_gaslight(ctx.author.display_name)}]
         for message in messages:
-            if message.content is None:
+            if message.content is None or message.content == "":
                 continue
             if not message.author == self.bot.user:
                 input_history.append({"role": "user", "name": message.author.display_name, "content": message.content})
