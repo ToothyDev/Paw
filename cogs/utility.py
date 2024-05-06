@@ -52,13 +52,13 @@ class Utility(discord.Cog, name="utility"):
             Do not say anything towards the user, simply act like a sona text generator""")
         name = response.split(";")[0]
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
-        **Name**: {name}
-        **Species**: {sonatype} {species}
-        **Primary Color**: {str(primary_color)} (embed color)
-        **Secondary Color**: {color}
-        {heightstring}
-        **Sex**: {sex}
-        **Description**: {response.split(";")[1]}
+**Name**: {name}
+**Species**: {sonatype} {species}
+**Primary Color**: {str(primary_color)} (embed color)
+**Secondary Color**: {color}
+{heightstring}
+**Sex**: {sex}
+**Description**: {response.split(";")[1]}
         """)
         await ctx.respond(content=f"Sure, here's your freshly generated sona!", embed=embed)
 
