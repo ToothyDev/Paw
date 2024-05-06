@@ -2,6 +2,7 @@ import random
 import time
 
 import discord
+import groq
 from discord import slash_command, option
 from discord.ext import commands
 
@@ -302,6 +303,8 @@ class Socials(discord.Cog, name="social"):
             {"role": "user", "name": ctx.author.display_name, "content": f"{ctx.author.display_name} said: {text}"})
         try:
             response = await ai_handler.generate_from_history(input_history)
+        except groq.RateLimitError as e:
+            return await ctx.respond(f"You are using this command too much! {e.message.split(".")[1]}")
         except Exception as e:
             return await ctx.respond(f"Something went wrong! Error: {e}")
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
