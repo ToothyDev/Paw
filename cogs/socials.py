@@ -277,10 +277,11 @@ class Socials(discord.Cog, name="social"):
                 if message.content is None or message.content == "":
                     input_history.append(
                         {"role": "user", "name": message.author.display_name,
-                         "content": "<image or other type of message>"})
+                         "content": f"{message.author.display_name} said: <image or other type of message>"})
                 else:
                     input_history.append(
-                        {"role": "user", "name": message.author.display_name, "content": message.content})
+                        {"role": "user", "name": message.author.display_name,
+                         "content": f"{message.author.display_name} said: {message.content}"})
                 continue
             try:
                 usermessage = message.content.split("\n")[
@@ -295,9 +296,10 @@ class Socials(discord.Cog, name="social"):
                 continue
             input_history.append(
                 {"role": "user", "name": ctx.guild.get_member(message.interaction.user.id).display_name,
-                 "content": usermessage[12:]})
+                 "content": f"{ctx.guild.get_member(message.interaction.user.id).display_name} said: {usermessage[12:]}"})
             input_history.append({"role": "assistant", "content": botmsg[9:]})
-        input_history.append({"role": "user", "name": ctx.author.display_name, "content": text})
+        input_history.append(
+            {"role": "user", "name": ctx.author.display_name, "content": f"{ctx.author.display_name} said: {text}"})
         try:
             response = await ai_handler.generate_from_history(input_history)
         except Exception as e:
