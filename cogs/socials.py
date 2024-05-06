@@ -271,7 +271,7 @@ class Socials(discord.Cog, name="social"):
         await ctx.defer()
         messages = await ctx.channel.history(limit=50).flatten()
         messages.reverse()
-        input_history = [{"role": "system", "content": get_gaslight(ctx.author.display_name)}]
+        input_history = [{"role": "system", "content": get_gaslight()}]
         for message in messages:
             if not message.author == self.bot.user:
                 if message.content is None or message.content == "":
@@ -298,7 +298,10 @@ class Socials(discord.Cog, name="social"):
                  "content": usermessage[12:]})
             input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append({"role": "user", "name": ctx.author.display_name, "content": text})
-        response = await ai_handler.generate_from_history(input_history)
+        try:
+            response = await ai_handler.generate_from_history(input_history)
+        except Exception as e:
+            return await ctx.respond(f"Something went wrong! Error: {e}")
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
 
