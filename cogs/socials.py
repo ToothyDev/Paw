@@ -306,7 +306,7 @@ class Socials(discord.Cog, name="social"):
             return await ctx.respond(f"You are using this command too much! {e.message.split('.')[1]}s")
         except Exception as e:
             return await ctx.respond(f"Something went wrong! Error: {e}")
-        await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
+        await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response[:1000]}")
 
 
 def setup(bot):
