@@ -285,9 +285,8 @@ class Socials(discord.Cog, name="social"):
                          "content": f"{message.author.display_name} said: {message.content}"})
                 continue
             try:
-                usermessage = message.content.split("\n")[
-                    0]  # Get the first line of the message and remove the "Prompt" part
-                botmsg = message.content.split("\n")[1]  # Same thing but remove the "Paw" part
+                usermessage = message.content.split("\n")[0]  # Get the first line of the message. the user prompt
+                botmsg = message.content.split("\n")[1]  # Second line, Paw's response
             except IndexError:
                 input_history.append({"role": "assistant", "content": message.content})
                 continue
