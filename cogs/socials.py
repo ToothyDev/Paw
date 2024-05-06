@@ -303,7 +303,7 @@ class Socials(discord.Cog, name="social"):
         try:
             response = await ai_handler.generate_from_history(input_history)
         except groq.RateLimitError as e:
-            return await ctx.respond(f"You are using this command too much! {e.message.split('.')[1]}")
+            return await ctx.respond(f"You are using this command too much! {e.message.split('.')[1]}s")
         except Exception as e:
             return await ctx.respond(f"Something went wrong! Error: {e}")
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
