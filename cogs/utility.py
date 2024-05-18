@@ -59,7 +59,7 @@ class Utility(discord.Cog, name="utility"):
         sex = response.gender
         height = response.height
 
-        heightstring = f"**Height{" to shoulders" if sonatype == "Feral" else ""}**: {height}cm"
+        heightstring = f"**Height{' to shoulders' if sonatype == 'Feral' else ''}**: {height}cm"
 
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
 **Name**: {name}
