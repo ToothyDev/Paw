@@ -5,6 +5,16 @@ import time
 
 import aiohttp
 import discord
+import pydantic
+
+
+class Fursona(pydantic.BaseModel):
+    name: str
+    species: str
+    gender: str
+    height: int
+    type: str
+    description: str
 
 
 class Colors:
