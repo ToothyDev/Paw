@@ -20,6 +20,14 @@ class Members(discord.Cog, name="Members"):
                 return
             if await utils.is_userbot(member):  # If member is a bot (95% accurate)
                 return
+            await utils.InactivesTracker.add_member((member.id, time.time()))
+
+    @discord.Cog.listener()
+    async def on_member_update(self, member_old: discord.Member, member: discord.Member):
+        if not member.guild.id == 715969701771083817:
+            return
+        await utils.unverified_role_handler(member.guild)
+        if member_old.pending and not member.pending:  # Member is able to write now
             channel = member.guild.get_channel(1066357407443333190)
             embed = discord.Embed(color=utils.Colors.purple)
             embed.set_thumbnail(url=member.display_avatar)
@@ -28,12 +36,6 @@ Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for 
 __**IMPORTANT**__: To gain access to the rest of the server, you need to first gain a level by chatting in this channel.
 Thank you for reading and have fun!"""
             await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
-            await utils.InactivesTracker.add_member((member.id, time.time()))
-
-    @discord.Cog.listener()
-    async def on_member_update(self, member, member_new: discord.Member):
-        if member_new.guild.id == 715969701771083817:
-            await utils.unverified_role_handler(member_new.guild)
 
     inactives = discord.SlashCommandGroup(name="inactives",
                                           default_member_permissions=discord.Permissions(manage_guild=True,
