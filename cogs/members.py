@@ -10,6 +10,17 @@ class Members(discord.Cog, name="Members"):
     def __init__(self, bot):
         self.bot = bot
 
+    @staticmethod
+    async def send_welcome_message(member: discord.Member):
+        channel = member.guild.get_channel(1066357407443333190)
+        embed = discord.Embed(color=utils.Colors.purple)
+        embed.set_thumbnail(url=member.display_avatar)
+        embed.description = f"""
+Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for roles & channels and <id:guide> for some useful info!
+__**IMPORTANT**__: To gain access to the rest of the server, you need to first gain a level by chatting in this channel.
+Thank you for reading and have fun!"""
+        await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
+
     @discord.Cog.listener()
     async def on_member_join(self, member):
         if not member.guild.id == 715969701771083817:
@@ -27,16 +38,16 @@ class Members(discord.Cog, name="Members"):
     async def on_member_update(self, member_old: discord.Member, member: discord.Member):
         if not member.guild.id == 715969701771083817:
             return
+        
         await utils.unverified_role_handler(member.guild)
-        if member_old.pending and not member.pending:  # Member is able to write now
-            channel = member.guild.get_channel(1066357407443333190)
-            embed = discord.Embed(color=utils.Colors.purple)
-            embed.set_thumbnail(url=member.display_avatar)
-            embed.description = f"""
-Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for roles & channels and <id:guide> for some useful info!
-__**IMPORTANT**__: To gain access to the rest of the server, you need to first gain a level by chatting in this channel.
-Thank you for reading and have fun!"""
-            await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
+
+        if len(member_old.roles) < 4 <= len(member.roles):
+            if member.pending:
+                return
+            await self.send_welcome_message(member)
+        elif len(member.roles) >= 4:
+            if member_old.pending and not member.pending:
+                await self.send_welcome_message(member)
 
     inactives = discord.SlashCommandGroup(name="inactives",
                                           default_member_permissions=discord.Permissions(manage_guild=True,
