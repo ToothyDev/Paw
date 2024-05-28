@@ -12,15 +12,16 @@ class Members(discord.Cog, name="Members"):
 
     @discord.Cog.listener()
     async def on_member_join(self, member):
-        if member.guild.id == 715969701771083817:
-            if member.bot:  # If member is an ACTUAL bot
-                return
-            await asyncio.sleep(20)  # Timer to let bots assign roles
-            if member not in member.guild.members:
-                return
-            if await utils.is_userbot(member):  # If member is a bot (95% accurate)
-                return
-            await utils.InactivesTracker.add_member((member.id, time.time()))
+        if not member.guild.id == 715969701771083817:
+            return
+        if member.bot:  # If member is an ACTUAL bot
+            return
+        await asyncio.sleep(20)  # Timer to let bots assign roles
+        if member not in member.guild.members:
+            return
+        if await utils.is_userbot(member):  # If member is a bot (95% accurate)
+            return
+        await utils.InactivesTracker.add_member((member.id, time.time()))
 
     @discord.Cog.listener()
     async def on_member_update(self, member_old: discord.Member, member: discord.Member):
