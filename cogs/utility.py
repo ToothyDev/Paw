@@ -5,6 +5,7 @@ import zipfile
 
 import aiohttp
 import discord
+import groq
 import psutil
 from discord import option, slash_command
 from discord.ext import commands
@@ -31,27 +32,30 @@ class Utility(discord.Cog, name="utility"):
         await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(data.colors)
-
-        response = await ai_handler.generate_sona(
-            f"""Your job is to generate a fursona as a fursona generator. Use the following json schema: {json.dumps(utils.Fursona.model_json_schema(), indent=2)}
-            The user already picked the following values:
-            {species if species else ""} {sex if sex else ""} {sonatype if sonatype else ""}
-            Do NOT change the values the user picked, instead, use them as is and generate the sona using them
-            You should however "clean" the species name, e.g. correct typos and remove unnecessary bits. Start with a capital letter.
-            Also, do NOT let the species name influence your following choices. Pick that on your own.
-            Make up a name that may incorporate any of the sona's attributes, but does not have to.
-            The species is any animal that makes sense as a fursona.
-            The sona type is either Feral or Anthro.
-            Gender may be Male, Feral or Intersex, but pick Intersex only rarely.
-            Color: {primary_color}.
-            Secondary Color: {color}.
-            Standing Height in cm (shoulder height for feral sonas).
-            Consider a height of 175cm average / normal for anthro sonas.
-            For feral sonas, pick a shoulder height that is reasonable for the animal you chose.
-            Generate a small, 2-3 sentence fursona description based on the following values:
-            Always add a description of their physical features, traits or behaviours, never simply describe their "stats".
-            Always say colors by name and not in hexadecimal form.
-            Do not say anything towards the user, simply act like a sona text generator""")
+        
+        try:
+            response = await ai_handler.generate_sona(
+                f"""Your job is to generate a fursona as a fursona generator. Use the following json schema: {json.dumps(utils.Fursona.model_json_schema(), indent=2)}
+                The user already picked the following values:
+                {species if species else ""} {sex if sex else ""} {sonatype if sonatype else ""}
+                Do NOT change the values the user picked, instead, use them as is and generate the sona using them
+                You should however "clean" the species name, e.g. correct typos and remove unnecessary bits. Start with a capital letter.
+                Also, do NOT let the species name influence your following choices. Pick that on your own.
+                Make up a name that may incorporate any of the sona's attributes, but does not have to.
+                The species is any animal that makes sense as a fursona.
+                The sona type is either Feral or Anthro.
+                Gender may be Male, Feral or Intersex, but pick Intersex only rarely.
+                Color: {primary_color}.
+                Secondary Color: {color}.
+                Standing Height in cm (shoulder height for feral sonas).
+                Consider a height of 175cm average / normal for anthro sonas.
+                For feral sonas, pick a shoulder height that is reasonable for the animal you chose.
+                Generate a small, 2-3 sentence fursona description based on the following values:
+                Always add a description of their physical features, traits or behaviours, never simply describe their "stats".
+                Always say colors by name and not in hexadecimal form.
+                Do not say anything towards the user, simply act like a sona text generator""")
+        except groq.RateLimitError as e:
+            return await ctx.respond(f"You are using this command too much! {e.message.split('.')[1]}s")
 
         name = response.name
         sonatype = response.type
