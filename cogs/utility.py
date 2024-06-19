@@ -8,7 +8,6 @@ import discord
 import groq
 import psutil
 from discord import option, slash_command
-from discord.ext import commands
 
 import ai_handler
 import data
@@ -22,7 +21,7 @@ class Utility(discord.Cog, name="utility"):
         self.bot = bot
 
     @slash_command()
-    @commands.cooldown(1, 3, commands.BucketType.user)
+    # @commands.cooldown(1, 3, commands.BucketType.user)
     @option("species", str, description="The species of the fursona", required=False)
     @option("sex", str, description="The sex of the fursona", choices=["Male", "Female", "Intersex"], required=False)
     @option("type", str, description="The type of the fursona", parameter_name="sonatype", choices=["Feral", "Anthro"],
@@ -56,6 +55,8 @@ class Utility(discord.Cog, name="utility"):
                 Do not say anything towards the user, simply act like a sona text generator""")
         except groq.RateLimitError as e:
             return await ctx.respond(f"You are using this command too much! {e.message.split('.')[1]}s")
+        except Exception as e:
+            return await ctx.respond(f"Something went wrong! Error: {e}")
 
         name = response.name
         sonatype = response.type
