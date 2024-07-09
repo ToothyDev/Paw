@@ -1,8 +1,7 @@
 name: Deploy to VPS
 
 on:
-  push:
-    types: [published]
+  push
 
 jobs:
   deploy:
