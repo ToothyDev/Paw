@@ -43,7 +43,7 @@ Thank you for reading and have fun!"""
 
         await utils.unverified_role_handler(member.guild)
 
-        if len(member_old.roles) <= 2 < len(member.roles):
+        if len(member_old.roles) <= 3 < len(member.roles):
             if member.pending:
                 return
             await self.send_welcome_message(member)
