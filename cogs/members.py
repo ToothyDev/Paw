@@ -47,7 +47,7 @@ Thank you for reading and have fun!"""
             if member.pending:
                 return
             await self.send_welcome_message(member)
-        elif len(member.roles) >= 3:
+        elif len(member.roles) > 3:
             if member_old.pending and not member.pending:
                 await self.send_welcome_message(member)
 
