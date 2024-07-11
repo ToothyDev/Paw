@@ -43,13 +43,8 @@ Thank you for reading and have fun!"""
 
         await utils.unverified_role_handler(member.guild)
 
-        if len(member_old.roles) < 2 <= len(member.roles):
-            if member.pending:
-                return
+        if len(member_old.roles) <= 2 < len(member.roles):
             await self.send_welcome_message(member)
-        elif len(member.roles) >= 4:
-            if member_old.pending and not member.pending:
-                await self.send_welcome_message(member)
 
     inactives = discord.SlashCommandGroup(name="inactives",
                                           default_member_permissions=discord.Permissions(manage_guild=True,
