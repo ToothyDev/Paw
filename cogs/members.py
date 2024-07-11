@@ -27,28 +27,29 @@ Thank you for reading and have fun!"""
             return
         if member.bot:  # If member is an ACTUAL bot
             return
+
         await utils.InactivesTracker.add_member((member.id, time.time()))
-        await asyncio.sleep(20)  # Timer to let bots assign roles
-        if member not in member.guild.members:
-            return
-        if await utils.is_userbot(member):  # If member is a bot (95% accurate)
-            return
 
     @discord.Cog.listener()
     async def on_member_update(self, member_old: discord.Member, member: discord.Member):
         if not member.guild.id == 715969701771083817:
             return
-        
+
+        if member.bot:  # If member is an ACTUAL bot
+            return
+
+        if await utils.userbot_kicker(member):  # If member is a bot (95% accurate)
+            return
+
         await utils.unverified_role_handler(member.guild)
 
-        if len(member_old.roles) < 4 <= len(member.roles):
+        if len(member_old.roles) < 2 <= len(member.roles):
             if member.pending:
                 return
             await self.send_welcome_message(member)
         elif len(member.roles) >= 4:
             if member_old.pending and not member.pending:
-                if not await utils.is_userbot(member):
-                    await self.send_welcome_message(member)
+                await self.send_welcome_message(member)
 
     inactives = discord.SlashCommandGroup(name="inactives",
                                           default_member_permissions=discord.Permissions(manage_guild=True,

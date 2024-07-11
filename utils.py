@@ -95,7 +95,7 @@ async def unverified_role_handler(guild):
                 await member.add_roles(unverified_role)
 
 
-async def is_userbot(member: discord.Member):
+async def userbot_kicker(member: discord.Member):
     member = member.guild.get_member(member.id)  # Get updated member object for up-to-date roles
     botroles_list = [891021633505071174, 731233454716354710]  # Red, Bear
     botroles_list2 = [891021633505071174, 731233454716354710, 731245341495787541,
@@ -123,14 +123,8 @@ async def is_userbot(member: discord.Member):
         embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
         logchannel = member.guild.get_channel(760181839033139260)
         await logchannel.send(embed=embed)
-        return True
-    return False
-    # Commented out as Paw handles welcome messages. Will be removed once proven working
-    # welcome_channel = member.guild.get_channel(1066357407443333190)
-    # async for message in welcome_channel.history(limit=15):
-    #    if member in message.mentions:
-    #        await message.delete(reason="Deleting bot join message")
-    #        break
+        return True  # Member / Bot has been kicked
+    return False  # Member has not been kicked
 
 
 async def mention_converter(self, ctx, members):
