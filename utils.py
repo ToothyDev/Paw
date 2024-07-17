@@ -180,54 +180,7 @@ class InactivesTracker:
         ]
 
     @staticmethod
-    async def add_member(item):
-        if os.path.exists('users.json'):
-            with open('users.json', 'r') as file:
-                data = json.load(file)
-        else:
-            data = {"users": []}
-        data['users'].append(item)
-        with open('users.json', 'w') as file:
-            json.dump(data, file, indent=4)
-
-    @staticmethod
-    async def get_members(bot: discord.Bot):
-        if os.path.exists('users.json'):
-            with open('users.json', 'r') as file:
-                data = json.load(file)
-        else:
-            data = {"users": []}
-        output = ""
-        added = False
-        members_to_remove = []
-        guild = await discord.utils.get_or_fetch(bot, 'guild', 715969701771083817)
-        for memberid, timestamp in data["users"]:
-            try:
-                member = await discord.utils.get_or_fetch(guild, 'member', memberid)
-            except discord.HTTPException:
-                members_to_remove.append([memberid, timestamp])
-                continue
-            if (time.time() - timestamp) < 259200:  # check if 3 days have passed, if not, continue with next member
-                continue
-            if not any(role.id in InactivesTracker.roles for role in member.roles):
-                if (time.time() - timestamp) < 1209600:
-                    if added is False:
-                        output += f"**|** <@{member.id}> "
-                        added = True
-                    else:
-                        output += f"<@{member.id}> "
-                else:
-                    output += f"<@{member.id}> "
-            else:
-                members_to_remove.append([memberid, timestamp])
-        for member in members_to_remove:
-            data["users"].remove(member)
-        with open('users.json', 'w') as file:
-            json.dump(data, file, indent=4)
-        return output or "No members found!"
-
-    @staticmethod
-    async def get_members_better(guild: discord.Guild):
+    async def get_members(guild: discord.Guild):
         kickworthy = []
         unverified = []
 

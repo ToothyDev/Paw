@@ -22,15 +22,6 @@ Thank you for reading and have fun!"""
         await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
 
     @discord.Cog.listener()
-    async def on_member_join(self, member: discord.Member):
-        if not member.guild.id == 715969701771083817:
-            return
-        if member.bot:  # If member is an ACTUAL bot
-            return
-
-        await utils.InactivesTracker.add_member((member.id, time.time()))
-
-    @discord.Cog.listener()
     async def on_member_update(self, member_old: discord.Member, member: discord.Member):
         if not member.guild.id == 715969701771083817:
             return
@@ -59,7 +50,7 @@ Thank you for reading and have fun!"""
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
         await ctx.defer()
-        members = await utils.InactivesTracker.get_members_better(ctx.guild)
+        members = await utils.InactivesTracker.get_members(ctx.guild)
         await ctx.respond(members)
 
     @inactives.command()
