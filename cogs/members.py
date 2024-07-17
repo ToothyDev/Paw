@@ -56,10 +56,10 @@ Thank you for reading and have fun!"""
                                                                                          kick_members=True))
 
     @inactives.command()
-    async def get(self, ctx):
+    async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
         await ctx.defer()
-        members = await utils.InactivesTracker.get_members(self.bot)
+        members = await utils.InactivesTracker.get_members_better(ctx.guild)
         await ctx.respond(members)
 
     @inactives.command()

@@ -191,7 +191,7 @@ class InactivesTracker:
             json.dump(data, file, indent=4)
 
     @staticmethod
-    async def get_members(bot):
+    async def get_members(bot: discord.Bot):
         if os.path.exists('users.json'):
             with open('users.json', 'r') as file:
                 data = json.load(file)
@@ -225,3 +225,18 @@ class InactivesTracker:
         with open('users.json', 'w') as file:
             json.dump(data, file, indent=4)
         return output or "No members found!"
+
+    @staticmethod
+    async def get_members_better(guild: discord.Guild):
+        kickworthy = []
+        unverified = []
+
+        for member in guild.members:
+            if any(role.id in InactivesTracker.roles for role in member.roles) or member.bot:
+                continue
+            if member.joined_at.timestamp() + 1209600 < time.time():  # If 14 days passed since join
+                kickworthy.append(member.mention)
+            elif member.joined_at.timestamp() + 259200 < time.time():  # If 3 days have passed since join
+                unverified.append(member.mention)
+
+        return f"Kick: {' '.join(kickworthy)}\nUnverified: {' '.join(unverified)}"
