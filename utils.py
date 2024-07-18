@@ -64,7 +64,7 @@ async def interactions(ctx, members, action, giflist):
     return embed
 
 
-async def unverified_role_handler(member: discord.Member):
+async def unverified_role_handler(member_old: discord.Member, member: discord.Member):
     verified_roles = [  # Level 1 at the top
         715990806061645915,
         715992589891010682,
@@ -83,6 +83,9 @@ async def unverified_role_handler(member: discord.Member):
 
     if any(role.id in verified_roles for role in member.roles):
         if any(role.id == unverified_role.id for role in member.roles):
+            await member.remove_roles(unverified_role)
+    elif any(role.id in verified_roles for role in member_old.roles):
+        if any(role.id == unverified_role.id for role in member_old.roles):
             await member.remove_roles(unverified_role)
     else:
         if not any(role.id == unverified_role.id for role in member.roles):

@@ -29,7 +29,7 @@ Thank you for reading and have fun!"""
         if await utils.userbot_kicker(member):  # If member is a bot (95% accurate)
             return
 
-        await utils.unverified_role_handler(member)
+        await utils.unverified_role_handler(member_old, member)
 
         if len(member_old.roles) <= 3 < len(member.roles):
             if member.pending:
