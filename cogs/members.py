@@ -1,6 +1,3 @@
-import asyncio
-import time
-
 import discord
 
 import utils
