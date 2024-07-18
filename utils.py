@@ -64,7 +64,7 @@ async def interactions(ctx, members, action, giflist):
     return embed
 
 
-async def unverified_role_handler(guild):
+async def unverified_role_handler(member: discord.Member):
     verified_roles = [  # Level 1 at the top
         715990806061645915,
         715992589891010682,
@@ -80,19 +80,13 @@ async def unverified_role_handler(guild):
     ]
 
     unverified_role = discord.Object(1165755854730035301)
-    unverified_id = 1165755854730035301
 
-    # Remove the role from everyone who doesn't need it anymore
-    for member in guild.members:
-        if member.bot:
-            continue
-        if any(role.id in verified_roles for role in member.roles):
-            if any(role.id == unverified_id for role in member.roles):
-                await member.remove_roles(unverified_role)
-                break
-        else:
-            if not any(role.id == unverified_id for role in member.roles):
-                await member.add_roles(unverified_role)
+    if any(role.id in verified_roles for role in member.roles):
+        if any(role.id == unverified_role.id for role in member.roles):
+            await member.remove_roles(unverified_role)
+    else:
+        if not any(role.id == unverified_role.id for role in member.roles):
+            await member.add_roles(unverified_role)
 
 
 async def userbot_kicker(member: discord.Member):
