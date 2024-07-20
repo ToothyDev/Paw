@@ -124,7 +124,8 @@ class Utility(discord.Cog, name="utility"):
         await message.edit_original_response(content=output)
 
     @slash_command()
-    @option("channel", discord.TextChannel, description="The channel to announce in")
+    @option("channel", channel_types=[discord.ChannelType.news, discord.ChannelType.text],
+            description="The channel to announce in")
     @option("message", str, description="The message to announce")
     @option("embed", bool, description="Whether to make it an embed", required=False, default=False)
     @option("attachment", discord.Attachment, description="A nice image", required=False, default=None)
