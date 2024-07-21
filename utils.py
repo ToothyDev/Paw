@@ -181,7 +181,9 @@ class InactivesTracker:
         kickworthy = []
         unverified = []
 
-        for member in guild.members:
+        members = sorted(guild.members, key=lambda member: member.joined_at)
+
+        for member in members:
             if any(role.id in InactivesTracker.roles for role in member.roles) or member.bot:
                 continue
             if member.joined_at.timestamp() + 1209600 < time.time():  # If 14 days passed since join
