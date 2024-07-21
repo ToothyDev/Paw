@@ -186,7 +186,7 @@ class InactivesTracker:
                 continue
             if member.joined_at.timestamp() + 1209600 < time.time():  # If 14 days passed since join
                 kickworthy.append(member.mention)
-            elif member.joined_at.timestamp() + 259200 < time.time():  # If 3 days have passed since join
+            else:
                 unverified.append(member.mention)
 
         return f"Kick: {' '.join(kickworthy)}\nUnverified: {' '.join(unverified)}"
