@@ -39,6 +39,8 @@ class Socials(discord.Cog, name="social"):
     async def snuggle(self, ctx, members):
         """ Snuggle the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "snuggled", data.snuggle)
         view = InteractionsView(ctx, memberlist, "snuggled", "Snuggle", data.snuggle)
         await ctx.respond(embed=embed, view=view)
@@ -49,6 +51,8 @@ class Socials(discord.Cog, name="social"):
     async def hug(self, ctx, members):
         """ Hug the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "hugged", data.hug)
         view = InteractionsView(ctx, memberlist, "hugged", "Hug", data.hug)
         await ctx.respond(embed=embed, view=view)
@@ -59,6 +63,8 @@ class Socials(discord.Cog, name="social"):
     async def boop(self, ctx, members):
         """ Boop the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "booped", data.boop)
         view = InteractionsView(ctx, memberlist, "booped", "Boop", data.boop)
         await ctx.respond(embed=embed, view=view)
@@ -69,6 +75,8 @@ class Socials(discord.Cog, name="social"):
     async def kiss(self, ctx, members):
         """ Kiss the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "kissed", data.kiss)
         view = InteractionsView(ctx, memberlist, "kissed", "Kiss", data.kiss)
         await ctx.respond(embed=embed, view=view)
@@ -79,6 +87,8 @@ class Socials(discord.Cog, name="social"):
     async def lick(self, ctx, members):
         """ Lick the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "licked", data.lick)
         view = InteractionsView(ctx, memberlist, "licked", "Lick", data.lick)
         await ctx.respond(embed=embed, view=view)
@@ -89,6 +99,8 @@ class Socials(discord.Cog, name="social"):
     async def bellyrub(self, ctx, members):
         """ Give bellyrubs to the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "rubbed the belly of", data.bellyrub)
         view = InteractionsView(ctx, memberlist, "rubbed the belly of", "Rub", data.bellyrub, "given bellyrubs")
         await ctx.respond(embed=embed, view=view)
@@ -99,6 +111,8 @@ class Socials(discord.Cog, name="social"):
     async def nuzzle(self, ctx, members):
         """ Nuzzle the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "nuzzled", data.nuzzle)
         view = InteractionsView(ctx, memberlist, "nuzzled", "Nuzzle", data.nuzzle)
         await ctx.respond(embed=embed, view=view)
@@ -109,6 +123,8 @@ class Socials(discord.Cog, name="social"):
     async def cuddle(self, ctx, members):
         """ Cuddle the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "cuddled", data.cuddle)
         view = InteractionsView(ctx, memberlist, "cuddled", "Cuddle", data.cuddle)
         await ctx.respond(embed=embed, view=view)
@@ -119,6 +135,8 @@ class Socials(discord.Cog, name="social"):
     async def feed(self, ctx, members):
         """ Feed the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "fed", data.feed)
         view = InteractionsView(ctx, memberlist, "fed", "Feed", data.feed)
         await ctx.respond(embed=embed, view=view)
@@ -129,6 +147,8 @@ class Socials(discord.Cog, name="social"):
     async def glomp(self, ctx, members):
         """ Glomp on the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "glomped", data.glomp)
         view = InteractionsView(ctx, memberlist, "glomped", "Glomp", data.glomp)
         await ctx.respond(embed=embed, view=view)
@@ -139,6 +159,8 @@ class Socials(discord.Cog, name="social"):
     async def highfive(self, ctx, members):
         """ Highfive the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "highfived", data.highfive)
         view = InteractionsView(ctx, memberlist, "highfived", "Highfive", data.highfive)
         await ctx.respond(embed=embed, view=view)
@@ -149,6 +171,8 @@ class Socials(discord.Cog, name="social"):
     async def rawr(self, ctx, members):
         """ Rawr at the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "rawred at", data.rawr)
         view = InteractionsView(ctx, memberlist, "rawred at", "Rawr", data.rawr)
         await ctx.respond(embed=embed, view=view)
@@ -159,6 +183,8 @@ class Socials(discord.Cog, name="social"):
     async def howl(self, ctx, members):
         """ Howl at the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "howled at", data.howl)
         view = InteractionsView(ctx, memberlist, "howled at", "Howl", data.howl)
         await ctx.respond(embed=embed, view=view)
@@ -169,6 +195,8 @@ class Socials(discord.Cog, name="social"):
     async def pat(self, ctx, members):
         """ Pat the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "pats", data.pet)
         view = InteractionsView(ctx, memberlist, "pats", "Pat", data.pet, "Pat")
         await ctx.respond(embed=embed, view=view)
@@ -179,6 +207,8 @@ class Socials(discord.Cog, name="social"):
     async def cookie(self, ctx, members):
         """ Give cookies to the specified people """
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "gave a cookie to", data.cookie)
         view = InteractionsView(ctx, memberlist, "gave a cookie to", "Give a cookie", data.cookie, "given a cookie")
         await ctx.respond(embed=embed, view=view)
@@ -192,6 +222,8 @@ class Socials(discord.Cog, name="social"):
             memberlist = None
             return await feelings(ctx, memberlist, "dances", data.dance)
         memberlist = await mention_converter(self, ctx, members)
+        if not memberlist:
+            return
         embed = await interactions(ctx, memberlist, "danced with", data.dance)
         view = InteractionsView(ctx, memberlist, "danced with", "Dance", data.dance)
         await ctx.respond(embed=embed, view=view)
@@ -205,6 +237,8 @@ class Socials(discord.Cog, name="social"):
             memberlist = None
         else:
             memberlist = await mention_converter(self, ctx, members)
+            if not memberlist:
+                return
         await feelings(ctx, memberlist, "blushes", data.blush)
 
     @slash_command()
@@ -216,6 +250,8 @@ class Socials(discord.Cog, name="social"):
             memberlist = None
         else:
             memberlist = await mention_converter(self, ctx, members)
+            if not memberlist:
+                return
         await feelings(ctx, memberlist, "smiles", data.happy)
 
     @slash_command()
@@ -227,6 +263,8 @@ class Socials(discord.Cog, name="social"):
             memberlist = None
         else:
             memberlist = await mention_converter(self, ctx, members)
+            if not memberlist:
+                return
         await feelings(ctx, memberlist, "wags their tail", data.wag)
 
     @slash_command()
