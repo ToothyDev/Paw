@@ -10,10 +10,7 @@ class Error(commands.Cog, name="Error"):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_application_command_error(self, ctx, err):
-        if isinstance(err, commands.CommandNotFound):
-            return
-
+    async def on_application_command_error(self, ctx: discord.ApplicationContext, err: discord.DiscordException):
         if isinstance(err, commands.MissingPermissions):
             perms = "`" + '`, `'.join(err.missing_permissions) + "`"
             return await ctx.respond(f"{config.crossmark} **You are missing {perms} permissions.**", ephemeral=True)
@@ -30,6 +27,9 @@ class Error(commands.Cog, name="Error"):
 
         if isinstance(err, discord.NotFound):
             return await ctx.respond("I could not find the argument you have provided.", ephemeral=True)
+
+        await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
+        print(err)
 
 
 def setup(bot):
