@@ -21,7 +21,6 @@ class Utility(discord.Cog, name="utility"):
         self.bot = bot
 
     @slash_command()
-    # @commands.cooldown(1, 3, commands.BucketType.user)
     @option("species", str, description="The species of the fursona", required=False)
     @option("sex", str, description="The sex of the fursona", choices=["Male", "Female", "Intersex"], required=False)
     @option("type", str, description="The type of the fursona", parameter_name="sonatype", choices=["Feral", "Anthro"],
