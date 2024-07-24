@@ -333,8 +333,8 @@ class Socials(discord.Cog, name="social"):
             if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
                 continue
             input_history.append(
-                {"role": "user", "name": ctx.guild.get_member(message.interaction.user.id).display_name,
-                 "content": f"{ctx.guild.get_member(message.interaction.user.id).display_name} said: {usermessage[12:]}"})
+                {"role": "user", "name": ctx.guild.get_member(message.interaction_metadata.user.id).display_name,
+                 "content": f"{ctx.guild.get_member(message.interaction_metadata.user.id).display_name} said: {usermessage[12:]}"})
             input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append(
             {"role": "user", "name": ctx.author.display_name, "content": f"{ctx.author.display_name} said: {text}"})
