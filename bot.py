@@ -5,7 +5,8 @@ from config import token
 
 intents = Intents(guilds=True, guild_messages=True, message_content=True, members=True)
 
-bot = discord.Bot(intents=intents, status=Status.dnd, activity=Activity(type=ActivityType.watching, name="you"))
+bot = discord.Bot(intents=intents, status=Status.online,
+                  activity=Activity(type=ActivityType.watching, name="over the Paw Kingdom"))
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs.events")
