@@ -9,7 +9,7 @@ bot = discord.Bot(intents=intents, status=Status.dnd, activity=Activity(type=Act
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs.events")
-print(bot.extensions)
+print("Loaded cogs: " + ', '.join(key for key in bot.cogs))
 
 
 @bot.listen()
