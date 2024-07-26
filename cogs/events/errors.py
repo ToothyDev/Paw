@@ -10,7 +10,8 @@ class Error(commands.Cog, name="Error"):
         self.bot = bot
 
     @commands.Cog.listener()
-    async def on_application_command_error(self, ctx: discord.ApplicationContext, err: discord.DiscordException):
+    async def on_application_command_error(self, ctx: discord.ApplicationContext,
+                                           err: discord.DiscordException | groq.APIError):
         if isinstance(err, commands.MissingPermissions):
             perms = "`" + '`, `'.join(err.missing_permissions) + "`"
             return await ctx.respond(f"{config.crossmark} **You are missing {perms} permissions.**", ephemeral=True)
