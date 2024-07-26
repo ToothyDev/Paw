@@ -40,19 +40,7 @@ async def interactions(ctx, members, action, giflist):
 
 
 async def unverified_role_handler(member_old: discord.Member, member: discord.Member):
-    verified_roles = [  # Level 1 at the top
-        715990806061645915,
-        715992589891010682,
-        715993060244455545,
-        715994868136280144,
-        715995443397525624,
-        715995916410028082,
-        715992374731472997,
-        724606719619235911,
-        724607040642613290,
-        724607481594118216,  # Level 10
-        716590668905971752  # Partners
-    ]
+    verified_roles = InactivesTracker.roles
 
     unverified_role = member.guild.get_role(1165755854730035301)
 
