@@ -282,12 +282,7 @@ class Socials(discord.Cog, name="social"):
             input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append(
             {"role": "user", "name": ctx.author.display_name, "content": f"{ctx.author.display_name} said: {text}"})
-        try:
-            response = await ai_handler.generate_from_history(input_history)
-        except groq.RateLimitError as e:
-            return await ctx.respond(f"You are using this command too much! {e.message.split('.')[1]}s")
-        except Exception as e:
-            return await ctx.respond(f"Something went wrong! Error: {e}")
+        response = await ai_handler.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
 

@@ -1,4 +1,5 @@
 import discord
+import groq
 from discord.ext import commands
 import config
 
@@ -27,6 +28,9 @@ class Error(commands.Cog, name="Error"):
 
         if isinstance(err, discord.NotFound):
             return await ctx.respond("I could not find the argument you have provided.", ephemeral=True)
+
+        if isinstance(err, groq.RateLimitError):
+            return await ctx.respond(f"You are using this command too much! {err.message.split('.')[1]}s")
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
         print(err)
