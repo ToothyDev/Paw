@@ -8,7 +8,7 @@ from discord.ext import commands
 
 import ai_handler
 import data
-from utils import mention_converter, interactions, feelings, apireq, get_gaslight
+from utils import mention_converter, interactions, feelings, apireq
 from views import InteractionsView
 
 
@@ -254,7 +254,7 @@ class Socials(discord.Cog, name="social"):
         await ctx.defer()
         messages = await ctx.channel.history(limit=50).flatten()
         messages.reverse()
-        input_history = [{"role": "system", "content": get_gaslight()}]
+        input_history = [{"role": "system", "content": data.system_prompt}]
         for message in messages:
             if not message.author == self.bot.user:
                 if message.content is None or message.content == "":
