@@ -14,7 +14,6 @@ class Members(discord.Cog, name="Members"):
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
-        await ctx.defer()
         members = await utils.InactivesTracker.get_members(ctx.guild)
         await ctx.respond(members)
 
