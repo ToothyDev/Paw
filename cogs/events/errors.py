@@ -1,10 +1,9 @@
 import discord
 import groq
 from discord.ext import commands
+
 import config
 
-
-# from cogs.admin import admin_only
 
 class Error(commands.Cog, name="Error"):
     def __init__(self, bot):
