@@ -2,6 +2,8 @@ import random
 
 import discord
 
+from views import InteractionsView
+
 
 async def interactions(ctx, members, action, giflist):
     image = random.choice(giflist)
@@ -50,3 +52,13 @@ async def mention_converter(ctx: discord.ApplicationContext, members) -> list[di
         await ctx.respond('Sorry, but this command is limited to 5 people.', ephemeral=True)
         return None
     return memberlist
+
+
+async def social_interaction_handler(ctx: discord.ApplicationContext, members: list[str], words: list[str],
+                                     gifs: list[str]):
+    memberlist = await mention_converter(ctx, members)
+    if not memberlist:
+        return
+    embed = await interactions(ctx, memberlist, words[0], gifs)
+    view = InteractionsView(ctx, memberlist, words[0], words[1], gifs, words[2] if len(words) > 2 else None)
+    await ctx.respond(embed=embed, view=view)

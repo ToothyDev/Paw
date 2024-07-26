@@ -11,7 +11,6 @@ from discord import option, slash_command
 
 import assets
 import utils
-from utils import Colors
 from views import ConfirmView
 
 
@@ -192,13 +191,13 @@ class Utility(discord.Cog, name="utility"):
 
 [[Github]](https://github.com/MiataBoy/Paw) [[Privacy Policy]](https://gist.github.com/MiataBoy/20fda9024f277ea5eb2421adbebc2f23) [[Terms of Service]](https://gist.github.com/MiataBoy/81e96023a2aa055a038edab02e7e7792)
         """
-        embed.colour = Colors.blue
+        embed.colour = utils.Colors.blue
         await ctx.respond(embed=embed)
 
     @slash_command()
     async def paw(self, ctx: discord.ApplicationContext):
         """ Get random art of me, Paw """
-        embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
+        embed = discord.Embed(title="A picture of myself, Paw!", color=utils.Colors.blue)
         embed.set_image(url=random.choice(assets.paw))
         await ctx.respond(embed=embed)
 
