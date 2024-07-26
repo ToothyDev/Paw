@@ -25,7 +25,7 @@ class Utility(discord.Cog, name="utility"):
     @option("sex", str, description="The sex of the fursona", choices=["Male", "Female", "Intersex"], required=False)
     @option("type", str, description="The type of the fursona", parameter_name="sonatype", choices=["Feral", "Anthro"],
             required=False)
-    async def sonagen(self, ctx, species, sex, sonatype):
+    async def sonagen(self, ctx: discord.ApplicationContext, species: str, sex: str, sonatype: str):
         """ Generate a random sona """
         await ctx.defer()
         primary_color = discord.Color.random()
@@ -78,7 +78,7 @@ class Utility(discord.Cog, name="utility"):
 
     @slash_command()
     @discord.default_permissions(manage_guild=True)
-    async def emoji_downloader(self, ctx):
+    async def emoji_downloader(self, ctx: discord.ApplicationContext):
         """ Download this server's emojis and stickers """
         saved_emojis = []
         saved_stickers = []
@@ -108,7 +108,7 @@ class Utility(discord.Cog, name="utility"):
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
     @option("month", int, description="Select the desired month number", min_value=1, max_value=12)
     @discord.default_permissions(ban_members=True)
-    async def botcollector(self, ctx, day: int, month: int):
+    async def botcollector(self, ctx: discord.ApplicationContext, day: int, month: int):
         """ Get members created on a certain day """
         if day == 0 or month == 0:
             return await ctx.respond("0 is not a valid number!")
@@ -129,7 +129,8 @@ class Utility(discord.Cog, name="utility"):
     @option("embed", bool, description="Whether to make it an embed", required=False, default=False)
     @option("attachment", discord.Attachment, description="A nice image", required=False, default=None)
     @discord.default_permissions(manage_guild=True)
-    async def announce(self, ctx, channel: discord.TextChannel, message: str, embed: bool, attachment: discord.Attachment):
+    async def announce(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, message: str, embed: bool,
+                       attachment: discord.Attachment):
         """ Announce something in a channel """
         await ctx.defer(ephemeral=True)
         if not channel.can_send():
@@ -153,7 +154,7 @@ class Utility(discord.Cog, name="utility"):
         await ctx.respond("Message successfully sent!", ephemeral=True)
 
     @slash_command()
-    async def serverinfo(self, ctx):
+    async def serverinfo(self, ctx: discord.ApplicationContext):
         """ Get the current server's info """
         guild = ctx.guild
         owner = await discord.utils.get_or_fetch(guild, 'member', guild.owner_id)

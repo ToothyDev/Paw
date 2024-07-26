@@ -12,7 +12,7 @@ class Assets(discord.Cog, name="assets"):
         self.bot = bot
 
     @slash_command()
-    async def paw(self, ctx):
+    async def paw(self, ctx: discord.ApplicationContext):
         """ Get random art of me, Paw """
         embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
         embed.set_image(url=random.choice(data.paw))

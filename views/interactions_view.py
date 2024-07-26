@@ -15,7 +15,7 @@ class InteractionsView(discord.ui.View):
         self.disable_on_timeout = True
 
     @discord.ui.button()
-    async def button_callback(self, button, interaction):
+    async def button_callback(self, button, interaction: discord.Interaction):
         if interaction.user not in self.members:
             if not self.action_error:
                 return await interaction.response.send_message(f"You weren't {self.action}!", ephemeral=True)
