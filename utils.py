@@ -122,9 +122,9 @@ async def userbot_kicker(member: discord.Member):
     return False  # Member has not been kicked
 
 
-async def mention_converter(self, ctx: discord.ApplicationContext, members) -> list[discord.Member] | None:
+async def mention_converter(ctx: discord.ApplicationContext, members) -> list[discord.Member] | None:
     memberlist = []
-    guild = self.bot.get_guild(ctx.guild.id)
+    guild = ctx.guild
     members = discord.utils.raw_mentions(members)
     for member in members:
         member = await discord.utils.get_or_fetch(guild, 'member', member)
