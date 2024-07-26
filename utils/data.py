@@ -20,10 +20,12 @@ class Colors:
 
 colors = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
           "Light Blue", "Grey", "Yellow"]
+
 species = {"Dragon": [80, 300], "Fox": [35, 50], "Deer": [53, 120], "Wolf": [60, 90], "Dog": [15, 110],
            "Bunny": [25, 35], "Protogen": [60, 120], "Hyena": [75, 105], "Tiger": [75, 107], "Lion": [110, 140],
            "Bird": [5, 50], "Otter": [20, 30], "Snake": [5, 20], "Cat": [15, 30], "Sergal": [80, 120],
            "Horse": [110, 150], "Shark": [40, 60], "Lizard": [10, 30]}
+
 system_prompt = f"""Your name is "Paw".
 The users are furries and the context is a furry discord server called "The Paw Kingdom".
 Never say "AI language model", "language model", "virtual assistant", "AI" or similar things, simply leave them out of your response.

@@ -14,8 +14,8 @@ import utils
 from views import ConfirmView
 
 
-class Utility(discord.Cog, name="utility"):
-    def __init__(self, bot):
+class Utility(discord.Cog, name="Utilitys"):
+    def __init__(self, bot: discord.Bot):
         self.bot = bot
 
     @slash_command()

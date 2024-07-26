@@ -5,8 +5,8 @@ from discord.ext import commands
 import config
 
 
-class Error(commands.Cog, name="Error"):
-    def __init__(self, bot):
+class Error(discord.Cog, name="Errors"):
+    def __init__(self, bot: discord.Bot):
         self.bot = bot
 
     @commands.Cog.listener()

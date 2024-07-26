@@ -4,7 +4,7 @@ import utils
 
 
 class Members(discord.Cog, name="Members"):
-    def __init__(self, bot):
+    def __init__(self, bot: discord.Bot):
         self.bot = bot
 
     inactives = discord.SlashCommandGroup(name="inactives",

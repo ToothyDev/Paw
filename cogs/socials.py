@@ -9,10 +9,9 @@ import assets
 import utils
 
 
-class Socials(discord.Cog, name="social"):
-    def __init__(self, bot):
+class Socials(discord.Cog, name="Socials"):
+    def __init__(self, bot: discord.Bot):
         self.bot = bot
-        self.help_icon = "♥️"
         self.last_revived = 0
 
     @slash_command()
