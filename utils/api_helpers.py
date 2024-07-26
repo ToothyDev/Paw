@@ -1,6 +1,8 @@
+import aiohttp
 from groq import AsyncGroq
+
 import config
-from utils import Fursona
+from utils.data import Fursona
 
 
 async def generate_from_history(history: list[dict]) -> str:
@@ -23,3 +25,9 @@ async def generate_sona(prompt: str) -> Fursona:
                                                            model="llama-3.1-70b-versatile",
                                                            response_format={"type": "json_object"})
     return Fursona.model_validate_json(chat_completion.choices[0].message.content)
+
+
+async def apireq(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            return await response.json()

@@ -9,8 +9,7 @@ import groq
 import psutil
 from discord import option, slash_command
 
-import ai_handler
-import data
+import assets
 import utils
 from utils import Colors
 from views import ConfirmView
@@ -29,11 +28,11 @@ class Utility(discord.Cog, name="utility"):
         """ Generate a random sona """
         await ctx.defer()
         primary_color = discord.Color.random()
-        color = random.choice(data.colors)
+        color = random.choice(utils.data.colors)
         
         try:
-            response = await ai_handler.generate_sona(
-                f"""Your job is to generate a fursona as a fursona generator. Use the following json schema: {json.dumps(utils.Fursona.model_json_schema(), indent=2)}
+            response = await utils.api_helpers.generate_sona(
+                f"""Your job is to generate a fursona as a fursona generator. Use the following json schema: {json.dumps(utils.data.Fursona.model_json_schema(), indent=2)}
                 The user already picked the following values:
                 {species if species else ""} {sex if sex else ""} {sonatype if sonatype else ""}
                 Do NOT change the values the user picked, instead, use them as is and generate the sona using them
@@ -194,6 +193,13 @@ class Utility(discord.Cog, name="utility"):
 [[Github]](https://github.com/MiataBoy/Paw) [[Privacy Policy]](https://gist.github.com/MiataBoy/20fda9024f277ea5eb2421adbebc2f23) [[Terms of Service]](https://gist.github.com/MiataBoy/81e96023a2aa055a038edab02e7e7792)
         """
         embed.colour = Colors.blue
+        await ctx.respond(embed=embed)
+
+    @slash_command()
+    async def paw(self, ctx: discord.ApplicationContext):
+        """ Get random art of me, Paw """
+        embed = discord.Embed(title="A picture of myself, Paw!", color=Colors.blue)
+        embed.set_image(url=random.choice(assets.paw))
         await ctx.respond(embed=embed)
 
 

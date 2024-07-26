@@ -2,13 +2,11 @@ import random
 import time
 
 import discord
-import groq
 from discord import slash_command, option
 from discord.ext import commands
 
-import ai_handler
-import data
-from utils import mention_converter, interactions, feelings, apireq
+import assets
+from utils import mention_converter, interactions, feelings, apireq, system_prompt, generate_from_history
 from views import InteractionsView
 
 
@@ -38,7 +36,7 @@ class Socials(discord.Cog, name="social"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def snuggle(self, ctx, members):
         words = ["snuggled", "Snuggle"]
-        await self.social_interaction_handler(ctx, members, words, data.snuggle)
+        await self.social_interaction_handler(ctx, members, words, assets.snuggle)
 
     @slash_command()
     @option("members", str, description="Mention users to hug")
@@ -46,14 +44,14 @@ class Socials(discord.Cog, name="social"):
     async def hug(self, ctx, members):
         """ Hug the specified people """
         words = ["hugged", "Hug"]
-        await self.social_interaction_handler(ctx, members, words, data.hug)
+        await self.social_interaction_handler(ctx, members, words, assets.hug)
 
     @slash_command()
     @option("members", str, description="Mention users to boop")
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def boop(self, ctx, members):
         words = ["booped", "Boop"]
-        await self.social_interaction_handler(ctx, members, words, data.boop)
+        await self.social_interaction_handler(ctx, members, words, assets.boop)
 
     @slash_command()
     @option("members", str, description="Mention users to kiss")
@@ -61,7 +59,7 @@ class Socials(discord.Cog, name="social"):
     async def kiss(self, ctx, members):
         """ Kiss the specified people """
         words = ["kissed", "Kiss"]
-        await self.social_interaction_handler(ctx, members, words, data.kiss)
+        await self.social_interaction_handler(ctx, members, words, assets.kiss)
 
     @slash_command()
     @option("members", str, description="Mention users to lick")
@@ -69,7 +67,7 @@ class Socials(discord.Cog, name="social"):
     async def lick(self, ctx, members):
         """ Lick the specified people """
         words = ["licked", "Lick"]
-        await self.social_interaction_handler(ctx, members, words, data.lick)
+        await self.social_interaction_handler(ctx, members, words, assets.lick)
 
     @slash_command()
     @option("members", str, description="Mention users to bellrub")
@@ -77,7 +75,7 @@ class Socials(discord.Cog, name="social"):
     async def bellyrub(self, ctx, members):
         """ Give bellyrubs to the specified people """
         words = ["rubbed the belly of", "Rub", "given bellyrubs"]
-        await self.social_interaction_handler(ctx, members, words, data.bellyrub)
+        await self.social_interaction_handler(ctx, members, words, assets.bellyrub)
 
     @slash_command()
     @option("members", str, description="Mention users to nuzzle")
@@ -85,7 +83,7 @@ class Socials(discord.Cog, name="social"):
     async def nuzzle(self, ctx, members):
         """ Nuzzle the specified people """
         words = ["nuzzled", "Nuzzle"]
-        await self.social_interaction_handler(ctx, members, words, data.nuzzle)
+        await self.social_interaction_handler(ctx, members, words, assets.nuzzle)
 
     @slash_command()
     @option("members", str, description="Mention users to cuddle")
@@ -93,7 +91,7 @@ class Socials(discord.Cog, name="social"):
     async def cuddle(self, ctx, members):
         """ Cuddle the specified people """
         words = ["cuddled", "Cuddle"]
-        await self.social_interaction_handler(ctx, members, words, data.cuddle)
+        await self.social_interaction_handler(ctx, members, words, assets.cuddle)
 
     @slash_command()
     @option("members", str, description="Mention users to feed")
@@ -101,7 +99,7 @@ class Socials(discord.Cog, name="social"):
     async def feed(self, ctx, members):
         """ Feed the specified people """
         words = ["fed", "Feed"]
-        await self.social_interaction_handler(ctx, members, words, data.feed)
+        await self.social_interaction_handler(ctx, members, words, assets.feed)
 
     @slash_command()
     @option("members", str, description="Mention users to glomp")
@@ -109,7 +107,7 @@ class Socials(discord.Cog, name="social"):
     async def glomp(self, ctx, members):
         """ Glomp on the specified people """
         words = ["glomped", "Glomp"]
-        await self.social_interaction_handler(ctx, members, words, data.glomp)
+        await self.social_interaction_handler(ctx, members, words, assets.glomp)
 
     @slash_command()
     @option("members", str, description="Mention users to highfive")
@@ -117,7 +115,7 @@ class Socials(discord.Cog, name="social"):
     async def highfive(self, ctx, members):
         """ Highfive the specified people """
         words = ["highfived", "Highfive"]
-        await self.social_interaction_handler(ctx, members, words, data.highfive)
+        await self.social_interaction_handler(ctx, members, words, assets.highfive)
 
     @slash_command()
     @option("members", str, description="Mention users to rawr at")
@@ -125,7 +123,7 @@ class Socials(discord.Cog, name="social"):
     async def rawr(self, ctx, members):
         """ Rawr at the specified people """
         words = ["rawred at", "Rawr"]
-        await self.social_interaction_handler(ctx, members, words, data.rawr)
+        await self.social_interaction_handler(ctx, members, words, assets.rawr)
 
     @slash_command()
     @option("members", str, description="Mention users to howl at")
@@ -133,7 +131,7 @@ class Socials(discord.Cog, name="social"):
     async def howl(self, ctx, members):
         """ Howl at the specified people """
         words = ["howled at", "Howl"]
-        await self.social_interaction_handler(ctx, members, words, data.howl)
+        await self.social_interaction_handler(ctx, members, words, assets.howl)
 
     @slash_command()
     @option("members", str, description="Mention users to pat")
@@ -141,7 +139,7 @@ class Socials(discord.Cog, name="social"):
     async def pat(self, ctx, members):
         """ Pat the specified people """
         words = ["pats", "Pat", "Pat"]
-        await self.social_interaction_handler(ctx, members, words, data.pet)
+        await self.social_interaction_handler(ctx, members, words, assets.pet)
 
     @slash_command()
     @option("members", str, description="Mention users to give a cookie to")
@@ -149,7 +147,7 @@ class Socials(discord.Cog, name="social"):
     async def cookie(self, ctx, members):
         """ Give cookies to the specified people """
         words = ["gave a cookie to", "Give a cookie", "given a cookie"]
-        await self.social_interaction_handler(ctx, members, words, data.cookie)
+        await self.social_interaction_handler(ctx, members, words, assets.cookie)
 
     @staticmethod
     async def social_interaction_handler(ctx: discord.ApplicationContext, members: list[str], words: list[str],
@@ -168,9 +166,9 @@ class Socials(discord.Cog, name="social"):
         """ Dance with someone """
         if not members:
             memberlist = None
-            return await feelings(ctx, memberlist, "dances", data.dance)
+            return await feelings(ctx, memberlist, "dances", assets.dance)
         words = ["danced with", "Dance"]
-        await self.social_interaction_handler(ctx, members, words, data.dance)
+        await self.social_interaction_handler(ctx, members, words, assets.dance)
 
     @slash_command()
     @option("members", str, description="Mention users that made you blush", required=False)
@@ -183,7 +181,7 @@ class Socials(discord.Cog, name="social"):
             memberlist = await mention_converter(ctx, members)
             if not memberlist:
                 return
-        await feelings(ctx, memberlist, "blushes", data.blush)
+        await feelings(ctx, memberlist, "blushes", assets.blush)
 
     @slash_command()
     @option("members", str, description="Mention users that made you happy", required=False)
@@ -196,7 +194,7 @@ class Socials(discord.Cog, name="social"):
             memberlist = await mention_converter(ctx, members)
             if not memberlist:
                 return
-        await feelings(ctx, memberlist, "smiles", data.happy)
+        await feelings(ctx, memberlist, "smiles", assets.happy)
 
     @slash_command()
     @option("members", str, description="Mention users that made you wag", required=False)
@@ -209,7 +207,7 @@ class Socials(discord.Cog, name="social"):
             memberlist = await mention_converter(ctx, members)
             if not memberlist:
                 return
-        await feelings(ctx, memberlist, "wags their tail", data.wag)
+        await feelings(ctx, memberlist, "wags their tail", assets.wag)
 
     @slash_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
@@ -254,7 +252,7 @@ class Socials(discord.Cog, name="social"):
         await ctx.defer()
         messages = await ctx.channel.history(limit=50).flatten()
         messages.reverse()
-        input_history = [{"role": "system", "content": data.system_prompt}]
+        input_history = [{"role": "system", "content": system_prompt}]
         for message in messages:
             if not message.author == self.bot.user:
                 if message.content is None or message.content == "":
@@ -282,7 +280,7 @@ class Socials(discord.Cog, name="social"):
             input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append(
             {"role": "user", "name": ctx.author.display_name, "content": f"{ctx.author.display_name} said: {text}"})
-        response = await ai_handler.generate_from_history(input_history)
+        response = await generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
 
