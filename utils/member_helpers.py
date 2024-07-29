@@ -93,12 +93,10 @@ class InactivesTracker:
         for member in members:
             if any(role.id in InactivesTracker.roles for role in member.roles) or member.bot:
                 continue
-            if member.joined_at.timestamp() + 604800 < current_time:  # If 7 days passed since join
-                kickworthy.append(member.mention)
-            else:
+            if member.joined_at.timestamp() + 604800 > current_time:  # If 7 days passed since join
                 unverified.append(member.mention)
 
-        return f"Kick: {' '.join(kickworthy)}\nUnverified: {' '.join(unverified)}"
+        return ' '.join(unverified)
 
     @staticmethod
     async def get_raw_members(guild: discord.Guild) -> list[discord.Member]:
