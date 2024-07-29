@@ -1,5 +1,4 @@
 import discord
-
 from discord.ext import tasks
 
 import utils
@@ -14,7 +13,7 @@ class Members(discord.Cog, name="Members"):
                                           default_member_permissions=discord.Permissions(manage_guild=True,
                                                                                          kick_members=True))
 
-    @tasks.loop(hours=6)
+    @tasks.loop(hours=2)
     async def auto_kicker(self):
         await self.bot.wait_until_ready()
         guild = self.bot.get_guild(715969701771083817)
@@ -26,7 +25,13 @@ class Members(discord.Cog, name="Members"):
             except Exception or discord.Forbidden:
                 pass
             try:
-                #  await member.kick(reason="Inactive Member")
+                # await member.kick(reason="Inactive Member")
+                # embed = discord.Embed(color=Colors.orange)
+                # embed.set_author(name=f"Inactive Kick | {member.display_name}", icon_url=member.display_avatar.url)
+                # embed.set_footer(text=member.id)
+                # embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
+                # logchannel = member.guild.get_channel(760181839033139260)
+                # await logchannel.send(embed=embed)
                 await self.bot.get_channel(759760673738719252).send(f"I'd kick {member.mention}!")
             except discord.Forbidden:
                 print(f"Failed to kick member {member.global_name}!")
