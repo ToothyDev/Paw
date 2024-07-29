@@ -20,9 +20,10 @@ class Members(discord.Cog, name="Members"):
         to_be_kicked = await utils.InactivesTracker.get_raw_members(guild)
         for member in to_be_kicked:
             try:
-                await member.send(
-                    "You've been kicked from The Paw Kingdom for being inactive for too long. You can rejoin and restart the verification process.")
-            except Exception or discord.Forbidden:
+                pass
+                # await member.send(
+                #   "You've been kicked from The Paw Kingdom for being inactive for too long. You can rejoin and restart the verification process.")
+            except (Exception, discord.Forbidden):
                 pass
             try:
                 # await member.kick(reason="Inactive Member")
