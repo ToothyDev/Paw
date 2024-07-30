@@ -14,12 +14,12 @@ class Members(discord.Cog, name="Members"):
                                           default_member_permissions=discord.Permissions(manage_guild=True,
                                                                                          kick_members=True))
 
-    @tasks.loop(hours=2)
+    @tasks.loop(hours=1)
     async def auto_kicker(self):
         await self.bot.wait_until_ready()
         guild = self.bot.get_guild(715969701771083817)
         logchannel = guild.get_channel(760181839033139260)
-        to_be_kicked = await utils.InactivesTracker.get_raw_members(guild)
+        to_be_kicked = (await utils.InactivesTracker.get_inactives(guild)).get("kickworthy")
         for member in to_be_kicked:
             try:
                 await member.send(
@@ -39,8 +39,9 @@ class Members(discord.Cog, name="Members"):
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
-        members = await utils.InactivesTracker.get_members(ctx.guild)
-        await ctx.respond(members)
+        members = (await utils.InactivesTracker.get_inactives(ctx.guild)).get("unverified")
+        members = [member.mention for member in members]
+        await ctx.respond(' '.join(members))
 
     @inactives.command()
     async def pending(self, ctx):

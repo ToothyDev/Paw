@@ -1,4 +1,5 @@
 import time
+from typing import Dict, List, Any
 
 import discord
 
@@ -83,27 +84,16 @@ class InactivesTracker:
     ]
 
     @staticmethod
-    async def get_members(guild: discord.Guild) -> str:
+    async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:
         unverified = []
-
-        members = sorted(guild.members, key=lambda member: member.joined_at)
-
-        for member in members:
-            if any(role.id in InactivesTracker.roles for role in member.roles) or member.bot:
-                continue
-            unverified.append(member.mention)
-
-        return ' '.join(unverified)
-
-    @staticmethod
-    async def get_raw_members(guild: discord.Guild) -> list[discord.Member]:
         kickworthy = []
         current_time = time.time()
-
         for member in guild.members:
             if any(role.id in InactivesTracker.roles for role in member.roles) or member.bot:
                 continue
             if member.joined_at.timestamp() + 604800 < current_time:  # If 7 days passed since join
                 kickworthy.append(member)
+            else:
+                unverified.append(member)
 
-        return kickworthy
+        return {"unverified": unverified, "kickworthy": kickworthy}
