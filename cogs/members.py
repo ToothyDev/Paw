@@ -11,8 +11,7 @@ class Members(discord.Cog, name="Members"):
         self.auto_kicker.start()
 
     inactives = discord.SlashCommandGroup(name="inactives",
-                                          default_member_permissions=discord.Permissions(manage_guild=True,
-                                                                                         kick_members=True))
+                                          default_member_permissions=discord.Permissions(kick_members=True))
 
     @tasks.loop(hours=1)
     async def auto_kicker(self):
