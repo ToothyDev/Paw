@@ -39,8 +39,8 @@ class Members(discord.Cog, name="Members"):
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
         members = (await utils.InactivesTracker.get_inactives(ctx.guild)).get("unverified")
-        members = [member.mention for member in members]
-        await ctx.respond(' '.join(members))
+        members = sorted(members, key=lambda member: member.joined_at)
+        await ctx.respond(' '.join([member.mention for member in members]))
 
     @inactives.command()
     async def pending(self, ctx):
