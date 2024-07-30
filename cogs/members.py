@@ -18,7 +18,7 @@ class Members(discord.Cog, name="Members"):
         await self.bot.wait_until_ready()
         guild = self.bot.get_guild(715969701771083817)
         logchannel = guild.get_channel(760181839033139260)
-        to_be_kicked = (await utils.InactivesTracker.get_inactives(guild)).get("kickworthy")
+        to_be_kicked = (await utils.get_inactives(guild)).get("kickworthy")
         for member in to_be_kicked:
             try:
                 await member.send(
@@ -38,7 +38,7 @@ class Members(discord.Cog, name="Members"):
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
-        members = (await utils.InactivesTracker.get_inactives(ctx.guild)).get("unverified")
+        members = (await utils.get_inactives(ctx.guild)).get("unverified")
         members = sorted(members, key=lambda member: member.joined_at)
         await ctx.respond(' '.join([member.mention for member in members]))
 

@@ -1,8 +1,8 @@
 import time
-from typing import Dict, List, Any
 
 import discord
 
+import utils
 from utils.data import Colors
 
 
@@ -18,7 +18,7 @@ Thank you for reading and have fun!"""
 
 
 async def unverified_role_handler(member_old: discord.Member, member: discord.Member):
-    verified_roles = InactivesTracker.roles
+    verified_roles = utils.inactive_roles
 
     unverified_role = member.guild.get_role(1165755854730035301)
 
@@ -68,32 +68,16 @@ async def userbot_kicker(member: discord.Member):
     return False  # Member has not been kicked
 
 
-class InactivesTracker:
-    roles = [  # Level 1 at the top
-        715990806061645915,
-        715992589891010682,
-        715993060244455545,
-        715994868136280144,
-        715995443397525624,
-        715995916410028082,
-        715992374731472997,
-        724606719619235911,
-        724607040642613290,
-        724607481594118216,  # Level 10
-        716590668905971752  # Partners
-    ]
+async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:
+    unverified = []
+    kickworthy = []
+    current_time = time.time()
+    for member in guild.members:
+        if any(role.id in utils.inactive_roles for role in member.roles) or member.bot:
+            continue
+        if member.joined_at.timestamp() + 604800 < current_time:  # If 7 days passed since join
+            kickworthy.append(member)
+        else:
+            unverified.append(member)
 
-    @staticmethod
-    async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:
-        unverified = []
-        kickworthy = []
-        current_time = time.time()
-        for member in guild.members:
-            if any(role.id in InactivesTracker.roles for role in member.roles) or member.bot:
-                continue
-            if member.joined_at.timestamp() + 604800 < current_time:  # If 7 days passed since join
-                kickworthy.append(member)
-            else:
-                unverified.append(member)
-
-        return {"unverified": unverified, "kickworthy": kickworthy}
+    return {"unverified": unverified, "kickworthy": kickworthy}
