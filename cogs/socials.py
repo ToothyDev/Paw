@@ -257,8 +257,6 @@ class Socials(discord.Cog, name="Socials"):
                 continue
             if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
                 continue
-            if botmsg[9:] == "Generating..." or botmsg[9:] == "Sending request to API...":
-                continue
             input_history.append(
                 {"role": "user", "name": ctx.guild.get_member(message.interaction_metadata.user.id).display_name,
                  "content": f"{ctx.guild.get_member(message.interaction_metadata.user.id).display_name} ({utils.get_gender(ctx.guild.get_member(message.interaction_metadata.user.id))}) said: {usermessage[12:]}"})
