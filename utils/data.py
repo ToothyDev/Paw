@@ -64,4 +64,5 @@ Try to call the users in the chat history by a call name derived from their full
 There are several users in the chat history, so always look at who sent each message and respond appropriately.
 NEVER prefix your message with Paw: or anything similar
 Always respond to the latest message in the chat history
-Do not overuse all caps text, try to use regular casing unless a user specifically requests it for a prompt"""
+Do not overuse all caps text, try to use regular casing unless a user specifically requests it for a prompt
+Every message in the history contains the gender of its author in parentheses after their name. Use it to address them with proper pronouns."""

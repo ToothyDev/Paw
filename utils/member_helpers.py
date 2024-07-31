@@ -81,3 +81,23 @@ async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]
             unverified.append(member)
 
     return {"unverified": unverified, "kickworthy": kickworthy}
+
+
+def get_gender(member: discord.Member) -> str:
+    if isinstance(member, discord.User):
+        return "undetermined"
+
+    if member.guild.id != 715969701771083817:
+        return "undetermined"
+    male_role = member.guild.get_role(731241481284616282)
+    female_role = member.guild.get_role(731241521558323227)
+
+    if male_role in member.roles:
+        if female_role not in member.roles:
+            return "Male"
+        else:
+            return "undetermined"
+    elif female_role in member.roles:
+        return "Female"
+    else:
+        return "undetermined"

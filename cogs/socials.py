@@ -243,11 +243,11 @@ class Socials(discord.Cog, name="Socials"):
                 if message.content is None or message.content == "":
                     input_history.append(
                         {"role": "user", "name": message.author.display_name,
-                         "content": f"{message.author.display_name} said: <image or other type of message>"})
+                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: <image or other type of message>"})
                 else:
                     input_history.append(
                         {"role": "user", "name": message.author.display_name,
-                         "content": f"{message.author.display_name} said: {message.content}"})
+                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {message.content}"})
                 continue
             try:
                 usermessage = message.content.split("\n")[0]  # Get the first line of the message. the user prompt
@@ -261,10 +261,12 @@ class Socials(discord.Cog, name="Socials"):
                 continue
             input_history.append(
                 {"role": "user", "name": ctx.guild.get_member(message.interaction_metadata.user.id).display_name,
-                 "content": f"{ctx.guild.get_member(message.interaction_metadata.user.id).display_name} said: {usermessage[12:]}"})
+                 "content": f"{ctx.guild.get_member(message.interaction_metadata.user.id).display_name} ({utils.get_gender(ctx.guild.get_member(message.interaction_metadata.user.id))}) said: {usermessage[12:]}"})
             input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append(
-            {"role": "user", "name": ctx.author.display_name, "content": f"{ctx.author.display_name} said: {text}"})
+            {"role": "user", "name": ctx.author.display_name,
+             "content": f"{ctx.author.display_name} ({utils.get_gender(ctx.author)}) said: {text}"})
+        print(input_history)
         response = await utils.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
