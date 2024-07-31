@@ -264,7 +264,6 @@ class Socials(discord.Cog, name="Socials"):
         input_history.append(
             {"role": "user", "name": ctx.author.display_name,
              "content": f"{ctx.author.display_name} ({utils.get_gender(ctx.author)}) said: {text}"})
-        print(input_history)
         response = await utils.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
