@@ -201,19 +201,16 @@ class Socials(discord.Cog, name="Socials"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fact(self, ctx):
         """ Get a random animal fact """
-        facts = random.choice(["https://some-random-api.com/facts/dog", "https://some-random-api.com/facts/cat", "https://some-random-api.com/facts/panda",
-                               "https://some-random-api.com/facts/fox", "https://some-random-api.com/facts/bird", "https://some-random-api.com/facts/koala"])
-
-        fact = await utils.apireq(facts)
-        await ctx.respond(fact['fact'])
+        json = await utils.apireq(random.choice(utils.fact_urls))
+        await ctx.respond(json.get("fact"))
 
     @slash_command()
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fox(self, ctx):
         """ Get a random fox image"""
-        json_data = await utils.apireq("https://randomfox.ca/floof/")
+        json = await utils.apireq("https://randomfox.ca/floof/")
         embed = discord.Embed(title="Floofy fox!", color=discord.Color.orange())
-        embed.set_image(url=json_data['image'])
+        embed.set_image(url=json.get("image"))
         await ctx.respond(embed=embed)
 
     @slash_command()

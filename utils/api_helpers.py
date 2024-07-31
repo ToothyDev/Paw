@@ -27,7 +27,7 @@ async def generate_sona(prompt: str) -> Fursona:
     return Fursona.model_validate_json(chat_completion.choices[0].message.content)
 
 
-async def apireq(url):
+async def apireq(url, headers=None, data=None) -> dict[str, any]:
     async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
+        async with session.get(url, headers=headers, json=data) as response:
             return await response.json()

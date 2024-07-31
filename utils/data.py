@@ -32,6 +32,10 @@ inactive_roles = [  # Level 1 at the top
     716590668905971752  # Partners
 ]
 
+fact_urls = ["https://some-random-api.com/facts/dog", "https://some-random-api.com/facts/cat",
+             "https://some-random-api.com/facts/panda",
+             "https://some-random-api.com/facts/fox", "https://some-random-api.com/facts/bird",
+             "https://some-random-api.com/facts/koala"]
 
 colors = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
           "Light Blue", "Grey", "Yellow"]
