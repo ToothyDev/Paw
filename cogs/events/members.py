@@ -20,6 +20,8 @@ class MemberEvents(discord.Cog, name="Member Events"):
         if member.bot:  # If member is an ACTUAL bot
             return
 
+        if await utils.spammer_kicker(member):
+            return
 
         if await utils.userbot_kicker(member):  # If member is a bot (95% accurate)
             return
@@ -29,12 +31,10 @@ class MemberEvents(discord.Cog, name="Member Events"):
         if len(member_old.roles) <= 3 < len(member.roles):
             if member.pending:
                 return
-            if not utils.spammer_kicker(member):
-                await utils.send_welcome_message(member)
+            await utils.send_welcome_message(member)
         elif len(member.roles) > 3:
             if member_old.pending and not member.pending:
-                if not utils.spammer_kicker(member):
-                    await utils.send_welcome_message(member)
+                await utils.send_welcome_message(member)
 
 
 def setup(bot):
