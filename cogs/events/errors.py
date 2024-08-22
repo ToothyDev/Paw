@@ -38,7 +38,7 @@ class Error(discord.Cog, name="Errors"):
                                      ephemeral=True)
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
-        print(f"{ctx.author.global_name} used /{ctx.command} which caused {err}")
+        print(f"{ctx.author.global_name} used /{ctx.command} which caused {err}\nError class: {err.__class__.__name__}")
 
 
 def setup(bot):
