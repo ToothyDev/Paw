@@ -52,7 +52,7 @@ async def userbot_kicker(member: discord.Member):
         except discord.Forbidden:
             pass
         except discord.HTTPException as e:
-            return print(f"Kicking member {member.display_name} failed {e}")
+            pass
         try:
             await member.kick(reason="Bot")
         except Exception as e:
@@ -76,7 +76,7 @@ async def spammer_kicker(member: discord.Member) -> bool:
         except discord.Forbidden:
             pass
         except discord.HTTPException as e:
-            return print(f"Kicking member {member.display_name} failed {e}")
+            pass
         try:
             await member.kick(reason="Spammer")
         except Exception as e:
