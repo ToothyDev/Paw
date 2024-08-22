@@ -40,7 +40,8 @@ class Error(discord.Cog, name="Errors"):
             return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
-        print(f"{ctx.author.global_name} used /{ctx.command} which caused {err}\nError class: {err.__class__.__name__}")
+        raise Exception(
+            f"{ctx.author.global_name} used /{ctx.command} which caused {err} - Error class: {err.__class__.__name__}") from err
 
 
 def setup(bot):
