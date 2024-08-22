@@ -21,7 +21,7 @@ class MemberEvents(discord.Cog, name="Member Events"):
             try:
                 await member.kick(reason="Spammer")
             except Exception as e:
-                return print(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
+                return print(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
             embed = discord.Embed(color=Colors.orange)
             embed.set_author(name=f"Spammer Kick | {member.display_name}", icon_url=member.display_avatar.url)
             embed.set_footer(text=member.id)
