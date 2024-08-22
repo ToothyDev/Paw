@@ -36,6 +36,8 @@ class Error(discord.Cog, name="Errors"):
         if isinstance(err, groq.RateLimitError):
             return await ctx.respond(f"You are using this command too much! {err.message.split('.')[1]}s",
                                      ephemeral=True)
+        if isinstance(err, groq.InternalServerError):
+            return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
         print(f"{ctx.author.global_name} used /{ctx.command} which caused {err}\nError class: {err.__class__.__name__}")
