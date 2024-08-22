@@ -68,6 +68,30 @@ async def userbot_kicker(member: discord.Member):
     return False  # Member has not been kicked
 
 
+async def spammer_kicker(member: discord.Member) -> bool:
+    if member.public_flags.value & 1048576 == 1048576:
+        try:
+            await member.send(
+                "You've been kicked from The Paw Kingdom for being flagged as spammer.")
+        except discord.Forbidden:
+            pass
+        except discord.HTTPException as e:
+            return print(f"Kicking member {member.display_name} failed {e}")
+        try:
+            await member.kick(reason="Spammer")
+        except Exception as e:
+            print(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
+            return False  # Member is a spammer, tho failsafe because it failed
+        embed = discord.Embed(color=Colors.orange)
+        embed.set_author(name=f"Spammer Kick | {member.display_name}", icon_url=member.display_avatar.url)
+        embed.set_footer(text=member.id)
+        embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
+        logchannel = member.guild.get_channel(760181839033139260)
+        await logchannel.send(embed=embed)
+        return True  # Member has been detected as spammer
+    return False  # Member is not a spammer
+
+
 async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:
     unverified = []
     kickworthy = []
