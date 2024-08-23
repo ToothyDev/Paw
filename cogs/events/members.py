@@ -20,9 +20,6 @@ class MemberEvents(discord.Cog, name="Member Events"):
         if member.bot:  # If member is an ACTUAL bot
             return
 
-        if await utils.spammer_kicker(member):
-            return
-
         if await utils.userbot_kicker(member):  # If member is a bot (95% accurate)
             return
 
