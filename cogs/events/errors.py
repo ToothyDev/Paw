@@ -22,7 +22,7 @@ class Error(discord.Cog, name="Errors"):
 
         if isinstance(err, commands.CommandOnCooldown):
             return await ctx.respond(
-                f"{config.crossmark} **This command is on co!!!oldown for {round(err.retry_after)} more seconds.**",
+                f"{config.crossmark} **This command is on cooldown for {round(err.retry_after)} more seconds.**",
                 ephemeral=True)
 
         if isinstance(err, commands.MemberNotFound):
