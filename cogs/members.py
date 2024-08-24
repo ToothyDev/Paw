@@ -2,7 +2,6 @@ import discord
 from discord.ext import tasks
 
 import utils
-from utils import Colors
 
 
 class Members(discord.Cog, name="Members"):
@@ -30,11 +29,7 @@ class Members(discord.Cog, name="Members"):
                 pass
             try:
                 await member.kick(reason="Inactive Member")
-                embed = discord.Embed(color=Colors.orange)
-                embed.set_author(name=f"Inactive Kick | {member.display_name}", icon_url=member.display_avatar.url)
-                embed.set_footer(text=member.id)
-                embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
-                await logchannel.send(embed=embed)
+                await utils.log_member_kick(member, "Inactive")
             except discord.Forbidden:
                 print(f"Failed to kick member {member.global_name}!")
 

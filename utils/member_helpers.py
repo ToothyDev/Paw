@@ -49,21 +49,14 @@ async def userbot_kicker(member: discord.Member):
         try:
             await member.send(
                 "You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
-        except discord.Forbidden:
-            pass
-        except discord.HTTPException as e:
+        except (Exception, discord.Forbidden):
             pass
         try:
             await member.kick(reason="Bot")
         except Exception as e:
             print(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
             return False  # Failsafe
-        embed = discord.Embed(color=Colors.orange)
-        embed.set_author(name=f"Bot Kick | {member.display_name}", icon_url=member.display_avatar.url)
-        embed.set_footer(text=member.id)
-        embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
-        logchannel = member.guild.get_channel(760181839033139260)
-        await logchannel.send(embed=embed)
+        await log_member_kick(member, "Bot")
         return True  # Member / Bot has been kicked
     return False  # Member has not been kicked
 
@@ -82,14 +75,18 @@ async def spammer_kicker(member: discord.Member) -> bool:
         except Exception as e:
             print(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
             return False  # Member is a spammer, tho failsafe because it failed
-        embed = discord.Embed(color=Colors.orange)
-        embed.set_author(name=f"Spammer Kick | {member.display_name}", icon_url=member.display_avatar.url)
-        embed.set_footer(text=member.id)
-        embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
-        logchannel = member.guild.get_channel(760181839033139260)
-        await logchannel.send(embed=embed)
+        await log_member_kick(member, "Spammer")
         return True  # Member has been detected as spammer
     return False  # Member is not a spammer
+
+
+async def log_member_kick(member: discord.Member, member_class: str):
+    embed = discord.Embed(color=Colors.orange)
+    embed.set_author(name=f"{member_class} Kick | {member.display_name}", icon_url=member.display_avatar.url)
+    embed.set_footer(text=member.id)
+    embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
+    logchannel = member.guild.get_channel(760181839033139260)
+    await logchannel.send(embed=embed)
 
 
 async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:

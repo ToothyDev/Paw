@@ -1,7 +1,6 @@
 import discord
 
 import utils
-from utils import Colors
 
 
 class MemberEvents(discord.Cog, name="Member Events"):
