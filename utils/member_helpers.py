@@ -49,11 +49,11 @@ async def userbot_kicker(member: discord.Member):
         try:
             await member.send(
                 "You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
-        except (Exception, discord.Forbidden):
+        except (discord.HTTPException, discord.Forbidden):
             pass
         try:
             await member.kick(reason="Bot")
-        except Exception as e:
+        except (discord.HTTPException, discord.Forbidden) as e:
             print(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
             return False  # Failsafe
         await log_member_kick(member, "Bot")
@@ -66,13 +66,11 @@ async def spammer_kicker(member: discord.Member) -> bool:
         try:
             await member.send(
                 "You've been kicked from The Paw Kingdom for being flagged as spammer.")
-        except discord.Forbidden:
-            pass
-        except discord.HTTPException as e:
+        except (discord.HTTPException, discord.Forbidden):
             pass
         try:
             await member.kick(reason="Spammer")
-        except Exception as e:
+        except (discord.HTTPException, discord.Forbidden) as e:
             print(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
             return False  # Member is a spammer, tho failsafe because it failed
         await log_member_kick(member, "Spammer")
