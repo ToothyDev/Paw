@@ -66,7 +66,7 @@ class Utility(discord.Cog, name="Utilities"):
 **Sex**: {sex}
 **Description**: {response.description}
         """)
-        await ctx.respond(content=f"Sure, here's your freshly generated sona!", embed=embed)
+        await ctx.respond(content="Sure, here's your freshly generated sona!", embed=embed)
 
     @slash_command()
     @discord.default_permissions(manage_guild=True)

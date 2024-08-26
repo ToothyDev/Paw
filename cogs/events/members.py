@@ -13,7 +13,7 @@ class MemberEvents(discord.Cog, name="Member Events"):
 
     @discord.Cog.listener()
     async def on_member_update(self, member_old: discord.Member, member: discord.Member):
-        if not member.guild.id == 715969701771083817:
+        if member.guild.id != 715969701771083817:
             return
 
         if member.bot:  # If member is an ACTUAL bot
@@ -28,8 +28,7 @@ class MemberEvents(discord.Cog, name="Member Events"):
             if member.pending:
                 return
             await utils.send_welcome_message(member)
-        elif len(member.roles) > 3:
-            if member_old.pending and not member.pending:
+        elif len(member.roles) > 3 and member_old.pending and not member.pending:
                 await utils.send_welcome_message(member)
 
 

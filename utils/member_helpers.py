@@ -22,10 +22,8 @@ async def unverified_role_handler(member_old: discord.Member, member: discord.Me
 
     unverified_role = member.guild.get_role(1165755854730035301)
 
-    if any(role.id in verified_roles for role in member.roles):  # If member has a verified role
-        if unverified_role in member.roles:  # If member has the unverified role
-            await member.remove_roles(unverified_role)
-    elif any(role.id in verified_roles for role in member_old.roles):  # If member had a verified role before
+    if any(role.id in verified_roles for role in member.roles) or any(
+            role.id in verified_roles for role in member_old.roles):  # If member has a verified role or had one before
         if unverified_role in member.roles:  # If member has the unverified role
             await member.remove_roles(unverified_role)
     else:  # If member didn't have a verified role before or after

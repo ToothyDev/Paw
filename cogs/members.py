@@ -16,10 +16,6 @@ class Members(discord.Cog, name="Members"):
     async def auto_kicker(self):
         await self.bot.wait_until_ready()
         guild = self.bot.get_guild(715969701771083817)
-        try:
-            logchannel = guild.get_channel(760181839033139260)
-        except AttributeError:
-            return
         to_be_kicked = (await utils.get_inactives(guild)).get("kickworthy")
         for member in to_be_kicked:
             try:

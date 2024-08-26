@@ -238,7 +238,7 @@ class Socials(discord.Cog, name="Socials"):
         messages.reverse()
         input_history = [{"role": "system", "content": utils.system_prompt}]
         for message in messages:
-            if not message.author == self.bot.user:
+            if message.author != self.bot.user:
                 if message.content is None or message.content == "":
                     input_history.append(
                         {"role": "user", "name": message.author.display_name,
