@@ -11,14 +11,14 @@ class Fursona(pydantic.BaseModel):
 
 
 class Colors:
-    blue = 0xadd8e6
-    red = 0xf04747
-    green = 0x90ee90
-    orange = 0xfaa61a
-    purple = 0x5D327B
+    BLUE = 0xadd8e6
+    RED = 0xf04747
+    GREEN = 0x90ee90
+    ORANGE = 0xfaa61a
+    PURPLE = 0x5D327B
 
 
-inactive_roles = [  # Level 1 at the top
+INACTIVE_ROLES = [  # Level 1 at the top
     715990806061645915,
     715992589891010682,
     715993060244455545,
@@ -32,20 +32,20 @@ inactive_roles = [  # Level 1 at the top
     716590668905971752  # Partners
 ]
 
-fact_urls = ["https://some-random-api.com/facts/dog", "https://some-random-api.com/facts/cat",
+FACT_URLS = ["https://some-random-api.com/facts/dog", "https://some-random-api.com/facts/cat",
              "https://some-random-api.com/facts/panda",
              "https://some-random-api.com/facts/fox", "https://some-random-api.com/facts/bird",
              "https://some-random-api.com/facts/koala"]
 
-colors = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
+COLOR_STRINGS = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
           "Light Blue", "Grey", "Yellow"]
 
-species = {"Dragon": [80, 300], "Fox": [35, 50], "Deer": [53, 120], "Wolf": [60, 90], "Dog": [15, 110],
+SPECIES = {"Dragon": [80, 300], "Fox": [35, 50], "Deer": [53, 120], "Wolf": [60, 90], "Dog": [15, 110],
            "Bunny": [25, 35], "Protogen": [60, 120], "Hyena": [75, 105], "Tiger": [75, 107], "Lion": [110, 140],
            "Bird": [5, 50], "Otter": [20, 30], "Snake": [5, 20], "Cat": [15, 30], "Sergal": [80, 120],
            "Horse": [110, 150], "Shark": [40, 60], "Lizard": [10, 30]}
 
-system_prompt = """Your name is "Paw".
+SYSTEM_PROMPT = """Your name is "Paw".
 The users are furries and the context is a furry discord server called "The Paw Kingdom".
 Never say "AI language model", "language model", "virtual assistant", "AI" or similar things, simply leave them out of your response.
 If asked about your feelings, emotions or opinions, simply make a positive one up, and leave the part out where you explain that you cannot feel those or have those.

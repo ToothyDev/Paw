@@ -8,7 +8,7 @@ from utils.data import Colors
 
 async def send_welcome_message(member: discord.Member):
     channel = member.guild.get_channel(1066357407443333190)
-    embed = discord.Embed(color=Colors.purple)
+    embed = discord.Embed(color=Colors.PURPLE)
     embed.set_thumbnail(url=member.display_avatar)
     embed.description = f"""
 Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for roles & channels and <id:guide> for some useful info!
@@ -18,7 +18,7 @@ Thank you for reading and have fun!"""
 
 
 async def unverified_role_handler(member_old: discord.Member, member: discord.Member):
-    verified_roles = utils.inactive_roles
+    verified_roles = utils.INACTIVE_ROLES
 
     unverified_role = member.guild.get_role(1165755854730035301)
 
@@ -77,7 +77,7 @@ async def spammer_kicker(member: discord.Member) -> bool:
 
 
 async def log_member_kick(member: discord.Member, member_class: str):
-    embed = discord.Embed(color=Colors.orange)
+    embed = discord.Embed(color=Colors.ORANGE)
     embed.set_author(name=f"{member_class} Kick | {member.display_name}", icon_url=member.display_avatar.url)
     embed.set_footer(text=member.id)
     embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
@@ -90,7 +90,7 @@ async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]
     kickworthy = []
     current_time = time.time()
     for member in guild.members:
-        if any(role.id in utils.inactive_roles for role in member.roles) or member.bot:
+        if any(role.id in utils.INACTIVE_ROLES for role in member.roles) or member.bot:
             continue
         if member.joined_at.timestamp() + 604800 < current_time:  # If 7 days passed since join
             kickworthy.append(member)
