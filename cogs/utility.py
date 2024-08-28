@@ -26,7 +26,6 @@ class Utility(discord.Cog, name="Utilities"):
             required=False)
     async def sonagen(self, ctx: discord.ApplicationContext, species: str, sex: str, sonatype: str):
         """ Generate a random sona """
-        log.info("mrowies~")
         await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(utils.data.COLOR_STRINGS)
