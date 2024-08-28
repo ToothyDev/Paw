@@ -121,7 +121,7 @@ class Socials(discord.Cog, name="Socials"):
     async def rawr(self, ctx, members):
         """ Rawr at the specified people """
         words = ["rawred at", "Rawr"]
-        await utils.social_interaction_handler(ctx, members, words, assets.rawr)
+        await utils.social_interaction_handler(ctx, members, words, assets.RAWR)
 
     @slash_command()
     @option("members", str, description="Mention users to howl at")
