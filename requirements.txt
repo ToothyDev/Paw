@@ -3,3 +3,4 @@ py-cord==2.6.0
 psutil==6.0.0
 groq==0.10.0
 pydantic~=2.8.2
+coloredlogs~=15.0.1
