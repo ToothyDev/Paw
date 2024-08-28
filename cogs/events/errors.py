@@ -3,7 +3,9 @@ import groq
 from discord.ext import commands
 
 import config
+import logger
 
+log = logger.get_logger(__name__)
 
 class Error(discord.Cog, name="Errors"):
     def __init__(self, bot: discord.Bot):
@@ -40,8 +42,8 @@ class Error(discord.Cog, name="Errors"):
             return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
-        raise RuntimeError(
-            f"{ctx.author.global_name} used /{ctx.command} which caused {err} - Error class: {err.__class__.__name__}") from err
+        log.critical(
+            f"{ctx.author.global_name} used /{ctx.command} which caused {err} - Error class: {err.__class__.__name__}")
 
 
 def setup(bot):

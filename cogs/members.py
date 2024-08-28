@@ -1,7 +1,10 @@
 import discord
 from discord.ext import tasks
 
+import logger
 import utils
+
+log = logger.get_logger(__name__)
 
 
 class Members(discord.Cog, name="Members"):
@@ -30,7 +33,7 @@ class Members(discord.Cog, name="Members"):
                 await member.kick(reason="Inactive Member")
                 await utils.log_member_kick(member, "Inactive")
             except discord.Forbidden:
-                print(f"Failed to kick member {member.global_name}!")
+                log.warn(f"Failed to kick member {member.global_name}!")
 
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):

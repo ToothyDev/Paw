@@ -9,9 +9,11 @@ import psutil
 from discord import option, slash_command
 
 import assets
+import logger
 import utils
 from views import ConfirmView
 
+log = logger.get_logger(__name__)
 
 class Utility(discord.Cog, name="Utilities"):
     def __init__(self, bot: discord.Bot):
@@ -24,6 +26,7 @@ class Utility(discord.Cog, name="Utilities"):
             required=False)
     async def sonagen(self, ctx: discord.ApplicationContext, species: str, sex: str, sonatype: str):
         """ Generate a random sona """
+        log.info("mrowies~")
         await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(utils.data.COLOR_STRINGS)
