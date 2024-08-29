@@ -33,7 +33,7 @@ class Members(discord.Cog, name="Members"):
                 await member.kick(reason="Inactive Member")
                 await utils.log_member_kick(member, "Inactive")
             except discord.Forbidden:
-                log.warn(f"Failed to kick member {member.global_name}!")
+                log.warning(f"Failed to kick member {member.global_name}!")
 
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):

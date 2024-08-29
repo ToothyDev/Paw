@@ -54,7 +54,7 @@ async def userbot_kicker(member: discord.Member):
         try:
             await member.kick(reason="Bot")
         except (discord.HTTPException, discord.Forbidden) as e:
-            log.warn(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
+            log.warning(f"Unable to kick bot {member.display_name} ({member.id}). Error:\n{e}")
             return False  # Failsafe
         await log_member_kick(member, "Bot")
         return True  # Member / Bot has been kicked
@@ -71,7 +71,7 @@ async def spammer_kicker(member: discord.Member) -> bool:
         try:
             await member.kick(reason="Spammer")
         except (discord.HTTPException, discord.Forbidden) as e:
-            log.warn(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
+            log.warning(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
             return False  # Member is a spammer, tho failsafe because it failed
         await log_member_kick(member, "Spammer")
         return True  # Member has been detected as spammer
