@@ -36,14 +36,17 @@ class Error(discord.Cog, name="Errors"):
         err = err.original  # Unwrap the exception to catch any non-discord errors
 
         if isinstance(err, groq.RateLimitError):
+            log.info("Groq API ratelimit error")
             return await ctx.respond(f"You are using this command too much! {err.message.split('.')[1]}s",
                                      ephemeral=True)
         if isinstance(err, groq.InternalServerError):
+            log.info("Groq API internal service error")
             return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
-        log.critical(
-            f"{ctx.author.global_name} used /{ctx.command} which caused {err} - Error class: {err.__class__.__name__}")
+        log.error(
+            f"{ctx.author.global_name} used /{ctx.command} which caused {err} - Error class: {err.__class__.__name__}",
+            exc_info=(type(err), err, err.__traceback__))
 
 
 def setup(bot):
