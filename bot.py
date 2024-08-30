@@ -2,6 +2,9 @@ import discord
 from discord import Intents, Status, Activity, ActivityType
 
 from config import token
+import logger
+
+log = logger.get_logger(__name__)
 
 intents = Intents(guilds=True, guild_messages=True, message_content=True, members=True)
 
@@ -10,18 +13,17 @@ bot = discord.Bot(intents=intents, status=Status.online,
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs.events")
-print("Loaded cogs: " + ', '.join(key for key in bot.cogs))
+log.info("Loaded cogs: " + ', '.join(key for key in bot.cogs))
 
 
 @bot.listen()
 async def on_connect():
-    print('Connected to Discord!')
+    log.info('Connected to Discord!')
 
 
 @bot.listen()
 async def on_ready():
-    print(f'Logged in as {bot.user}')
-    print('------')
+    log.info(f'Logged in as {bot.user}')
 
 
 bot.run(token)

@@ -11,7 +11,8 @@ level_styles = {
 
 
 def configure_logging():
-    coloredlogs.install(level='INFO', level_styles=level_styles)
+    coloredlogs.install(level='INFO', level_styles=level_styles,
+                        fmt='%(asctime)s %(name)s %(levelname)s %(message)s')
 
 
 def get_logger(name):
