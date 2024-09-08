@@ -81,7 +81,6 @@ async def spammer_kicker(member: discord.Member) -> bool:
 async def log_member_kick(member: discord.Member, member_class: str):
     embed = discord.Embed(color=Colors.ORANGE)
     embed.set_author(name=f"{member_class} Kick | {member.display_name}", icon_url=member.display_avatar.url)
-    embed.set_footer(text=member.id)
     embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
     logchannel = member.guild.get_channel(760181839033139260)
     await logchannel.send(embed=embed)
