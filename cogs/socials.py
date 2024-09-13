@@ -237,16 +237,19 @@ class Socials(discord.Cog, name="Socials"):
         messages = await ctx.channel.history(limit=50).flatten()
         messages.reverse()
         input_history = [{"role": "system", "content": utils.SYSTEM_PROMPT}]
+        alt_text = None
         for message in messages:
             if message.author != self.bot.user:
+                if message.attachments and message.attachments[0].content_type.startswith("image"):
+                    alt_text = f"\nThe user attached an image to the message: {await utils.analyse_image(message.attachments[0].url)}"
                 if message.content is None or message.content == "":
                     input_history.append(
                         {"role": "user", "name": message.author.display_name,
-                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: <image or other type of message>"})
+                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) sent a file. {alt_text}"})
                 else:
                     input_history.append(
                         {"role": "user", "name": message.author.display_name,
-                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {message.content}"})
+                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {message.content} {alt_text}"})
                 continue
             try:
                 usermessage = message.content.split("\n")[0]  # Get the first line of the message. the user prompt
@@ -258,7 +261,7 @@ class Socials(discord.Cog, name="Socials"):
                 continue
             input_history.append(
                 {"role": "user", "name": ctx.guild.get_member(message.interaction_metadata.user.id).display_name,
-                 "content": f"{ctx.guild.get_member(message.interaction_metadata.user.id).display_name} ({utils.get_gender(ctx.guild.get_member(message.interaction_metadata.user.id))}) said: {usermessage[12:]}"})
+                 "content": f"{ctx.guild.get_member(message.interaction_metadata.user.id).display_name} ({utils.get_gender(ctx.guild.get_member(message.interaction_metadata.user.id))}) said: {usermessage[12:]} {alt_text}"})
             input_history.append({"role": "assistant", "content": botmsg[9:]})
         input_history.append(
             {"role": "user", "name": ctx.author.display_name,
