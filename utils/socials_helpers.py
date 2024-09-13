@@ -65,15 +65,22 @@ async def social_interaction_handler(ctx: discord.ApplicationContext, members: l
     await ctx.respond(embed=embed, view=view)
 
 
-def format_current_user_message(author: discord.Member, text: str) -> dict:
-    return {
-        "role": "user",
-        "name": author.display_name,
-        "content": f"{author.display_name} ({utils.get_gender(author)}) said: {text}"
-    }
+async def build_input_history(bot, ctx: discord.ApplicationContext, prompt: str) -> list:
+    messages = await ctx.channel.history(limit=50).flatten()
+    messages.reverse()
+    input_history = [{"role": "system", "content": utils.SYSTEM_PROMPT}]
+
+    for message in messages:
+        if message.author == bot.user:
+            input_history.extend(format_bot_message(message, ctx.guild))
+        else:
+            input_history.append(await format_user_message(message))
+
+    input_history.append(format_current_user_message(ctx.author, prompt))
+    return input_history
 
 
-def format_bot_message(message: discord.Message, guild: discord.Guild) -> list:
+def format_bot_message(message: discord.Message, guild: discord.Guild) -> list[dict]:
     try:
         user_prompt, bot_response = message.content.split("\n", 1)
     except ValueError:
@@ -83,20 +90,15 @@ def format_bot_message(message: discord.Message, guild: discord.Guild) -> list:
         return []
 
     user = guild.get_member(message.interaction_metadata.user.id)
+
     return [
         {
             "role": "user",
             "name": user.display_name,
-            "content": f"{user.display_name} ({utils.get_gender(user)}) said: {user_prompt[12:]}"
+            "content": f"{user.display_name} ({utils.get_gender(user)}) said: {user_prompt.removeprefix('**Prompt:** ')}"
         },
-        {"role": "assistant", "content": bot_response[9:]}
+        {"role": "assistant", "content": bot_response.removeprefix('**Paw:** ')}
     ]
-
-
-async def get_image_alt_text(message: discord.Message) -> str:
-    if message.attachments and message.attachments[0].content_type.startswith("image"):
-        return f"\nThe user attached an image to the message: {await utils.analyse_image(message.attachments[0].url)}"
-    return ""
 
 
 async def format_user_message(message: discord.Message) -> dict:
@@ -105,25 +107,29 @@ async def format_user_message(message: discord.Message) -> dict:
     return {
         "role": "user",
         "name": message.author.display_name,
-        "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {content} {alt_text}"
+        "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {content}{alt_text}"
     }
 
 
-async def get_channel_history(channel) -> list[discord.Message]:
-    messages = await channel.history(limit=50).flatten()
-    messages.reverse()
-    return messages
+def format_current_user_message(author: discord.Member, text: str) -> dict:
+    return {
+        "role": "user",
+        "name": author.display_name,
+        "content": f"{author.display_name} ({utils.get_gender(author)}) said: {text}"
+    }
 
 
-async def build_input_history(bot, ctx: discord.ApplicationContext, prompt: str) -> list:
-    messages = await get_channel_history(ctx.channel)
-    input_history = [{"role": "system", "content": utils.SYSTEM_PROMPT}]
+async def get_image_alt_text(message: discord.Message) -> str:
+    if message.attachments:
+        if len(message.attachments) == 1:
+            if message.attachments and message.attachments[0].content_type.startswith("image"):
+                return f"\nThe user attached an image to the message which shows the following: {await utils.analyse_image(message.attachments[0].url)}"
 
-    for message in messages:
-        if message.author != bot.user:
-            input_history.append(await format_user_message(message))
-        else:
-            input_history.extend(format_bot_message(message, ctx.guild))
-
-    input_history.append(format_current_user_message(ctx.author, prompt))
-    return input_history
+        if len([attachment for attachment in message.attachments if attachment.content_type.startswith("image")]) == 0:
+            return ""
+        output = "\nThe user attached multiple images to the message which show the following: "
+        for attachment in message.attachments:
+            if attachment.content_type.startswith("image"):
+                output += "\n" + await utils.analyse_image(attachment.url)
+        return output
+    return ""
