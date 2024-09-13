@@ -14,6 +14,30 @@ async def generate_from_history(history: list[dict]) -> str:
     return chat_completion.choices[0].message.content
 
 
+async def analyse_image(image_url: str) -> str:
+    client = AsyncGroq(api_key=config.groq_api_key)
+    image_completion = await client.chat.completions.create(
+        messages=[
+            {
+                "role": "user",
+                "content": [
+                    {"type": "text",
+                     "text": "Describe this image. Your output will be used to describe this image to a 'blind' LLM."
+                             "Keep yourself short."},
+                    {
+                        "type": "image_url",
+                        "image_url": {
+                            "url": image_url,
+                        },
+                    },
+                ],
+            }
+        ],
+        model="llava-v1.5-7b-4096-preview",
+    )
+    return image_completion.choices[0].message.content
+
+
 async def generate_single(prompt: str) -> str:
     client = AsyncGroq(api_key=config.groq_api_key)
     chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],

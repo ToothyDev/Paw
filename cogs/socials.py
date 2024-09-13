@@ -7,6 +7,7 @@ from discord.ext import commands
 
 import assets
 import utils
+from utils import build_input_history
 
 
 class Socials(discord.Cog, name="Socials"):
@@ -234,35 +235,7 @@ class Socials(discord.Cog, name="Socials"):
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
         await ctx.defer()
-        messages = await ctx.channel.history(limit=50).flatten()
-        messages.reverse()
-        input_history = [{"role": "system", "content": utils.SYSTEM_PROMPT}]
-        for message in messages:
-            if message.author != self.bot.user:
-                if message.content is None or message.content == "":
-                    input_history.append(
-                        {"role": "user", "name": message.author.display_name,
-                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: <image or other type of message>"})
-                else:
-                    input_history.append(
-                        {"role": "user", "name": message.author.display_name,
-                         "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {message.content}"})
-                continue
-            try:
-                usermessage = message.content.split("\n")[0]  # Get the first line of the message. the user prompt
-                botmsg = message.content.split("\n")[1]  # Second line, Paw's response
-            except IndexError:
-                input_history.append({"role": "assistant", "content": message.content})
-                continue
-            if not usermessage.startswith("**Prompt:**") and not botmsg.startswith("**Paw:**"):
-                continue
-            input_history.append(
-                {"role": "user", "name": ctx.guild.get_member(message.interaction_metadata.user.id).display_name,
-                 "content": f"{ctx.guild.get_member(message.interaction_metadata.user.id).display_name} ({utils.get_gender(ctx.guild.get_member(message.interaction_metadata.user.id))}) said: {usermessage[12:]}"})
-            input_history.append({"role": "assistant", "content": botmsg[9:]})
-        input_history.append(
-            {"role": "user", "name": ctx.author.display_name,
-             "content": f"{ctx.author.display_name} ({utils.get_gender(ctx.author)}) said: {text}"})
+        input_history = await build_input_history(self.bot, ctx, text)
         response = await utils.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
