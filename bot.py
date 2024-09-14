@@ -6,9 +6,7 @@ import logger
 
 log = logger.get_logger(__name__)
 
-intents = Intents(guilds=True, guild_messages=True, message_content=True, members=True)
-
-bot = discord.Bot(intents=intents, status=Status.online,
+bot = discord.Bot(intents=discord.Intents.all(), status=Status.online,
                   activity=Activity(type=ActivityType.watching, name="over the Paw Kingdom"))
 
 bot.load_extensions("cogs")
