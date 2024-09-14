@@ -5,6 +5,7 @@ import config
 from utils.data import Fursona
 
 LANGUAGE_MODEL = "llama-3.1-70b-versatile"
+VISION_MODEL = "llava-v1.5-7b-4096-preview"
 
 
 async def generate_from_history(history: list[dict]) -> str:
@@ -33,7 +34,7 @@ async def analyse_image(image_url: str) -> str:
                 ],
             }
         ],
-        model="llava-v1.5-7b-4096-preview",
+        model=VISION_MODEL,
     )
     return image_completion.choices[0].message.content
 
