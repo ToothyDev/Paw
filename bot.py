@@ -1,5 +1,5 @@
 import discord
-from discord import Intents, Status, Activity, ActivityType
+from discord import Status, Activity, ActivityType
 
 from config import token
 import logger
