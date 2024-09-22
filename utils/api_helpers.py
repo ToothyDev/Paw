@@ -4,7 +4,7 @@ from groq import AsyncGroq
 import config
 from utils.data import Fursona
 
-LANGUAGE_MODEL = "llama3-70b-8192"
+LANGUAGE_MODEL = "llama-3.1-70b-versatile"
 VISION_MODEL = "llava-v1.5-7b-4096-preview"
 
 
