@@ -11,9 +11,9 @@ level_styles = {
 
 def configure_logging():
     coloredlogs.install(level='INFO', level_styles=level_styles,
-                        fmt='%(asctime)s {%(filename)s:%(lineno)s} %(levelname)s %(message)s')
-    discord_logger = logging.getLogger('discord')
-    discord_logger.setLevel(logging.WARN)
+                        fmt='%(asctime)s %(name)s {%(filename)s:%(lineno)s} %(levelname)s %(message)s')
+    logging.getLogger('discord').setLevel(logging.WARNING)
+    logging.getLogger("httpx").setLevel(logging.WARNING)
 
 
 def get_logger(name):
