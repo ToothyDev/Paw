@@ -7,6 +7,7 @@ import logger
 
 log = logger.get_logger(__name__)
 
+
 class Error(discord.Cog, name="Errors"):
     def __init__(self, bot: discord.Bot):
         self.bot = bot
@@ -39,6 +40,7 @@ class Error(discord.Cog, name="Errors"):
             log.info("Groq API ratelimit error")
             return await ctx.respond(f"You are using this command too much! {err.message.split('.')[1]}s",
                                      ephemeral=True)
+        
         if isinstance(err, groq.InternalServerError):
             log.info("Groq API internal service error")
             return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
