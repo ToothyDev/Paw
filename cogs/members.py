@@ -43,7 +43,7 @@ class Members(discord.Cog, name="Members"):
         await ctx.respond(' '.join([member.mention for member in members]))
 
     @inactives.command()
-    async def pending(self, ctx):
+    async def pending(self, ctx: discord.ApplicationContext):
         """ Get all non-verified accounts (unsure what that means) """
         output = ""
         for member in ctx.guild.members:
@@ -52,6 +52,16 @@ class Members(discord.Cog, name="Members"):
         if not output:
             output = "No members found!"
         await ctx.respond(output)
+
+    @inactives.command()
+    async def calcprune(self, ctx: discord.ApplicationContext):
+        """Calculate the number of members that would be kicked for a prune, including all self-assignable roles"""
+        prunable_roles = [role for role in ctx.guild.roles if
+                          role.flags.in_prompt]  # Get all onboarding-assignable roles
+        prunable_roles.append(1165755854730035301)  # Unverified role
+        prunable_roles.append(778893728701087744)  # Townsfolk role
+        amount = await ctx.guild.estimate_pruned_members(days=30, roles=prunable_roles)
+        await ctx.respond(f"A prune with the current settings would kick about {amount} members.")
 
 
 def setup(bot):
