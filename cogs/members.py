@@ -55,7 +55,7 @@ class Members(discord.Cog, name="Members"):
 
     @inactives.command()
     async def calcprune(self, ctx: discord.ApplicationContext):
-        """Calculate number of pruned inactive members"""
+        """ Calculate number of pruned inactive members """
         prunable_roles = [role for role in ctx.guild.roles if
                           role.flags.in_prompt]  # Get all onboarding-assignable roles
         prunable_roles.append(1165755854730035301)  # Unverified role
