@@ -4,3 +4,4 @@ psutil==6.0.0
 groq==0.10.0
 pydantic~=2.8.2
 coloredlogs~=15.0.1
+audioop-lts~=0.2.1; python_version>='3.13'
