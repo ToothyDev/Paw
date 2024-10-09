@@ -120,16 +120,17 @@ def format_current_user_message(author: discord.Member, text: str) -> dict:
 
 
 async def get_image_alt_text(message: discord.Message) -> str:
-    if message.attachments:
-        if len(message.attachments) == 1:
-            if message.attachments and message.attachments[0].content_type.startswith("image"):
-                return f"\nThe user attached an image to the message which shows the following: {await utils.analyse_image(message.attachments[0].url)}"
+    if not message.attachments:
+        return ""
 
-        if len([attachment for attachment in message.attachments if attachment.content_type.startswith("image")]) == 0:
-            return ""
-        output = "\nThe user attached multiple images to the message which show the following: "
-        for attachment in message.attachments:
-            if attachment.content_type.startswith("image"):
-                output += "\n" + await utils.analyse_image(attachment.url)
-        return output
-    return ""
+    if len([attachment for attachment in message.attachments if attachment.content_type.startswith("image")]) == 0:
+        return ""
+
+    if len(message.attachments) == 1 and message.attachments[0].content_type.startswith("image"):
+        return f"\nThe user attached an image to the message which shows the following: {await utils.analyse_image(message.attachments[0].url)}"
+
+    output = "\nThe user attached multiple images to the message which show the following: "
+    for attachment in message.attachments:
+        if attachment.content_type.startswith("image"):
+            output += "\n" + await utils.analyse_image(attachment.url)
+    return output
