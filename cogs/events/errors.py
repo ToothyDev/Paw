@@ -40,6 +40,10 @@ class Error(discord.Cog, name="Errors"):
             log.info("Groq API ratelimit error")
             return await ctx.respond(f"You are using this command too much! {err.message.split('.')[1]}s",
                                      ephemeral=True)
+
+        if isinstance(err, groq.BadRequestError):
+            if err.message == "context deadline exceeded":
+                return await ctx.respond("The request has timed out! Please try again", ephemeral=True)
         
         if isinstance(err, groq.InternalServerError):
             log.info("Groq API internal service error")
