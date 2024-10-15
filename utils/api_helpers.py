@@ -1,3 +1,5 @@
+import time
+
 import aiohttp
 from groq import AsyncGroq
 
@@ -5,7 +7,7 @@ import config
 from utils.data import Fursona
 
 LANGUAGE_MODEL = "llama-3.1-70b-versatile"
-VISION_MODEL = "llava-v1.5-7b-4096-preview"
+VISION_MODEL = "llama-3.2-11b-vision-preview"
 
 
 async def generate_from_history(history: list[dict]) -> str:
