@@ -8,6 +8,7 @@ from utils.data import Colors
 
 log = logger.get_logger(__name__)
 
+
 async def send_welcome_message(member: discord.Member):
     channel = member.guild.get_channel(1066357407443333190)
     embed = discord.Embed(color=Colors.PURPLE)
@@ -65,7 +66,8 @@ async def spammer_kicker(member: discord.Member) -> bool:
     if member.public_flags.value & 1048576 == 1048576:
         try:
             await member.send(
-                "You've been kicked from The Paw Kingdom for being flagged as spammer.")
+                "You've been kicked from The Paw Kingdom for being flagged as spammer. If you think this is a "
+                "mistake, send a friend request to `toothyfernsan`")
         except (discord.HTTPException, discord.Forbidden):
             pass
         try:
