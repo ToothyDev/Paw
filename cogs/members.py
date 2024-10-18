@@ -38,26 +38,21 @@ class Members(discord.Cog, name="Members"):
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
-        members = (await utils.get_inactives(ctx.guild)).get("unverified")
-        members = sorted(members, key=lambda member: member.joined_at)
-        await ctx.respond(' '.join([member.mention for member in members]))
+        inactives = await utils.get_inactives(ctx.guild)
+        members = sorted(inactives['unverified'], key=lambda member: member.joined_at)
+        await ctx.respond(" ".join([member.mention for member in members]) if members else "No unverified members!")
 
     @inactives.command()
     async def pending(self, ctx: discord.ApplicationContext):
         """ Get all non-verified accounts (unsure what that means) """
-        output = ""
-        for member in ctx.guild.members:
-            if member.pending:
-                output += " " + member.mention
-        if not output:
-            output = "No members found!"
-        await ctx.respond(output)
+        output = " ".join([member.mention for member in ctx.guild.members if member.pending])
+        await ctx.respond(output if output else "No pending members!")
 
     @inactives.command()
     async def calcprune(self, ctx: discord.ApplicationContext):
         """ Calculate number of pruned inactive members """
-        prunable_roles = [role for role in ctx.guild.roles if
-                          role.flags.in_prompt]  # Get all onboarding-assignable roles
+        # Get all onboarding-assignable roles
+        prunable_roles = [role for role in ctx.guild.roles if role.flags.in_prompt]
         prunable_roles.append(discord.Object(1165755854730035301))  # Unverified role
         prunable_roles.append(discord.Object(778893728701087744))  # Townsfolk role
         amount = await ctx.guild.estimate_pruned_members(days=30, roles=prunable_roles)
