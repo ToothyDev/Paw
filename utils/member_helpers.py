@@ -4,18 +4,17 @@ import discord
 
 import logger
 import utils
-from utils.data import Colors
 
 log = logger.get_logger(__name__)
 
 
 async def send_welcome_message(member: discord.Member):
     channel = member.guild.get_channel(1066357407443333190)
-    embed = discord.Embed(color=Colors.PURPLE)
+    embed = discord.Embed(color=utils.Colors.PURPLE)
     embed.set_thumbnail(url=member.display_avatar)
     embed.description = f"""
 Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for roles & channels and <id:guide> for some useful info!
-__**IMPORTANT**__: To gain access to the rest of the server, you need to first gain a level by chatting in this channel.
+__**IMPORTANT**__: To gain access to the rest of the server, you first need to gain a level by chatting in this channel.
 Thank you for reading and have fun!"""
     await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
 
@@ -81,7 +80,7 @@ async def spammer_kicker(member: discord.Member) -> bool:
 
 
 async def log_member_kick(member: discord.Member, member_class: str):
-    embed = discord.Embed(color=Colors.ORANGE)
+    embed = discord.Embed(color=utils.Colors.ORANGE)
     embed.set_author(name=f"{member_class} Kick | {member.display_name}", icon_url=member.display_avatar.url)
     embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
     logchannel = member.guild.get_channel(760181839033139260)
