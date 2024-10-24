@@ -35,6 +35,12 @@ class Members(discord.Cog, name="Members"):
             except discord.Forbidden:
                 log.warning(f"Failed to kick member {member.global_name}!")
 
+        # Run spammer kicker on every member after kicking all inactive members
+        guild = self.bot.get_guild(715969701771083817)
+        for member in guild.members:
+            if not any(role.id in utils.INACTIVE_ROLES for role in member.roles):  # If member doesn't have a level role
+                await utils.spammer_kicker(member)
+
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
