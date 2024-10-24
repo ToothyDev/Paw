@@ -62,21 +62,22 @@ async def userbot_kicker(member: discord.Member):
 
 
 async def spammer_kicker(member: discord.Member) -> bool:
-    if member.public_flags.value & 1048576 == 1048576:
-        try:
-            await member.send(
-                "You've been kicked from The Paw Kingdom for being flagged as spammer. If you think this is a "
-                "mistake, send a friend request to `toothyfernsan`")
-        except (discord.HTTPException, discord.Forbidden):
-            pass
-        try:
-            await member.kick(reason="Spammer")
-        except (discord.HTTPException, discord.Forbidden) as e:
-            log.warning(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
-            return False  # Member is a spammer, tho failsafe because it failed
-        await log_member_kick(member, "Spammer")
-        return True  # Member has been detected as spammer
-    return False  # Member is not a spammer
+    if member.public_flags.value & 1048576 != 1048576:
+        return False  # Member is not a spammer
+
+    try:
+        await member.send(
+            "You've been kicked from The Paw Kingdom for being flagged as spammer. If you think this is a "
+            "mistake, send a friend request to `toothyfernsan`")
+    except (discord.HTTPException, discord.Forbidden):
+        pass
+    try:
+        await member.kick(reason="Spammer")
+    except (discord.HTTPException, discord.Forbidden) as e:
+        log.warning(f"Unable to kick spammer {member.display_name} ({member.id}). Error:\n{e}")
+        return False  # Member is a spammer, tho failsafe because it failed
+    await log_member_kick(member, "Spammer")
+    return True  # Member has been detected as spammer
 
 
 async def log_member_kick(member: discord.Member, member_class: str):
