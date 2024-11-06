@@ -22,7 +22,7 @@ class Members(discord.Cog, name="Members"):
         if not guild:
             self.auto_kicker.stop()
             return
-        to_be_kicked = (await utils.get_inactives(guild)).get("kickworthy")
+        to_be_kicked = utils.get_inactives(guild).get("kickworthy")
         for member in to_be_kicked:
             try:
                 await member.send(
@@ -44,7 +44,7 @@ class Members(discord.Cog, name="Members"):
     @inactives.command()
     async def get(self, ctx: discord.ApplicationContext):
         """ Get all inactive members """
-        inactives = await utils.get_inactives(ctx.guild)
+        inactives = utils.get_inactives(ctx.guild)
         members = sorted(inactives['unverified'], key=lambda member: member.joined_at)
         await ctx.respond(" ".join([member.mention for member in members]) if members else "No unverified members!")
 

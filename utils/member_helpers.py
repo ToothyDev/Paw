@@ -88,7 +88,7 @@ async def log_member_kick(member: discord.Member, member_class: str):
     await logchannel.send(embed=embed)
 
 
-async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:
+def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:
     unverified = []
     kickworthy = []
     current_time = time.time()
@@ -106,9 +106,9 @@ async def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]
 def get_gender(member: discord.Member) -> str:
     if isinstance(member, discord.User):
         return "undetermined"
-
     if member.guild.id != 715969701771083817:
         return "undetermined"
+
     male_role = member.guild.get_role(731241481284616282)
     female_role = member.guild.get_role(731241521558323227)
 
