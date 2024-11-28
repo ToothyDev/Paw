@@ -71,7 +71,6 @@ class Members(discord.Cog, name="Members"):
             ctx.guild.get_role(1165755854730035301),  # Unverified role
             ctx.guild.get_role(778893728701087744)  # Townsfolk role
         ])
-        print(prunable_roles)
         amount = await ctx.guild.estimate_pruned_members(days=30, roles=prunable_roles)
         await ctx.respond(f"A prune with the current settings would kick about {amount} members.")
 
