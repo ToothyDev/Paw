@@ -1,4 +1,5 @@
 import discord
+from discord import option
 from discord.ext import tasks
 
 import logger
@@ -55,14 +56,22 @@ class Members(discord.Cog, name="Members"):
         await ctx.respond(output if output else "No pending members!")
 
     @inactives.command()
-    async def calcprune(self, ctx: discord.ApplicationContext):
+    @option("ignored_roles", str, default=None)
+    async def calcprune(self, ctx: discord.ApplicationContext, ignored_roles=None):
         """ Calculate number of pruned inactive members """
         # Get all onboarding-assignable roles
         prunable_roles = [role for role in ctx.guild.roles if role.flags.in_prompt]
+
+        if ignored_roles:
+            ignored_roles = discord.utils.raw_role_mentions(ignored_roles)
+            for role_id in ignored_roles:
+                prunable_roles.append(ctx.guild.get_role(role_id))
+
         prunable_roles.extend([
             ctx.guild.get_role(1165755854730035301),  # Unverified role
             ctx.guild.get_role(778893728701087744)  # Townsfolk role
         ])
+        print(prunable_roles)
         amount = await ctx.guild.estimate_pruned_members(days=30, roles=prunable_roles)
         await ctx.respond(f"A prune with the current settings would kick about {amount} members.")
 
