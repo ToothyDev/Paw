@@ -19,7 +19,7 @@ class Utility(discord.Cog, name="Utilities"):
     def __init__(self, bot: discord.Bot):
         self.bot = bot
 
-    @slash_command()
+    @slash_command(contexts={discord.InteractionContextType.guild})
     @option("species", str, description="The species of the fursona", required=False)
     @option("sex", str, description="The sex of the fursona", choices=["Male", "Female", "Intersex"], required=False)
     @option("type", str, description="The type of the fursona", parameter_name="sonatype", choices=["Feral", "Anthro"],

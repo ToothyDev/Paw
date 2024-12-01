@@ -230,7 +230,7 @@ class Socials(discord.Cog, name="Socials"):
         embed.set_footer(text=f"Gay avatar: {user.display_name}")
         await ctx.respond(embed=embed)
 
-    @slash_command()
+    @slash_command(contexts={discord.InteractionContextType.guild})
     @option("text", str, description="What do you want to tell Paw?")
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
