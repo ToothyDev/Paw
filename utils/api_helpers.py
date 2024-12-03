@@ -24,7 +24,8 @@ async def analyse_image(image_url: str) -> str:
                 "content": [
                     {"type": "text",
                      "text": "Describe this image. Your output will be used to describe this image to a 'blind' LLM. "
-                             "Summarise in one or maximum two sentences."},
+                             "Summarise in one or maximum two sentences."
+                     },
                     {
                         "type": "image_url",
                         "image_url": {
