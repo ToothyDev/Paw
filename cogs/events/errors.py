@@ -44,13 +44,13 @@ class Error(discord.Cog, name="Errors"):
         if isinstance(err, groq.BadRequestError):
             if err.message == "context deadline exceeded":
                 return await ctx.respond("The request has timed out! Please try again", ephemeral=True)
-        
+
         if isinstance(err, groq.InternalServerError):
             log.info("Groq API internal service error")
             return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
 
         if isinstance(err, groq.APIStatusError):
-            if err.message.startswith("Request too large for model"):
+            if err.status_code == 413:
                 log.info("Groq API request too large for model")
                 return await ctx.respond("The chat history is too big! Try again later.", ephemeral=True)
 
