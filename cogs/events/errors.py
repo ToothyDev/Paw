@@ -50,7 +50,7 @@ class Error(discord.Cog, name="Errors"):
             return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
 
         if isinstance(err, groq.APIStatusError):
-            if err.status_code == 413:
+            if err.message.startswith("Request too large for model"):
                 log.info("Groq API request too large for model")
                 return await ctx.respond("The chat history is too big! Try again later.", ephemeral=True)
 
