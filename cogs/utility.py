@@ -27,7 +27,7 @@ class Utility(discord.Cog, name="Utilities"):
         primary_color = discord.Color.random()
         color = random.choice(utils.data.COLOR_STRINGS)
 
-        response = await utils.api_helpers.generate_sona(
+        sona = await utils.api_helpers.generate_sona(
             f"""Your job is to generate a fursona as a fursona generator. Use the following json schema: {json.dumps(utils.data.Fursona.model_json_schema(), indent=2)}
             The user already picked the following values:
             {species if species else ""} {sex if sex else ""} {sonatype if sonatype else ""}
@@ -48,12 +48,12 @@ class Utility(discord.Cog, name="Utilities"):
             Always say colors by name and not in hexadecimal form.
             Do not say anything towards the user, simply act like a sona text generator""")
 
-        name = response.name
-        sonatype = response.type
-        species = response.species
-        sex = response.gender
-        height = response.height
-
+        name = sona.name
+        sonatype = sona.type
+        species = sona.species
+        sex = sona.gender
+        height = sona.height
+        description = sona.description
         heightstring = f"**Height{' to shoulders' if sonatype == 'Feral' else ''}**: {height}cm"
 
         embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
@@ -63,7 +63,7 @@ class Utility(discord.Cog, name="Utilities"):
 **Secondary Color**: {color}
 {heightstring}
 **Sex**: {sex}
-**Description**: {response.description}
+**Description**: {description}
         """)
         await ctx.respond(content="Sure, here's your freshly generated sona!", embed=embed)
 
@@ -94,19 +94,28 @@ class Utility(discord.Cog, name="Utilities"):
     @slash_command()
     async def info(self, ctx: discord.ApplicationContext):
         """ Displays information about Paw """
-        embed = discord.Embed()
-        vram = psutil.virtual_memory()
+        ram = psutil.virtual_memory()
         disk_usage = psutil.disk_usage('/')
-        divamount = 1000000000
+        divamount = 1_000_000_000
+
+        user_count = len(self.bot.users)
+        latency = round(self.bot.latency * 1000)
+        used_ram = round((ram.used / divamount), 2)
+        total_ram = round((ram.total / divamount), 2)
+        percent_used_ram = round(((ram.used / ram.total) * 100), 2)
+        free_disk = round((disk_usage.free / divamount), 2)
+        total_disk = round((disk_usage.total / divamount), 2)
+        percent_free_disk = round((((disk_usage.used / disk_usage.total * 100) - 100) * (-1)), 2)
+
+        embed = discord.Embed(color=utils.Colors.BLUE)
         embed.description = f"""
 {self.bot.user.name} is a bot developed by TPK to provide social interaction commands and other fun things!
-**Users:** {sum(x.member_count for x in self.bot.guilds)}
-**API Latency:** {round(self.bot.latency * 1000)}ms
-**RAM:** {round((vram.used / divamount), 2)}GB used out of {round((vram.total / divamount), 2)}GB total ({round(((vram.used / vram.total) * 100), 2)}% used)
-**Disk:** {round((disk_usage.free / divamount), 2)}GB free out of {round((disk_usage.total / divamount), 2)}GB total ({round((((disk_usage.used / disk_usage.total * 100) - 100) * (-1)), 2)}% free)
+**Users:** {user_count}
+**API Latency:** {latency}ms
+**RAM:** {used_ram}GB used out of {total_ram}GB total ({percent_used_ram}% used)
+**Disk:** {free_disk}GB free out of {total_disk}GB total ({percent_free_disk}% free)
 
 [[Github]](https://github.com/ToothyDev/Paw)"""
-        embed.colour = utils.Colors.BLUE
         await ctx.respond(embed=embed)
 
     @slash_command()
