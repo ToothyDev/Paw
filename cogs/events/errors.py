@@ -1,3 +1,5 @@
+import re
+
 import discord
 import groq
 import pydantic
@@ -39,7 +41,8 @@ class Error(discord.Cog, name="Errors"):
 
         if isinstance(err, groq.RateLimitError):
             log.info("Groq API ratelimit error")
-            return await ctx.respond(f"You are using this command too much! {err.message.split('.')[1]}s",
+            matches = re.findall(r"\d+\.\d+", err.message)
+            return await ctx.respond(f"You are using this command too much! Please try again in {matches[-1]}s",
                                      ephemeral=True)
 
         if isinstance(err, groq.BadRequestError):
