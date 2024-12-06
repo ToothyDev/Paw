@@ -1,5 +1,6 @@
 import discord
 import groq
+import pydantic
 from discord.ext import commands
 
 import config
@@ -54,9 +55,13 @@ class Error(discord.Cog, name="Errors"):
                 log.info("Groq API request too large for model")
                 return await ctx.respond("The chat history is too big! Try again later.", ephemeral=True)
 
+        if isinstance(err, pydantic.ValidationError):
+            log.info("Groq API pydantic model validation error")
+            return await ctx.respond("There was an issue generating your sona, try again!", ephemeral=True)
+
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
         log.error(
-            f"{ctx.author.global_name} used /{ctx.command} which caused {err} - Error class: {err.__class__.__name__}",
+            f"{ctx.author.global_name} used /{ctx.command} which caused '{err}' - Error class: {err.__class__.__name__}",
             exc_info=(type(err), err, err.__traceback__))
 
 
