@@ -82,3 +82,9 @@ async def apireq(url, headers=None, data=None) -> dict[str, any]:
     async with aiohttp.ClientSession() as session:
         async with session.get(url, headers=headers, json=data) as response:
             return await response.json()
+
+def is_ai_enabled() -> bool:
+    if config.groq_api_key.startswith("sk-") or config.groq_api_key.startswith("gsk_"):
+        return True
+    else:
+        return False
