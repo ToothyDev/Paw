@@ -68,5 +68,5 @@ class Error(discord.Cog, name="Errors"):
             exc_info=(type(err), err, err.__traceback__))
 
 
-def setup(bot):
+def setup(bot: discord.Bot):
     bot.add_cog(Error(bot))

@@ -243,5 +243,5 @@ class Socials(discord.Cog, name="Socials"):
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 
 
-def setup(bot):
+def setup(bot: discord.Bot):
     bot.add_cog(Socials(bot))

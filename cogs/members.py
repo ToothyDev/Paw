@@ -75,5 +75,5 @@ class Members(discord.Cog, name="Members"):
         await ctx.respond(f"A prune with the current settings would kick about {amount} members.")
 
 
-def setup(bot):
+def setup(bot: discord.Bot):
     bot.add_cog(Members(bot))

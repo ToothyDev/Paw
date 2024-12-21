@@ -98,5 +98,5 @@ class Staff(discord.Cog, name="Staff"):
         await ctx.respond("Message successfully sent!", ephemeral=True)
 
 
-def setup(bot):
+def setup(bot: discord.Bot):
     bot.add_cog(Staff(bot))
