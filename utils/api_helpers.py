@@ -16,6 +16,7 @@ def get_client() -> tuple[ai, str, str]:
                 api_key=api_key,
                 base_url="https://api.openai.com/v1"
             ), # Client using OpenAI API
+            # You can switch these to other models if you want to, I just just set them to the mini model because it's cheaper and honestly, it's good enough for most use cases
             "gpt-4o-mini-2024-07-18", # Language model
             "gpt-4o-mini-2024-07-18" # Vision model
             )
@@ -26,7 +27,7 @@ def get_client() -> tuple[ai, str, str]:
                 base_url="https://api.groq.com/openai/v1"
             ), # Client, using Groq API
             "llama-3.3-70b-versatile", # Language model
-            "llama-3.2-11b-vision-preview" # Vision model
+            "llama-3.2-11b-vision-preview" # Vision model, you can change this to "llama-3.2-90b-vision" if you want to, but It'll be slower
             )
     else:
         raise ValueError("Invalid API key. Please provide a valid OpenAI/Groq API key.")
