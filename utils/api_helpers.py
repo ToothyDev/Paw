@@ -2,8 +2,10 @@ import aiohttp
 from groq import AsyncGroq as ai
 
 import config
+import logger
 from utils.data import Fursona
 
+log = logger.get_logger(__name__)
 
 def get_client() -> tuple[ai, str, str]:
     """Returns the AsyncGroq client and the language and vision model names.
@@ -34,8 +36,14 @@ def get_client() -> tuple[ai, str, str]:
 
 async def generate_from_history(history: list[dict]) -> str:
     client, language_model, vision_model = get_client()
-    chat_completion = await client.chat.completions.create(messages=history, model=language_model,
-                                                           max_tokens=400)
+    try:
+        chat_completion = await client.chat.completions.create(messages=history, model=language_model,
+                                                            max_tokens=400)
+    except Exception as err:
+        log.error(
+            f"An error occurred while generating text from history: {err}",
+            exc_info=(type(err), err, err.__traceback__))
+        return "An error occurred. Please try again later, this has been logged."
     return chat_completion.choices[0].message.content
 
 
@@ -64,18 +72,32 @@ async def analyse_image(image_url: str) -> str:
     return image_completion.choices[0].message.content
 
 
-async def generate_single(prompt: str) -> str:
-    client, language_model, vision_model = get_client()
-    chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                           model=language_model, max_tokens=400)
-    return chat_completion.choices[0].message.content
+# I can't find a single place where this is used, so I'm commenting it out for now
+
+#async def generate_single(prompt: str) -> str:
+#    client, language_model, vision_model = get_client()
+#    try:
+#        chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
+#                                                            model=language_model, max_tokens=400)
+#    except Exception as err:
+#        log.error(
+#            f"An error occurred while generating single: {err}",
+#            exc_info=(type(err), err, err.__traceback__))
+#        return "An error occurred. Please try again later, this has been logged."
+#    return chat_completion.choices[0].message.content
 
 
 async def generate_sona(prompt: str) -> Fursona:
     client, language_model, vision_model = get_client()
-    chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                           model=language_model,
-                                                           response_format={"type": "json_object"})
+    try:
+        chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
+                                                            model=language_model,
+                                                            response_format={"type": "json_object"})
+    except Exception as err:
+        log.error(
+            f"An error occurred while generating sona: {err}",
+            exc_info=(type(err), err, err.__traceback__))
+        return "An error occurred. Please try again later, this has been logged."
     return Fursona.model_validate_json(chat_completion.choices[0].message.content)
 
 
