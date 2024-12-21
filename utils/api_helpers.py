@@ -6,7 +6,7 @@ from utils.data import Fursona
 
 
 def get_client() -> tuple[ai, str, str]:
-    """Returns the OpenAI client and the language and vision model names.
+    """Returns the AsyncGroq client and the language and vision model names.
     Works with both OpenAI and Groq API keys interchangeably without any changes to the code.
     """
     api_key = config.groq_api_key
