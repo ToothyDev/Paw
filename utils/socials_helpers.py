@@ -83,9 +83,9 @@ async def build_input_history(bot, ctx: discord.ApplicationContext, prompt: str)
 
 def format_bot_message(message: discord.Message, guild: discord.Guild) -> list[dict]:
     try:
-        user_prompt, bot_response = message.content.split("\n", 1)
+        user_prompt, bot_response = message.clean_content.split("\n", 1)
     except ValueError:
-        return [{"role": "assistant", "content": message.content}]
+        return [{"role": "assistant", "content": message.clean_content}]
 
     if not user_prompt.startswith("**Prompt:**") or not bot_response.startswith("**Paw:**"):
         return []
@@ -104,7 +104,7 @@ def format_bot_message(message: discord.Message, guild: discord.Guild) -> list[d
 
 async def format_user_message(message: discord.Message) -> dict:
     alt_text = await get_image_alt_text(message)
-    content = message.content if message.content else f"{message.author.display_name} sent a file."
+    content = message.clean_content if message.content else f"{message.author.display_name} sent a file."
     return {
         "role": "user",
         "name": message.author.display_name,
