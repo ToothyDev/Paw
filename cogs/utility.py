@@ -25,7 +25,7 @@ class Utility(discord.Cog, name="Utilities"):
     async def sonagen(self, ctx: discord.ApplicationContext, species: str, sex: str, sonatype: str):
         """ Generate a random sona """
         if not self.ai_enabled:
-            return await ctx.respond("AI functions are disabled due to missing (or invalid) API key, please contact the bot owner to fix this.")
+            return await ctx.respond("AI functions are disabled due to missing (or invalid) API key, please contact the bot owner to fix this.", ephemeral=True)
         await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(utils.data.COLOR_STRINGS)

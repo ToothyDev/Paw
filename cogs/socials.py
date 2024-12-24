@@ -236,7 +236,7 @@ class Socials(discord.Cog, name="Socials"):
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
         if not self.ai_enabled:
-            return await ctx.respond("AI functions are disabled due to missing (or invalid) API key, please contact the bot owner to fix this.")
+            return await ctx.respond("AI functions are disabled due to missing (or invalid) API key, please contact the bot owner to fix this.", ephemeral=True)
         await ctx.defer()
         input_history = await build_input_history(self.bot, ctx, text)
         response = await utils.generate_from_history(input_history)
