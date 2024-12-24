@@ -8,7 +8,7 @@ def get_client() -> tuple[AI, str, str]:
     """Returns the AsyncGroq client and the language and vision model names.
     Works with both OpenAI and Groq API keys interchangeably without any changes to the code.
     """
-    api_key = config.groq_api_key
+    api_key = config.ai_api_key
     if api_key.startswith("sk-"):
         return (
             AI (
@@ -83,7 +83,7 @@ async def apireq(url, headers=None, data=None) -> dict[str, any]:
             return await response.json()
 
 def is_ai_enabled() -> bool:
-    if config.groq_api_key.startswith("sk-") or config.groq_api_key.startswith("gsk_"):
+    if config.ai_api_key.startswith("sk-") or config.ai_api_key.startswith("gsk_"):
         return True
     else:
         return False
