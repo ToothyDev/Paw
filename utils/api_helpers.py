@@ -1,5 +1,5 @@
 import aiohttp
-from groq import AsyncGroq as ai
+from groq import AsyncGroq as AI
 
 import config
 import logger
@@ -7,14 +7,14 @@ from utils.data import Fursona
 
 log = logger.get_logger(__name__)
 
-def get_client() -> tuple[ai, str, str]:
+def get_client() -> tuple[AI, str, str]:
     """Returns the AsyncGroq client and the language and vision model names.
     Works with both OpenAI and Groq API keys interchangeably without any changes to the code.
     """
     api_key = config.groq_api_key
     if api_key.startswith("sk-"):
         return (
-            ai (
+            AI (
                 api_key=api_key,
                 base_url="https://api.openai.com/v1"
             ), # Client using OpenAI API
@@ -24,7 +24,7 @@ def get_client() -> tuple[ai, str, str]:
             )
     elif api_key.startswith("gsk_"):
         return (
-            ai (
+            AI (
                 api_key=api_key,
                 base_url="https://api.groq.com/openai/v1"
             ), # Client, using Groq API
