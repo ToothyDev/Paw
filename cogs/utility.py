@@ -1,6 +1,5 @@
 import json
 import random
-import config # Help?
 
 import discord
 import psutil
