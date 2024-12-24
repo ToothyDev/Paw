@@ -1,6 +1,7 @@
-token = "YOUR_DISCORD_BOT_TOKEN_HERE" # Obviously you need to specify this.
-groq_api_key = "YOUR_GROQ_OR_OPENAI_API_KEY" # Will disable the AI functions if not provided
+token = "BOT_TOKEN"
+ai_api_key = "GROQ_API_KEY"
+text_model = "llama-3.3-70b-specdec"
+vision_model = "llama-3.2-11b-vision-preview"
 
-# Optional values, you don't need to change these for anything to work
 crossmark = ":x:"
 confused = ":confused:"
