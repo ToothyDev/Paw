@@ -2,10 +2,7 @@ import aiohttp
 from groq import AsyncGroq as AI
 
 import config
-import logger
 from utils.data import Fursona
-
-log = logger.get_logger(__name__)
 
 def get_client() -> tuple[AI, str, str]:
     """Returns the AsyncGroq client and the language and vision model names.
