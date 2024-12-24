@@ -15,6 +15,7 @@ log = logger.get_logger(__name__)
 class Utility(discord.Cog, name="Utilities"):
     def __init__(self, bot: discord.Bot):
         self.bot = bot
+        self.ai_enabled = utils.is_ai_enabled()
 
     @slash_command(contexts={discord.InteractionContextType.guild})
     @option("species", str, description="The species of the fursona", required=False)
@@ -23,6 +24,8 @@ class Utility(discord.Cog, name="Utilities"):
             required=False)
     async def sonagen(self, ctx: discord.ApplicationContext, species: str, sex: str, sonatype: str):
         """ Generate a random sona """
+        if not self.ai_enabled:
+            return await ctx.respond("AI functions are disabled due to missing (or invalid) API key, please contact the bot owner to fix this.", ephemeral=True)
         await ctx.defer()
         primary_color = discord.Color.random()
         color = random.choice(utils.data.COLOR_STRINGS)
@@ -126,5 +129,5 @@ class Utility(discord.Cog, name="Utilities"):
         await ctx.respond(embed=embed)
 
 
-def setup(bot):
+def setup(bot: discord.Bot):
     bot.add_cog(Utility(bot))
