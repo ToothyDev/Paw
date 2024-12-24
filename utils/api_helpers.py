@@ -67,14 +67,8 @@ async def analyse_image(image_url: str) -> str:
 
 async def generate_single(prompt: str) -> str: # For future me, this is never used as of 2024-12-21 YYYY-MM-DD
     client, language_model, vision_model = get_client()
-    try:
-        chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                            model=language_model, max_tokens=400)
-    except Exception as err:
-        log.error(
-            f"An error occurred while generating single: {err}",
-            exc_info=(type(err), err, err.__traceback__))
-        return "An error occurred. Please try again later, this has been logged."
+    chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
+                                                        model=language_model, max_tokens=400)
     return chat_completion.choices[0].message.content
 
 
