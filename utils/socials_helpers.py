@@ -129,10 +129,11 @@ async def get_image_alt_text(message: discord.Message) -> str:
         return ""
 
     if len(message.attachments) == 1 and message.attachments[0].content_type.startswith("image"):
-        return f"\nThe user attached an image to the message which shows the following: {await utils.analyse_image(message.attachments[0].url)}"
+        return f"\nThe user attached an image to the message which shows the following: {await utils.analyse_image(await message.attachments[0].read())}"
 
     output = "\nThe user attached multiple images to the message which show the following: "
+    # This is for groq compatibility; OpenAI and Gemini can take multiple images per message easily
     for attachment in message.attachments:
         if attachment.content_type.startswith("image"):
-            output += "\n" + await utils.analyse_image(attachment.url)
+            output += "\n" + await utils.analyse_image(await attachment.read())
     return output

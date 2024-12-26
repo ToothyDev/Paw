@@ -1,3 +1,5 @@
+import base64
+
 import aiohttp
 from openai import AsyncOpenAI
 
@@ -12,8 +14,11 @@ async def generate_from_history(history: list[dict]) -> str:
     return chat_completion.choices[0].message.content
 
 
-async def analyse_image(image_url: str) -> str:
+# Only needed for Groq anymore, Gemini and OpenAI can do handle sysprompt + multiple images per message fine
+# Can be removed if Groq fixes their stuff, or if Groq compatibility is removed
+async def analyse_image(image_bytes: bytes) -> str:
     client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
+    image_base64 = base64.b64encode(image_bytes).decode("utf-8")
     image_completion = await client.chat.completions.create(
         messages=[
             {
@@ -26,7 +31,7 @@ async def analyse_image(image_url: str) -> str:
                     {
                         "type": "image_url",
                         "image_url": {
-                            "url": image_url,
+                            "url": f"data:image/jpeg;base64,{image_base64}",
                         },
                     },
                 ],
