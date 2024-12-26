@@ -1,19 +1,19 @@
 import aiohttp
-from groq import AsyncGroq
+from openai import AsyncOpenAI
 
 import config
 from utils.data import Fursona
 
 
 async def generate_from_history(history: list[dict]) -> str:
-    client = AsyncGroq(api_key=config.groq_api_key)
+    client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
     chat_completion = await client.chat.completions.create(messages=history, model=config.text_model,
                                                            max_tokens=400)
     return chat_completion.choices[0].message.content
 
 
 async def analyse_image(image_url: str) -> str:
-    client = AsyncGroq(api_key=config.groq_api_key)
+    client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
     image_completion = await client.chat.completions.create(
         messages=[
             {
@@ -38,14 +38,14 @@ async def analyse_image(image_url: str) -> str:
 
 
 async def generate_single(prompt: str) -> str:
-    client = AsyncGroq(api_key=config.groq_api_key)
+    client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
     chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
                                                            model=config.text_model, max_tokens=400)
     return chat_completion.choices[0].message.content
 
 
 async def generate_sona(prompt: str) -> Fursona:
-    client = AsyncGroq(api_key=config.groq_api_key)
+    client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
     chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
                                                            model=config.text_model,
                                                            response_format={"type": "json_object"})

@@ -1,7 +1,7 @@
 import re
 
 import discord
-import groq
+import openai
 import pydantic
 from discord.ext import commands
 
@@ -39,27 +39,27 @@ class Error(discord.Cog, name="Errors"):
 
         err = err.original  # Unwrap the exception to catch any non-discord errors
 
-        if isinstance(err, groq.RateLimitError):
-            log.info("Groq API ratelimit error")
+        if isinstance(err, openai.RateLimitError):
+            log.info("AI API ratelimit error")
             matches = re.findall(r"\d+\.\d+", err.message)
             return await ctx.respond(f"You are using this command too much! Please try again in {matches[-1]}s",
                                      ephemeral=True)
 
-        if isinstance(err, groq.BadRequestError):
+        if isinstance(err, openai.BadRequestError):
             if err.message == "context deadline exceeded":
                 return await ctx.respond("The request has timed out! Please try again", ephemeral=True)
 
-        if isinstance(err, groq.InternalServerError):
-            log.info("Groq API internal service error")
+        if isinstance(err, openai.InternalServerError):
+            log.info("AI API internal service error")
             return await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
 
-        if isinstance(err, groq.APIStatusError):
+        if isinstance(err, openai.APIStatusError):
             if err.message.startswith("Request too large for model"):
-                log.info("Groq API request too large for model")
+                log.info("AI API request too large for model")
                 return await ctx.respond("The chat history is too big! Try again later.", ephemeral=True)
 
         if isinstance(err, pydantic.ValidationError):
-            log.info("Groq API pydantic model validation error")
+            log.info("AI API pydantic model validation error")
             return await ctx.respond("There was an issue generating your sona, try again!", ephemeral=True)
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
