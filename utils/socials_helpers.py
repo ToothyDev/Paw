@@ -85,7 +85,8 @@ def format_bot_message(message: discord.Message, guild: discord.Guild) -> list[d
     try:
         user_prompt, bot_response = message.clean_content.split("\n", 1)
     except ValueError:
-        return [{"role": "assistant", "content": message.clean_content}]
+        return [
+            {"role": "assistant", "content": message.clean_content if message.clean_content else "<no message body>"}]
 
     if not user_prompt.startswith("**Prompt:**") or not bot_response.startswith("**Paw:**"):
         return []
