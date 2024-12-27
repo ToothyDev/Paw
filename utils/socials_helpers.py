@@ -96,8 +96,8 @@ def format_bot_message(message: discord.Message, guild: discord.Guild) -> list[d
     return [
         {
             "role": "user",
-            "name": user.display_name,
-            "content": f"{user.display_name} ({utils.get_gender(user)}) said: {user_prompt.removeprefix('**Prompt:** ')}"
+            "name": user.display_name if user else message.interaction_metadata.user.global_name,
+            "content": f"{user.display_name if user else message.interaction_metadata.user.global_name} ({utils.get_gender(user) if user else ""}) said: {user_prompt.removeprefix('**Prompt:** ')}"
         },
         {"role": "assistant", "content": bot_response.removeprefix('**Paw:** ')}
     ]
