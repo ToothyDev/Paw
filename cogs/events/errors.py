@@ -1,5 +1,3 @@
-import re
-
 import discord
 import openai
 import pydantic
@@ -41,8 +39,7 @@ class Error(discord.Cog, name="Errors"):
 
         if isinstance(err, openai.RateLimitError):
             log.info("AI API ratelimit error")
-            matches = re.findall(r"\d+\.\d+", err.message)
-            return await ctx.respond(f"You are using this command too much! Please try again in {matches[-1]}s",
+            return await ctx.respond("You are using this command too much! Please try again in a few seconds",
                                      ephemeral=True)
 
         if isinstance(err, openai.BadRequestError):
