@@ -1,5 +1,7 @@
 import pydantic
 
+import assets
+
 
 class Fursona(pydantic.BaseModel):
     name: str
@@ -38,7 +40,56 @@ FACT_URLS = ["https://some-random-api.com/facts/dog", "https://some-random-api.c
              "https://some-random-api.com/facts/koala"]
 
 COLOR_STRINGS = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
-          "Light Blue", "Grey", "Yellow"]
+                 "Light Blue", "Grey", "Yellow"]
+# This provides the data for creating all the social-interaction commands
+SOCIAL_COMMANDS_DATA = [
+    {"name": "snuggle", "description": "Snuggle the specified people", "option_description": "Mention users to snuggle",
+     "words": ["snuggled", "Snuggle"], "gifs": assets.SNUGGLE},
+    {"name": "hug", "description": "Hug the specified people", "option_description": "Mention users to hug",
+     "words": ["hugged", "Hug"], "gifs": assets.HUG},
+    {"name": "boop", "description": "Boop the specified people", "option_description": "Mention users to boop",
+     "words": ["booped", "Boop"], "gifs": assets.BOOP},
+    {"name": "kiss", "description": "Kiss the specified people", "option_description": "Mention users to kiss",
+     "words": ["kissed", "Kiss"], "gifs": assets.KISS},
+    {"name": "lick", "description": "Lick the specified people", "option_description": "Mention users to lick",
+     "words": ["licked", "Lick"], "gifs": assets.LICK},
+    {"name": "bellyrub", "description": "Bellyrub the specified people",
+     "option_description": "Mention users to bellyrub",
+     "words": ["rubbed the belly of", "Rub", "given bellyrubs"], "gifs": assets.BELLYRUB},
+    {"name": "nuzzle", "description": "Nuzzle the specified people", "option_description": "Mention users to nuzzle",
+     "words": ["nuzzled", "Nuzzle"], "gifs": assets.NUZZLE},
+    {"name": "cuddle", "description": "Cuddle the specified people", "option_description": "Mention users to cuddle",
+     "words": ["cuddled", "Cuddle"], "gifs": assets.CUDDLE},
+    {"name": "feed", "description": "Feed the specified people", "option_description": "Mention users to feed",
+     "words": ["fed", "Feed"], "gifs": assets.FEED},
+    {"name": "glomp", "description": "Glomp on the specified people", "option_description": "Mention users to glomp on",
+     "words": ["glomped", "Glomp"], "gifs": assets.GLOMP},
+    {"name": "highfive", "description": "Highfive the specified people",
+     "option_description": "Mention users to highfive",
+     "words": ["highfived", "Highfive"], "gifs": assets.HIGHFIVE},
+    {"name": "rawr", "description": "Rawr at the specified people", "option_description": "Mention users to rawr at",
+     "words": ["rawred at", "Rawr"], "gifs": assets.RAWR},
+    {"name": "howl", "description": "Howl at the specified people", "option_description": "Mention users to howl at",
+     "words": ["howled at", "Howl"], "gifs": assets.HOWL},
+    {"name": "pat", "description": "Pat the specified people", "option_description": "Mention users to pat",
+     "words": ["pats", "Pat", "Pat"], "gifs": assets.PET},
+    {"name": "cookie", "description": "Give a cookie to the specified people",
+     "option_description": "Mention users to give a cookie to",
+     "words": ["gave a cookie to", "Give a cookie", "given a cookie"], "gifs": assets.COOKIE},
+    {"name": "dance", "description": "Dance with the specified people",
+     "option_description": "Mention users to dance with",
+     "words": ["danced with", "Dance"], "gifs": assets.DANCE},
+]
+
+# This provides the data for creating all the emotion commands
+EMOTION_COMMANDS_DATA = [
+    {"name": "blush", "description": "Blush (optionally because of specified people)",
+     "option_description": "Mention users that made you blush", "word": "blushes", "gifs": assets.BLUSH},
+    {"name": "happy", "description": "Be happy (optionally because of specified people)",
+     "option_description": "Mention users that made you happy", "word": "is happy", "gifs": assets.HAPPY},
+    {"name": "wag", "description": "Wag your tail (optionally because of specified people)",
+     "option_description": "Mention users that made you wag", "word": "wags their tail", "gifs": assets.WAG},
+]
 
 SPECIES = {"Dragon": [80, 300], "Fox": [35, 50], "Deer": [53, 120], "Wolf": [60, 90], "Dog": [15, 110],
            "Bunny": [25, 35], "Protogen": [60, 120], "Hyena": [75, 105], "Tiger": [75, 107], "Lion": [110, 140],

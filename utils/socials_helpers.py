@@ -39,7 +39,7 @@ async def feelings(ctx, members, name, giflist):
     await ctx.respond(embed=embed)
 
 
-async def mention_converter(ctx: discord.ApplicationContext, members) -> list[discord.Member] | None:
+async def mention_converter(ctx: discord.ApplicationContext, members: str) -> list[discord.Member] | None:
     memberlist = []
     guild = ctx.guild
     members = discord.utils.raw_mentions(members)
@@ -55,7 +55,7 @@ async def mention_converter(ctx: discord.ApplicationContext, members) -> list[di
     return memberlist
 
 
-async def social_interaction_handler(ctx: discord.ApplicationContext, members: list[str], words: list[str],
+async def social_interaction_handler(ctx: discord.ApplicationContext, members: str, words: list[str],
                                      gifs: list[str]):
     memberlist = await mention_converter(ctx, members)
     if not memberlist:
