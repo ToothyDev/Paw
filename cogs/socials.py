@@ -80,21 +80,16 @@ class Socials(discord.Cog, name="Socials"):
 
     def _create_social_command(self, name: str, description: str, option_description: str, words: list[str],
                                gifs: list[str]):
-
+        @slash_command(name=name, description=description)
+        @option("members", str, description=option_description)
         async def command_function(ctx: discord.ApplicationContext, members: str):
             await utils.social_interaction_handler(ctx, members, words, gifs)
 
-        command = discord.SlashCommand(command_function,
-                                       name=name,
-                                       description=description,
-                                       options=[
-                                           discord.Option(name="members",
-                                                          description=option_description)
-                                       ])
-        self.bot.add_application_command(command)
+        self.bot.add_application_command(command_function)  # type: ignore
 
     def _create_emotion_command(self, name: str, description: str, option_description: str, word: str, gifs: list[str]):
-
+        @slash_command(name=name, description=description)
+        @option("members", str, description=option_description, required=False)
         async def command_function(ctx: discord.ApplicationContext, members: str):
             if not members:
                 memberlist = None
@@ -104,15 +99,7 @@ class Socials(discord.Cog, name="Socials"):
                     return
             await utils.feelings(ctx, memberlist, word, gifs)
 
-        command = discord.SlashCommand(command_function,
-                                       name=name,
-                                       description=description,
-                                       options=[
-                                           discord.Option(name="members",
-                                                          description=option_description,
-                                                          required=False)
-                                       ])
-        self.bot.add_application_command(command)
+        self.bot.add_application_command(command_function)  # type: ignore
 
 
 def setup(bot):
