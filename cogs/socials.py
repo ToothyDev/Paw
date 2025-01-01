@@ -82,7 +82,7 @@ class Socials(discord.Cog, name="Socials"):
                                gifs: list[str]):
         @slash_command(name=name, description=description)
         @option("members", str, description=option_description)
-        async def command_function(cog: Socials, ctx: discord.ApplicationContext, members: str):
+        async def command_function(_cog: Socials, ctx: discord.ApplicationContext, members: str):
             await utils.social_interaction_handler(ctx, members, words, gifs)
 
         command_function.cog = self
@@ -91,7 +91,7 @@ class Socials(discord.Cog, name="Socials"):
     def _create_emotion_command(self, name: str, description: str, option_description: str, word: str, gifs: list[str]):
         @slash_command(name=name, description=description, cog=self)
         @option("members", str, description=option_description, required=False)
-        async def command_function(cog: Socials, ctx: discord.ApplicationContext, members: str):
+        async def command_function(_cog: Socials, ctx: discord.ApplicationContext, members: str):
             if not members:
                 memberlist = None
             else:
