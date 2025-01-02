@@ -89,7 +89,7 @@ class Socials(discord.Cog, name="Socials"):
         self.bot.add_application_command(command_function)  # type: ignore
 
     def _create_emotion_command(self, name: str, description: str, option_description: str, word: str, gifs: list[str]):
-        @slash_command(name=name, description=description, cog=self)
+        @slash_command(name=name, description=description)
         @option("members", str, description=option_description, required=False)
         async def command_function(_cog: Socials, ctx: discord.ApplicationContext, members: str):
             if not members:
