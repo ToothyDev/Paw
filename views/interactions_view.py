@@ -18,8 +18,8 @@ class InteractionsView(discord.ui.View):
     async def button_callback(self, button, interaction: discord.Interaction):
         if interaction.user not in self.members:
             if not self.action_error:
-                return await interaction.response.send_message(f"You weren't {self.action}!", ephemeral=True)
-            return await interaction.response.send_message(f"You weren't {self.action_error}!", ephemeral=True)
+                return await interaction.respond(f"You weren't {self.action}!", ephemeral=True)
+            return await interaction.respond(f"You weren't {self.action_error}!", ephemeral=True)
         self.members.remove(interaction.user)
         if len(self.members) == 0:
             self.disable_all_items()
@@ -29,4 +29,4 @@ class InteractionsView(discord.ui.View):
             description=f"**{interaction.user.display_name}** {self.action} **" + self.ctx.author.display_name + "** back!",
             color=discord.Color.blue())
         embed.set_image(url=image)
-        await interaction.response.send_message(embed=embed)
+        await interaction.respond(embed=embed)

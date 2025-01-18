@@ -11,12 +11,12 @@ class ConfirmView(discord.ui.View):
     async def confirm(self, button, interaction):
         self.confirmed = True
         self.disable_all_items()
-        await interaction.response.edit_message(view=self)
+        await interaction.edit(view=self)
         self.stop()
 
     @discord.ui.button(label="Cancel", style=discord.ButtonStyle.red)
     async def cancel(self, button, interaction):
         self.confirmed = False
         self.disable_all_items()
-        await interaction.response.edit_message(content="Cancelled", view=None)
+        await interaction.edit(content="Cancelled", view=None)
         self.stop()
