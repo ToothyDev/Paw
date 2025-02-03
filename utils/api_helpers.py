@@ -9,9 +9,8 @@ from utils.data import Fursona
 
 async def generate_from_history(history: list[dict]) -> str:
     client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
-    chat_completion = await client.chat.completions.create(messages=history, model=config.text_model,
-                                                           max_tokens=400)
-    return chat_completion.choices[0].message.content
+    chat_completion = await client.chat.completions.create(messages=history, model=config.text_model)
+    return _strip_thinking(chat_completion.choices[0].message.content)[:1000]
 
 
 # Only needed for Groq anymore, Gemini and OpenAI can do handle sysprompt + multiple images per message fine
@@ -45,8 +44,8 @@ async def analyse_image(image_bytes: bytes) -> str:
 async def generate_single(prompt: str) -> str:
     client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
     chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                           model=config.text_model, max_tokens=400)
-    return chat_completion.choices[0].message.content
+                                                           model=config.text_model)
+    return _strip_thinking(chat_completion.choices[0].message.content)[:1000]
 
 
 async def generate_sona(prompt: str) -> Fursona:
@@ -61,3 +60,10 @@ async def apireq(url, headers=None, data=None) -> dict[str, any]:
     async with aiohttp.ClientSession() as session:
         async with session.get(url, headers=headers, json=data) as response:
             return await response.json()
+
+
+def _strip_thinking(response: str) -> str:
+    """ Strips thinking parts from reasoning model outputs, at least from Groq. Changes nothing for regular models"""
+    if "</think>" in response:
+        response = response.split("</think>", 1)[1].strip()
+    return response
