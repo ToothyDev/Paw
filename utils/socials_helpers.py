@@ -66,7 +66,7 @@ async def social_interaction_handler(ctx: discord.ApplicationContext, members: s
 
 
 async def build_input_history(bot, ctx: discord.ApplicationContext, prompt: str) -> list:
-    messages = await ctx.channel.history(limit=51).flatten()  # Get 50 + 1 messsage (the defer)
+    messages = await ctx.channel.history(limit=26).flatten()  # Get actual-limit + 1 messsage (the defer)
     messages.reverse()
     input_history = [{"role": "system", "content": utils.SYSTEM_PROMPT}]
 
