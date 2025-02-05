@@ -1,7 +1,9 @@
+import base64
 import random
 
 import discord
 
+import config
 import utils
 from views import InteractionsView
 
@@ -72,16 +74,16 @@ async def build_input_history(bot, ctx: discord.ApplicationContext, prompt: str)
 
     for message in messages:
         if message.author == bot.user:
-            input_history.extend(format_bot_message(message, ctx.guild))
+            input_history.extend(_format_bot_message(message, ctx.guild))
         else:
-            input_history.append(await format_user_message(message))
+            input_history.append(await _format_user_message(message))
 
     input_history = input_history[:-1]  # Cut the defer message (the most recent one) from the history
-    input_history.append(format_current_user_message(ctx.author, prompt))
+    input_history.append(_format_current_user_message(ctx.author, prompt))
     return input_history
 
 
-def format_bot_message(message: discord.Message, guild: discord.Guild) -> list[dict]:
+def _format_bot_message(message: discord.Message, guild: discord.Guild) -> list[dict]:
     try:
         user_prompt, bot_response = message.clean_content.split("\n", 1)
     except ValueError:
@@ -103,17 +105,49 @@ def format_bot_message(message: discord.Message, guild: discord.Guild) -> list[d
     ]
 
 
-async def format_user_message(message: discord.Message) -> dict:
-    alt_text = await get_image_alt_text(message)
-    content = message.clean_content if message.content else f"{message.author.display_name} sent a file."
+async def _format_user_message(message: discord.Message) -> dict:
+    if config.omni_model:  # If the model can handle text and images
+        return await _parse_message_with_image(message)
+    else:  # Legacy approach for non-multimodal models / if two different models are used
+        alt_text = await _get_image_alt_text(message)
+        content = message.clean_content if message.content else f"{message.author.display_name} sent a file."
+        return {
+            "role": "user",
+            "name": message.author.display_name,
+            "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {content}{alt_text}"
+        }
+
+
+async def _parse_message_with_image(message: discord.Message) -> dict:
+    """ Handles the new approach for multimodal models by directly inserting the image into the message history """
+    text_content = f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {message.clean_content}"
+    image_attachments = [a for a in message.attachments if a.content_type.startswith("image")]
+
+    if not image_attachments:
+        return {
+            "role": "user",
+            "name": message.author.display_name,
+            "content": text_content
+        }
+
+    content = [{"type": "text", "text": text_content}]
+    for attachment in image_attachments:
+        image_data = await attachment.read()
+        image_base64 = base64.b64encode(image_data).decode("utf-8")
+        content.append({
+            "type": "image_url",
+            "image_url": {
+                "url": f"data:image/jpeg;base64,{image_base64}",
+            },
+        })
     return {
         "role": "user",
         "name": message.author.display_name,
-        "content": f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {content}{alt_text}"
+        "content": content,
     }
 
 
-def format_current_user_message(author: discord.Member, text: str) -> dict:
+def _format_current_user_message(author: discord.Member, text: str) -> dict:
     return {
         "role": "user",
         "name": author.display_name,
@@ -121,7 +155,7 @@ def format_current_user_message(author: discord.Member, text: str) -> dict:
     }
 
 
-async def get_image_alt_text(message: discord.Message) -> str:
+async def _get_image_alt_text(message: discord.Message) -> str:
     if not message.attachments:
         return ""
 
