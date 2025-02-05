@@ -2,6 +2,7 @@ token = "BOT_TOKEN"
 
 # These are example values when using Groq. You can put any OpenAI-compliant API url here,
 # in combination with the right key and models
+omni_model = False  # This signifies whether the **text_model** specified below accepts images
 text_model = "llama-3.3-70b-specdec"
 vision_model = "llama-3.2-11b-vision-preview"
 llm_api_key = "LLM_API_KEY"
