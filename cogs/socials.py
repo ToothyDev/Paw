@@ -22,6 +22,18 @@ class Socials(discord.Cog, name="Socials"):
             self._create_emotion_command(command["name"], command["description"], command["option_description"],
                                          command["word"], command["gifs"])
 
+    @discord.Cog.listener()
+    async def on_message(self, message: discord.Message):
+        if message.author == self.bot.user:
+            return
+
+        if message.content.startswith(self.bot.user.mention) and message.guild:
+            async with message.channel.typing():
+                input_history = await build_input_history(self.bot, message.channel, message.author, message.guild,
+                                                          message.clean_content)
+                response = await utils.generate_from_history(input_history)
+                await message.reply(response)
+
     @slash_command()
     @option("topic", str, description="The topic to revive chat with", required=False)
     async def chat_revival(self, ctx, topic):
@@ -74,7 +86,7 @@ class Socials(discord.Cog, name="Socials"):
     async def gpt(self, ctx: discord.ApplicationContext, text: str):
         """ Talk to Paw! """
         await ctx.defer()
-        input_history = await build_input_history(self.bot, ctx, text)
+        input_history = await build_input_history(self.bot, ctx.channel, ctx.author, ctx.guild, text)
         response = await utils.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
 

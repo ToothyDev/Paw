@@ -67,19 +67,21 @@ async def social_interaction_handler(ctx: discord.ApplicationContext, members: s
     await ctx.respond(embed=embed, view=view)
 
 
-async def build_input_history(bot, ctx: discord.ApplicationContext, prompt: str) -> list:
-    messages = await ctx.channel.history(limit=26).flatten()  # Get actual-limit + 1 messsage (the defer)
+async def build_input_history(bot, channel: discord.TextChannel, author: discord.Member, guild: discord.Guild,
+                              prompt: str) -> list:
+    messages = await channel.history(
+        limit=26).flatten()  # Get actual-limit + 1 messsage (the defer, or user message if invoked via mention)
     messages.reverse()
     input_history = [{"role": "system", "content": utils.SYSTEM_PROMPT}]
 
     for message in messages:
         if message.author == bot.user:
-            input_history.extend(_format_bot_message(message, ctx.guild))
+            input_history.extend(_format_bot_message(message, guild))
         else:
             input_history.append(await _format_user_message(message))
 
     input_history = input_history[:-1]  # Cut the defer message (the most recent one) from the history
-    input_history.append(_format_current_user_message(ctx.author, prompt))
+    input_history.append(_format_current_user_message(author, prompt))
     return input_history
 
 
