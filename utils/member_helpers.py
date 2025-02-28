@@ -62,7 +62,7 @@ async def userbot_kicker(member: discord.Member):
 
 
 async def spammer_kicker(member: discord.Member) -> bool:
-    if member.public_flags.value & 1048576 != 1048576:
+    if not member.public_flags.value & 1 << 20:
         return False  # Member is not a spammer
 
     try:
