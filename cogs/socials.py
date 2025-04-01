@@ -38,7 +38,8 @@ class Socials(discord.Cog, name="Socials"):
                     response = await utils.generate_from_history(input_history)
                     await message.reply(response)
                 except openai.APIError as e:
-                    if e.message == "User location is not supported for the API use.":
+                    print(e.message)
+                    if e.message.startswith("User location is not supported"):
                         return await message.reply("You found a rare easter egg error! Try again later.")
                     await message.reply("An unknown error occured! This will be logged and fixed!")
                     log.error(
