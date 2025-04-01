@@ -1,7 +1,7 @@
 aiohttp~=3.11
 py-cord==2.6.1
-psutil~=6.1
-openai~=1.58
-pydantic~=2.9
+psutil~=7.0
+openai~=1.70
+pydantic~=2.11
 coloredlogs~=15.0
 audioop-lts~=0.2.1; python_version>='3.13'
