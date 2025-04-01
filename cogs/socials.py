@@ -2,12 +2,15 @@ import random
 import time
 
 import discord
+import openai
 from discord import slash_command, option
 from discord.ext import commands
 
+import logger
 import utils
 from utils import build_input_history
 
+log = logger.get_logger(__name__)
 
 class Socials(discord.Cog, name="Socials"):
     def __init__(self, bot: discord.Bot):
@@ -31,8 +34,16 @@ class Socials(discord.Cog, name="Socials"):
             async with message.channel.typing():
                 input_history = await build_input_history(self.bot, message.channel, message.author, message.guild,
                                                           message.clean_content)
-                response = await utils.generate_from_history(input_history)
-                await message.reply(response)
+                try:
+                    response = await utils.generate_from_history(input_history)
+                    await message.reply(response)
+                except openai.APIError as e:
+                    if e.message == "User location is not supported for the API use.":
+                        return await message.reply("You found a rare easter egg error! Try again later.")
+                    await message.reply("An unknown error occured! This will be logged and fixed!")
+                    log.error(
+                        f"{message.author.global_name} used @Paw which caused '{e}' - Error class: {e.__class__.__name__}",
+                        exc_info=(type(e), e, e.__traceback__))
 
     @slash_command()
     @option("topic", str, description="The topic to revive chat with", required=False)

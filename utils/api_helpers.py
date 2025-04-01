@@ -63,5 +63,5 @@ async def apireq(url, headers=None, data=None) -> dict[str, any]:
 
 
 def _strip_thinking(response: str) -> str:
-    """ Strips thinking parts from reasoning model outputs, at least from Groq. Changes nothing for regular models"""
+    """ Strips thinking parts from reasoning model outputs, at least from Groq. Changes nothing for regular models """
     return response.split("</think>")[-1].strip()
