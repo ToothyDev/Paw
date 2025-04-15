@@ -24,7 +24,8 @@ class Staff(discord.Cog, name="Staff"):
         saved_role_icons = []
         total = len(ctx.guild.emojis) + len(ctx.guild.stickers) + len([role for role in ctx.guild.roles if role.icon])
         current = 0
-        message = await ctx.respond(f"Downloading, this might take some time... (0 of {total})")
+        last_percentage = 0
+        message = await ctx.respond("Downloading, this might take some time... (0%)")
         zip_buffer = io.BytesIO()  # Create a BytesIO object to hold the ZIP file
         with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
             for emoji in ctx.guild.emojis:
@@ -33,8 +34,11 @@ class Staff(discord.Cog, name="Staff"):
                 zipped_f.writestr(f"emojis/{emoji_file_name}", await emoji.read())
                 saved_emojis.append(emoji.name)
                 current += 1
-                await message.edit_original_response(
-                    content=f"Downloading, this might take some time... ({current} of {total})")
+                current_percentage = (current * 100) // total
+                if current_percentage % 10 == 0 and current_percentage != last_percentage:
+                    last_percentage = current_percentage
+                    await message.edit_original_response(
+                        content=f"Downloading, this might take some time... ({last_percentage}%)")
 
             async with aiohttp.ClientSession() as session:
                 for sticker in ctx.guild.stickers:
@@ -44,8 +48,11 @@ class Staff(discord.Cog, name="Staff"):
                         zipped_f.writestr(f"stickers/{sticker_file_name}", await response.read())
                         saved_stickers.append(sticker.name)
                         current += 1
-                        await message.edit_original_response(
-                            content=f"Downloading, this might take some time... ({current} of {total})")
+                        current_percentage = (current * 100) // total
+                        if current_percentage % 10 == 0 and current_percentage != last_percentage:
+                            last_percentage = current_percentage
+                            await message.edit_original_response(
+                                content=f"Downloading, this might take some time... ({last_percentage}%)")
 
             for role in ctx.guild.roles:
                 if role.icon:
@@ -54,9 +61,13 @@ class Staff(discord.Cog, name="Staff"):
                     zipped_f.writestr(f"role_icons/{role_icon_file_name.replace("/", " ")}", await role.icon.read())
                     saved_role_icons.append(role.name)
                     current += 1
-                    await message.edit_original_response(
-                        content=f"Downloading, this might take some time... ({current} of {total})")
+                    current_percentage = (current * 100) // total
+                    if current_percentage % 10 == 0 and current_percentage != last_percentage:
+                        last_percentage = current_percentage
+                        await message.edit_original_response(
+                            content=f"Downloading, this might take some time... ({last_percentage}%)")
 
+        await message.edit_original_response(content="Uploading assets...")
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
         await message.edit_original_response(content="Here are all assets of this guild!",
                                              file=discord.File(zip_buffer, filename="assets.zip"))
