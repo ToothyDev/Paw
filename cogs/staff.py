@@ -17,11 +17,12 @@ class Staff(discord.Cog, name="Staff"):
 
     @slash_command()
     @discord.default_permissions(manage_guild=True)
-    async def emoji_downloader(self, ctx: discord.ApplicationContext):
-        """ Download this server's emojis and stickers """
+    async def asset_downloader(self, ctx: discord.ApplicationContext):
+        """ Download this server's emojis, stickers and role icons"""
         saved_emojis = []
         saved_stickers = []
-        total = len(ctx.guild.emojis) + len(ctx.guild.stickers)
+        saved_role_icons = []
+        total = len(ctx.guild.emojis) + len(ctx.guild.stickers) + len([role for role in ctx.guild.roles if role.icon])
         current = 0
         message = await ctx.respond(f"Downloading, this might take some time... (0 of {total})")
         zip_buffer = io.BytesIO()  # Create a BytesIO object to hold the ZIP file
@@ -42,10 +43,23 @@ class Staff(discord.Cog, name="Staff"):
                             saved_stickers.count(sticker.name) + 1)) + ".png"
                         zipped_f.writestr(f"stickers/{sticker_file_name}", await response.read())
                         saved_stickers.append(sticker.name)
+                        current += 1
+                        await message.edit_original_response(
+                            content=f"Downloading, this might take some time... ({current} of {total})")
+
+            for role in ctx.guild.roles:
+                if role.icon:
+                    role_icon_file_name = (role.name if role.name not in saved_role_icons else role.name + str(
+                        saved_role_icons.count(role.name) + 1)) + ".webp"
+                    zipped_f.writestr(f"role_icons/{role_icon_file_name.replace("/", " ")}", await role.icon.read())
+                    saved_role_icons.append(role.name)
+                    current += 1
+                    await message.edit_original_response(
+                        content=f"Downloading, this might take some time... ({current} of {total})")
 
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
-        await message.edit_original_response(content="Here are all emojis and stickers of this guild!",
-                                             file=discord.File(zip_buffer, filename="emojis_and_stickers.zip"))
+        await message.edit_original_response(content="Here are all assets of this guild!",
+                                             file=discord.File(zip_buffer, filename="assets.zip"))
 
     @slash_command()
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
