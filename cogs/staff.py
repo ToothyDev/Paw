@@ -57,7 +57,7 @@ class Staff(discord.Cog, name="Staff"):
             for role in ctx.guild.roles:
                 if role.icon:
                     role_icon_file_name = (role.name if role.name not in saved_role_icons else role.name + str(
-                        saved_role_icons.count(role.name) + 1)) + ".webp"
+                        saved_role_icons.count(role.name) + 1)) + ".png"
                     zipped_f.writestr(f"role_icons/{role_icon_file_name.replace("/", " ")}", await role.icon.read())
                     saved_role_icons.append(role.name)
                     current += 1
