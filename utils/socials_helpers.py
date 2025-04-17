@@ -99,7 +99,7 @@ def _format_bot_message(message: discord.Message, guild: discord.Guild) -> list[
     return [
         {
             "role": "user",
-            "name": user.display_name if user else message.interaction_metadata.user.global_name,
+            "name": f"{user.display_name if user else message.interaction_metadata.user.global_name} ({utils.get_gender(user) if user else ""})",
             "content": f"{user.display_name if user else message.interaction_metadata.user.global_name} ({utils.get_gender(user) if user else ""}) said: {user_prompt.removeprefix('**Prompt:** ')}"
         },
         {"role": "assistant", "content": bot_response.removeprefix('**Paw:** ')}
@@ -113,7 +113,7 @@ async def _format_user_message(message: discord.Message) -> dict:
     if not image_attachments:
         return {
             "role": "user",
-            "name": message.author.display_name,
+            "name": f"{message.author.display_name} ({utils.get_gender(message.author)})",
             "content": text_content
         }
 
@@ -129,7 +129,7 @@ async def _format_user_message(message: discord.Message) -> dict:
         })
     return {
         "role": "user",
-        "name": message.author.display_name,
+        "name": f"{message.author.display_name} ({utils.get_gender(message.author)})",
         "content": content,
     }
 
@@ -137,6 +137,6 @@ async def _format_user_message(message: discord.Message) -> dict:
 def _format_current_user_message(author: discord.Member, text: str) -> dict:
     return {
         "role": "user",
-        "name": author.display_name,
+        "name": f"{author.display_name} ({utils.get_gender(author)})",
         "content": f"{author.display_name} ({utils.get_gender(author)}) said: {text}"
     }
