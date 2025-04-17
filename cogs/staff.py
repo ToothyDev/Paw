@@ -1,11 +1,11 @@
 import io
 import zipfile
 
-import aiohttp
 import discord
 from discord import option, slash_command
 
 import logger
+from utils.staff_helpers import AssetDownloader
 from views import ConfirmView
 
 log = logger.get_logger(__name__)
@@ -19,57 +19,15 @@ class Staff(discord.Cog, name="Staff"):
     @discord.default_permissions(manage_guild=True)
     async def asset_downloader(self, ctx: discord.ApplicationContext):
         """ Download this server's emojis, stickers and role icons"""
-        saved_emojis = []
-        saved_stickers = []
-        saved_role_icons = []
-        total = len(ctx.guild.emojis) + len(ctx.guild.stickers) + len([role for role in ctx.guild.roles if role.icon])
-        current = 0
-        last_percentage = 0
-        message = await ctx.respond("Downloading, this might take some time... (0%)")
+        interaction = await ctx.respond("Downloading, this might take some time... (0%)")
         zip_buffer = io.BytesIO()  # Create a BytesIO object to hold the ZIP file
         with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
-            for emoji in ctx.guild.emojis:
-                emoji_file_name = (emoji.name if emoji.name not in saved_emojis else emoji.name + str(
-                    saved_emojis.count(emoji.name) + 1)) + emoji.url[-4:]
-                zipped_f.writestr(f"emojis/{emoji_file_name}", await emoji.read())
-                saved_emojis.append(emoji.name)
-                current += 1
-                current_percentage = (current * 100) // total
-                if current_percentage % 10 == 0 and current_percentage != last_percentage:
-                    last_percentage = current_percentage
-                    await message.edit_original_response(
-                        content=f"Downloading, this might take some time... ({last_percentage}%)")
+            downloader = AssetDownloader(zipped_f, ctx.guild, interaction)
+            await downloader.download_all()
 
-            async with aiohttp.ClientSession() as session:
-                for sticker in ctx.guild.stickers:
-                    async with session.get(sticker.url) as response:
-                        sticker_file_name = (sticker.name if sticker.name not in saved_stickers else sticker.name + str(
-                            saved_stickers.count(sticker.name) + 1)) + ".png"
-                        zipped_f.writestr(f"stickers/{sticker_file_name}", await response.read())
-                        saved_stickers.append(sticker.name)
-                        current += 1
-                        current_percentage = (current * 100) // total
-                        if current_percentage % 10 == 0 and current_percentage != last_percentage:
-                            last_percentage = current_percentage
-                            await message.edit_original_response(
-                                content=f"Downloading, this might take some time... ({last_percentage}%)")
-
-            for role in ctx.guild.roles:
-                if role.icon:
-                    role_icon_file_name = (role.name if role.name not in saved_role_icons else role.name + str(
-                        saved_role_icons.count(role.name) + 1)) + ".png"
-                    zipped_f.writestr(f"role_icons/{role_icon_file_name.replace("/", " ")}", await role.icon.read())
-                    saved_role_icons.append(role.name)
-                    current += 1
-                    current_percentage = (current * 100) // total
-                    if current_percentage % 10 == 0 and current_percentage != last_percentage:
-                        last_percentage = current_percentage
-                        await message.edit_original_response(
-                            content=f"Downloading, this might take some time... ({last_percentage}%)")
-
-        await message.edit_original_response(content="Uploading assets...")
+        await interaction.edit_original_response(content="Uploading assets...")
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
-        await message.edit_original_response(content="Here are all assets of this guild!",
+        await interaction.edit_original_response(content="Here are all assets of this guild!",
                                              file=discord.File(zip_buffer, filename="assets.zip"))
 
     @slash_command()
