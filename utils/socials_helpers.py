@@ -110,13 +110,6 @@ async def _format_user_message(message: discord.Message) -> dict:
     text_content = f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {message.clean_content}"
     image_attachments = [a for a in message.attachments if a.content_type.startswith("image")]
 
-    if not image_attachments:
-        return {
-            "role": "user",
-            "name": f"{message.author.display_name} ({utils.get_gender(message.author)})",
-            "content": text_content
-        }
-
     content = [{"type": "text", "text": text_content}]
     for attachment in image_attachments:
         image_data = await attachment.read()
@@ -127,6 +120,7 @@ async def _format_user_message(message: discord.Message) -> dict:
                 "url": f"data:image/jpeg;base64,{image_base64}",
             },
         })
+        
     return {
         "role": "user",
         "name": f"{message.author.display_name} ({utils.get_gender(message.author)})",
