@@ -105,7 +105,7 @@ class Utility(discord.Cog, name="Utilities"):
         percent_used_ram = round(((ram.used / ram.total) * 100), 2)
         free_disk = round((disk_usage.free / divamount), 2)
         total_disk = round((disk_usage.total / divamount), 2)
-        percent_free_disk = round((((disk_usage.used / disk_usage.total * 100) - 100) * (-1)), 2)
+        percent_free_disk = round(disk_usage.free / disk_usage.total * 100, 2)
 
         embed = discord.Embed(color=utils.Colors.BLUE)
         embed.description = f"""
