@@ -14,7 +14,7 @@ async def send_welcome_message(member: discord.Member):
     embed.set_thumbnail(url=member.display_avatar)
     embed.description = f"""
 Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for roles & channels and <id:guide> for some useful info!
-__**IMPORTANT**__: To gain access to the rest of the server, you first need to gain a level by chatting in this channel.
+__**IMPORTANT**__: To verify yourself, you first need to gain a level by chatting, else you will be kicked for inactivity.
 Thank you for reading and have fun!"""
     await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
 
