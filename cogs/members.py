@@ -27,7 +27,8 @@ class Members(discord.Cog, name="Members"):
         for member in to_be_kicked:
             try:
                 await member.send(
-                    "You've been kicked from The Paw Kingdom for being inactive for too long. You can rejoin and restart the verification process.")
+                    "You've been kicked from The Paw Kingdom for being inactive for too long. You can rejoin and "
+                    "restart the verification process.")
             except (discord.HTTPException, discord.Forbidden):
                 pass
             try:

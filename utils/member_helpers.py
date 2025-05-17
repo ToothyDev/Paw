@@ -48,7 +48,8 @@ async def userbot_kicker(member: discord.Member):
     if member_roles_match or len(member.roles) >= 75:  # 78 is the number of selfroles + the "mandatory" roles
         try:
             await member.send(
-                "You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select different selfroles")
+                "You've been kicked from The Paw Kingdom for botlike behaviour. If you are a human, rejoin and select "
+                "different selfroles")
         except (discord.HTTPException, discord.Forbidden):
             pass
         try:

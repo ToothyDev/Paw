@@ -28,7 +28,7 @@ class Staff(discord.Cog, name="Staff"):
         await interaction.edit_original_response(content="Uploading assets...")
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
         await interaction.edit_original_response(content="Here are all assets of this guild!",
-                                             file=discord.File(zip_buffer, filename="assets.zip"))
+                                                 file=discord.File(zip_buffer, filename="assets.zip"))
 
     @slash_command()
     @option("day", int, description="Select the desired day of a month", min_value=1, max_value=31)
@@ -37,7 +37,8 @@ class Staff(discord.Cog, name="Staff"):
     async def botcollector(self, ctx: discord.ApplicationContext, day: int, month: int):
         """ Get members created on a certain day """
         if day == 0 or month == 0:
-            return await ctx.respond("0 is not a valid number!")
+            await ctx.respond("0 is not a valid number!")
+            return
         output = ""
         message = await ctx.respond("Fetching...")
         for member in ctx.guild.members:
@@ -60,7 +61,8 @@ class Staff(discord.Cog, name="Staff"):
         """ Announce something in a channel """
         await ctx.defer(ephemeral=True)
         if not channel.can_send():
-            return await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
+            await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
+            return
         if embed:
             view = ConfirmView()
             await ctx.respond("Are you sure? Embeds don't actually send pings to any roles or users", view=view,

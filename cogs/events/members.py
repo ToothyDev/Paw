@@ -29,7 +29,7 @@ class MemberEvents(discord.Cog, name="Member Events"):
                 return
             await utils.send_welcome_message(member)
         elif len(member.roles) > 3 and member_old.pending and not member.pending:
-                await utils.send_welcome_message(member)
+            await utils.send_welcome_message(member)
 
 
 def setup(bot):

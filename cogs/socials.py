@@ -12,6 +12,7 @@ from utils import build_input_history
 
 log = logger.get_logger(__name__)
 
+
 class Socials(discord.Cog, name="Socials"):
     def __init__(self, bot: discord.Bot):
         self.bot = bot
@@ -40,7 +41,7 @@ class Socials(discord.Cog, name="Socials"):
                 except openai.APIError as e:
                     await message.reply("An unknown error occured! This will be logged and fixed!")
                     log.error(
-                        f"{message.author.global_name} used @Paw which caused '{e}' - Error class: {e.__class__.__name__}",
+                        f"{message.author.global_name} used @Paw which caused '{e}', error class: {e.__class__.__name__}",
                         exc_info=(type(e), e, e.__traceback__))
 
     @slash_command()
@@ -49,10 +50,12 @@ class Socials(discord.Cog, name="Socials"):
         """ Revive the chat! """
         revival_role = ctx.guild.get_role(738356235841175594)
         if revival_role not in ctx.author.roles:
-            return await ctx.respond("You need the chat revival role to revive the chat! Get it in <id:customize>",
-                                     ephemeral=True)
+            await ctx.respond("You need the chat revival role to revive the chat! Get it in <id:customize>",
+                              ephemeral=True)
+            return
         if time.time() - 7200 <= self.last_revived:
-            return await ctx.respond("Chat was revived less than 2 hours ago!", ephemeral=True)
+            await ctx.respond("Chat was revived less than 2 hours ago!", ephemeral=True)
+            return
         self.last_revived = time.time()
         await ctx.respond(
             f"<@&738356235841175594>! {topic if topic else 'Talk about something interesting!'}",
@@ -84,7 +87,10 @@ class Socials(discord.Cog, name="Socials"):
         if not user:
             user = ctx.author
         url = user.display_avatar.url if server_avatar else user.avatar.url
-        link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}" if border else f"https://some-random-api.com/canvas/gay/?avatar={url}"
+        if border:
+            link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}"
+        else:
+            link = f"https://some-random-api.com/canvas/gay/?avatar={url}"
         embed = discord.Embed(color=discord.Color.random())
         embed.set_image(url=link)
         embed.set_footer(text=f"Gay avatar: {user.display_name}")
