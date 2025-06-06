@@ -17,13 +17,22 @@ class Staff(discord.Cog, name="Staff"):
 
     @slash_command()
     @discord.default_permissions(manage_guild=True)
-    async def asset_downloader(self, ctx: discord.ApplicationContext):
+    @discord.option("assets", choices=["all", "emojis", "role icons", "stickers"], default="all")
+    async def asset_downloader(self, ctx: discord.ApplicationContext, assets: str):
         """ Download this server's emojis, stickers and role icons"""
         interaction = await ctx.respond("Downloading, this might take some time... (0%)")
         zip_buffer = io.BytesIO()  # Create a BytesIO object to hold the ZIP file
         with zipfile.ZipFile(zip_buffer, 'w') as zipped_f:  # Create a ZIP file inside the buffer
             downloader = AssetDownloader(zipped_f, ctx.guild, interaction)
-            await downloader.download_all()
+            match assets:
+                case "all":
+                    await downloader.download_all()
+                case "emojis":
+                    await downloader.download_emojis()
+                case "role icons":
+                    await downloader.download_role_icons()
+                case "stickers":
+                    await downloader.download_stickers()
 
         await interaction.edit_original_response(content="Uploading assets...")
         zip_buffer.seek(0)  # Reset the buffer position to the beginning so the next line reads the file from the start
