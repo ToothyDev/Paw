@@ -2,9 +2,10 @@ import io
 import zipfile
 
 import discord
-from discord import option, slash_command
+from discord import option, slash_command, RawReactionActionEvent
 
 import logger
+import utils
 from utils.staff_helpers import AssetDownloader
 from views import ConfirmView
 
@@ -14,6 +15,22 @@ log = logger.get_logger(__name__)
 class Staff(discord.Cog, name="Staff"):
     def __init__(self, bot: discord.Bot):
         self.bot = bot
+
+    @discord.Cog.listener()
+    async def on_raw_reaction_remove(self, payload: RawReactionActionEvent):
+        print(payload)
+        # if payload.guild_id != 715969701771083817:
+        #    return
+        member = self.bot.get_guild(payload.guild_id).get_member(payload.user_id)
+        if not member:
+            return
+
+        embed = discord.Embed(color=utils.Colors.ORANGE)
+        embed.set_author(name=f"Reaction was removed | {member.display_name}",
+                         icon_url=member.display_avatar.url)
+        embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}\n**Reaction:** {payload.emoji}"
+        logchannel = member.guild.get_channel(760181839033139260)
+        await logchannel.send(embed=embed)
 
     @slash_command()
     @discord.default_permissions(manage_guild=True)
