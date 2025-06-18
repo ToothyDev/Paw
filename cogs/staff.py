@@ -18,9 +18,8 @@ class Staff(discord.Cog, name="Staff"):
 
     @discord.Cog.listener()
     async def on_raw_reaction_remove(self, payload: RawReactionActionEvent):
-        print(payload)
-        # if payload.guild_id != 715969701771083817:
-        #    return
+        if payload.guild_id != 715969701771083817:
+            return
         member = self.bot.get_guild(payload.guild_id).get_member(payload.user_id)
         if not member:
             return
