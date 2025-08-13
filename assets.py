@@ -17,8 +17,8 @@ BELLYRUB = ["https://i.imgur.com/VnoVdts.gif",
             "https://c.tenor.com/PXOP3u6eSJUAAAAC/tenor.gif"]
 
 BLUSH = ["https://c.tenor.com/PCbBSKcLnN8AAAAC/tenor.gif",
-         "https://media1.tenor.com/m/0lyzVTcA2vIAAAAC/farted-blushing.gif",
-         "https://media1.tenor.com/m/Qezj_1I6XFwAAAAC/griffon-blush.gif",
+         "https://c.tenor.com/0lyzVTcA2vIAAAAC/tenor.gif",
+         "https://c.tenor.com/Qezj_1I6XFwAAAAC/tenor.gif",
          "https://c.tenor.com/nW5SZG-AXvIAAAAC/tenor.gif",
          "https://c.tenor.com/Xr-0YHy2NTIAAAAC/tenor.gif",
          "https://c.tenor.com/gRM3mfBsg-QAAAAC/tenor.gif"]
@@ -68,7 +68,7 @@ HIGHFIVE = ["https://c.tenor.com/EFVbyCW4ITEAAAAC/tenor.gif",
             "https://c.tenor.com/bVN1P3Wu_l8AAAAC/tenor.gif"]
 
 HUG = ["https://c.tenor.com/_OWB09MaabIAAAAC/tenor.gif",
-       "https://media1.tenor.com/m/vVBFWMH7J9oAAAAC/hug-peachcat.gif",
+       "https://c.tenor.com/vVBFWMH7J9oAAAAC/tenor.gif",
        "https://c.tenor.com/tEJ0EhvOE5QAAAAC/tenor.gif",
        "https://c.tenor.com/ehEjYwLbVyAAAAAC/tenor.gif",
        "https://c.tenor.com/XyECfmRs0KMAAAAC/tenor.gif",
@@ -84,7 +84,7 @@ LICK = ["https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
 
 PET = ["https://c.tenor.com/jsdFKR9u9scAAAAC/tenor.gif",
        "https://c.tenor.com/7S3hEvXkVi8AAAAC/tenor.gif",
-       "https://media1.tenor.com/m/fTcDSsuXfYUAAAAC/love-couple.gif",
+       "https://c.tenor.com/fTcDSsuXfYUAAAAC/tenor.gif",
        "https://c.tenor.com/qjHkX9X0FOQAAAAC/tenor.gif",
        "https://media.tenor.com/NttLDavP1YcAAAAi/hamster-bean-cute.gif"]
 
