@@ -13,104 +13,104 @@ BELLYRUB = ["https://i.imgur.com/VnoVdts.gif",
             "https://i.imgur.com/AGb1AKb.gif",
             "https://i.imgur.com/PbYykOz.gif",
             "https://i.imgur.com/xxx0Ykb.gif",
-            "https://media1.tenor.com/images/904ca94bb9335013cf8e1d57115de5c5/tenor.gif?itemid=13642623",
-            "https://media1.tenor.com/images/d13c4bcb8939ab000deab59bb46ec189/tenor.gif?itemid=18000915"]
+            "https://c.tenor.com/4m8XAuqZWPIAAAAC/tenor.gif",
+            "https://c.tenor.com/PXOP3u6eSJUAAAAC/tenor.gif"]
 
-BLUSH = ["https://media1.tenor.com/images/68e8bca8e90cb37fdcc9cc798bbc13f5/tenor.gif?itemid=10296487",
-         "https://media1.tenor.com/images/2c5fc8253882a23b7eb0f3077cfcd290/tenor.gif?itemid=5971288",
-         "https://media1.tenor.com/images/369329091222b088ddb788b6196be261/tenor.gif?itemid=17315979",
-         "https://media1.tenor.com/images/969eafdd133b4a1d24cb9135b4bf6310/tenor.gif?itemid=14043564",
-         "https://media1.tenor.com/images/41bc1ff3064c7a5aa0979c2ddee32dc8/tenor.gif?itemid=9869912",
-         "https://media1.tenor.com/images/e8ad00d3190adf65434672c075a4c9e1/tenor.gif?itemid=16242697"]
+BLUSH = ["https://c.tenor.com/PCbBSKcLnN8AAAAC/tenor.gif",
+         "https://media1.tenor.com/m/0lyzVTcA2vIAAAAC/farted-blushing.gif",
+         "https://media1.tenor.com/m/Qezj_1I6XFwAAAAC/griffon-blush.gif",
+         "https://c.tenor.com/nW5SZG-AXvIAAAAC/tenor.gif",
+         "https://c.tenor.com/Xr-0YHy2NTIAAAAC/tenor.gif",
+         "https://c.tenor.com/gRM3mfBsg-QAAAAC/tenor.gif"]
 
-BOOP = ["https://media1.tenor.com/images/36d187af3d5e876ec0d8f11cabe1a8d4/tenor.gif?itemid=15225693",
-        "https://media1.tenor.com/images/ea37d5c281b7ca7c35175bdc854b0a5b/tenor.gif?itemid=11159084",
+BOOP = ["https://c.tenor.com/qUIKj_X6NTcAAAAC/tenor.gif",
+        "https://c.tenor.com/1HgqfNZne4MAAAAC/tenor.gif",
         "https://media.tenor.com/images/3f364e971453b18a1ae2b5cc8d2d0613/tenor.gif",
-        "https://media1.tenor.com/images/a0f0c6b3ef95bb2ff530a92d6c516cbd/tenor.gif?itemid=14452125",
-        "https://media1.tenor.com/images/5c0b2e9661b5ea40834fc6bd6b84a806/tenor.gif?itemid=14796547",
+        "https://c.tenor.com/HZWeNnmcbBYAAAAC/tenor.gif",
+        "https://c.tenor.com/ESMRL0G7_iMAAAAC/tenor.gif",
         "https://media.tenor.com/images/aa41ce7ea8f138eb8e0be635cd4664d9/tenor.gif"]
 
 CUDDLE = ["https://media3.giphy.com/media/h4BprYiFYNxRe/giphy.gif",
-          "https://media1.tenor.com/images/304d8bf0315c3096603afd7e6562833c/tenor.gif?itemid=12304006",
-          "https://media1.tenor.com/images/64ffd0c97258e49fd08f17397792c6c0/tenor.gif?itemid=5581481",
+          "https://c.tenor.com/zyoFkWCY528AAAAC/tenor.gif",
+          "https://c.tenor.com/pMoYuZnOZCQAAAAC/tenor.gif",
           "https://media.tenor.com/images/5c02ca01064b6c2f75c6e1dbbbc5de90/tenor.gif",
-          "https://media1.tenor.com/images/e1035f7a2efb7722abd665f4e6a164be/tenor.gif?itemid=16022685",
-          "https://media1.tenor.com/images/2259bbd5696244422b64fc4c7d235a93/tenor.gif?itemid=13765442",
-          "https://media1.tenor.com/images/9d4d148f45d355cda83ada31b3112c85/tenor.gif?itemid=15681585"]
+          "https://c.tenor.com/qUxE4VXug9YAAAAC/tenor.gif",
+          "https://c.tenor.com/Toho37WtleoAAAAC/tenor.gif",
+          "https://c.tenor.com/LHjDKmYBaFwAAAAC/tenor.gif"]
 
-FEED = ["https://media1.tenor.com/images/5dda2ba3a73de6e8a3abfc45996ed1ba/tenor.gif?itemid=5879575",
-        "https://media1.tenor.com/images/9a861ec0dcdae5d505afbeca28910182/tenor.gif?itemid=6101207",
-        "https://media1.tenor.com/images/d598225fd7e2ba8bd82793856c78b19f/tenor.gif?itemid=4909807",
-        "https://media1.tenor.com/images/9337abd3a4247c73c218ea3c3662137d/tenor.gif?itemid=7266798",
+FEED = ["https://c.tenor.com/W-PyZEVzodYAAAAC/tenor.gif",
+        "https://c.tenor.com/OqYq1r0Yn7wAAAAC/tenor.gif",
+        "https://c.tenor.com/WCyNnNde_GkAAAAC/tenor.gif",
+        "https://c.tenor.com/q_xIsY6AUzkAAAAC/tenor.gif",
         "https://media.tenor.com/images/49109825019cb719d771ff54876fe078/tenor.gif"]
 
 GLOMP = ["https://media.tenor.com/images/2e04038ac35f6e7975f64cd2ba1c2d48/tenor.gif"]
 
-HAPPY = ["https://media1.tenor.com/images/4b5d8967536d7235f5231ba9123964ab/tenor.gif?itemid=8675372",
+HAPPY = ["https://c.tenor.com/0v68o-eVmpsAAAAC/tenor.gif",
          "https://media.tenor.com/images/6a4617fb4777558efe818e2fa241c5fb/tenor.gif",
          "https://media.tenor.com/images/7559368ede131c2f119cd19a4a6f7cf5/tenor.gif",
          "https://media.tenor.com/images/f7ba3433bb89a484ec92d33b87f54ca7/tenor.gif",
          "https://media.tenor.com/images/8784dfd64f06f19e1a25cb88f990b2b7/tenor.gif",
-         "https://media1.tenor.com/images/aca1a8cd3d8d7bf7d5703bf3f8117a4b/tenor.gif?itemid=5567628",
-         "https://media1.tenor.com/images/ab69ea03faa81a44af51c86770745f61/tenor.gif?itemid=9273180",
-         "https://media1.tenor.com/images/685f1055a8a4dbfe3318e5898d19b97c/tenor.gif?itemid=10253595",
-         "https://media1.tenor.com/images/41df672a1055e4f833e2022dce9231fd/tenor.gif?itemid=16660700",
+         "https://c.tenor.com/i3afprr_Z7UAAAAC/tenor.gif",
+         "https://c.tenor.com/16m6-_CL8rMAAAAC/tenor.gif",
+         "https://c.tenor.com/Vg0WBmoJcPIAAAAC/tenor.gif",
+         "https://c.tenor.com/ZTSWUnRE1wMAAAAC/tenor.gif",
          "https://d.facdn.net/art/bluemachine/1573314972/1573314972.bluemachine_2.gif",
          "https://media.tenor.com/images/a6fc8a84da7b76176d5b79d56c90ffb3/tenor.gif"]
 
-HIGHFIVE = ["https://media1.tenor.com/images/bbc34d4c1409ddf777186c773334e3e6/tenor.gif?itemid=6123039",
+HIGHFIVE = ["https://c.tenor.com/EFVbyCW4ITEAAAAC/tenor.gif",
             "https://media.tenor.com/images/975d05f75a11fca62e2bb0b1ee040772/tenor.gif",
             "https://media.tenor.com/images/be4e523990540bb9ad18ac49439e5cd2/tenor.gif",
             "https://media.tenor.com/images/56eaf6892f8dd40c5f2b4580e8cd34e8/tenor.gif",
-            "https://media1.tenor.com/images/88ece6b5cf8b9df04c6290c5100a8410/tenor.gif?itemid=7367090",
-            "https://media1.tenor.com/images/ce04ff64e42ac6a0fc23dc1e1da79a2c/tenor.gif?itemid=14400946",
-            "https://media1.tenor.com/images/6e5ab91c3133061f67a1843df9ace592/tenor.gif?itemid=5442827",
-            "https://media1.tenor.com/images/59e5bbd7e22503afa1b0ec8176acaae9/tenor.gif?itemid=3431650"]
+            "https://c.tenor.com/J-QrTZZD3zYAAAAC/tenor.gif",
+            "https://c.tenor.com/MY-TpuSYt_YAAAAC/tenor.gif",
+            "https://c.tenor.com/vfqSdWA4VYIAAAAC/tenor.gif",
+            "https://c.tenor.com/bVN1P3Wu_l8AAAAC/tenor.gif"]
 
-HUG = ["https://media1.tenor.com/images/faf29ddc23059c5740751a3fecc2f303/tenor.gif?itemid=13533690",
-       "https://media1.tenor.com/images/f20151a1f7e003426ca7f406b6f76c82/tenor.gif?itemid=13985247",
-       "https://media1.tenor.com/images/8ac5ada8524d767b77d3d54239773e48/tenor.gif?itemid=16334628",
-       "https://media1.tenor.com/images/68f16d787c2dfbf23a4783d4d048c78f/tenor.gif?itemid=9512793",
-       "https://media1.tenor.com/images/3fee00811a33590e4ee490942f233c78/tenor.gif?itemid=14712845",
-       "https://media1.tenor.com/images/2d13ede25b31d946284eaa3b8a4e6b31/tenor.gif?itemid=11990658",
-       "https://media1.tenor.com/images/ece75ca15b715aacd86724ee23604569/tenor.gif?itemid=16796068",
+HUG = ["https://c.tenor.com/_OWB09MaabIAAAAC/tenor.gif",
+       "https://media1.tenor.com/m/vVBFWMH7J9oAAAAC/hug-peachcat.gif",
+       "https://c.tenor.com/tEJ0EhvOE5QAAAAC/tenor.gif",
+       "https://c.tenor.com/ehEjYwLbVyAAAAAC/tenor.gif",
+       "https://c.tenor.com/XyECfmRs0KMAAAAC/tenor.gif",
+       "https://c.tenor.com/eAKshP8ZYWAAAAAC/tenor.gif",
+       "https://c.tenor.com/r9WuPexy4t8AAAAC/tenor.gif",
        "https://media2.giphy.com/media/gl8ymnpv4Sqha/giphy.gif"]
 
 LICK = ["https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
         "https://media.giphy.com/media/8v9njaWnlcW2c/giphy.gif",
-        "https://media1.tenor.com/images/f40e1b6271581699aed3c12d042c129c/tenor.gif?itemid=15743713",
-        "https://media1.tenor.com/images/cd4f8199d49badf7b90277f8b13f5186/tenor.gif?itemid=12816950",
-        "https://media1.tenor.com/images/cd45350c528cc577cbe0eb754e6e8241/tenor.gif?itemid=12181805"]
+        "https://c.tenor.com/OtBwcZaLMFEAAAAC/tenor.gif",
+        "https://c.tenor.com/vSHxpi0RZIYAAAAC/tenor.gif",
+        "https://c.tenor.com/lujmEwcBJ2IAAAAC/tenor.gif"]
 
-PET = ["https://media1.tenor.com/images/1786de6797fd096ff503d633254786cc/tenor.gif?itemid=14598566",
-       "https://media1.tenor.com/images/be0c22e0af951aa7fa8753381663eb2c/tenor.gif?itemid=15824856",
-       "https://media1.tenor.com/images/fd7365b518ee53285f39ef8b1caf5b6e/tenor.gif?itemid=15523978",
-       "https://media1.tenor.com/images/adeb267fbe4ab5ddaa080297e5b2d0e4/tenor.gif?itemid=15740749",
-       "https://media1.tenor.com/images/62d861f1f0b6277e2056e86f4ba42e6f/tenor.gif?itemid=16276220"]
+PET = ["https://c.tenor.com/jsdFKR9u9scAAAAC/tenor.gif",
+       "https://c.tenor.com/7S3hEvXkVi8AAAAC/tenor.gif",
+       "https://media1.tenor.com/m/fTcDSsuXfYUAAAAC/love-couple.gif",
+       "https://c.tenor.com/qjHkX9X0FOQAAAAC/tenor.gif",
+       "https://media.tenor.com/NttLDavP1YcAAAAi/hamster-bean-cute.gif"]
 
-RAWR = ["https://media1.tenor.com/images/5393afcde44d4be4569108e40fddb3a1/tenor.gif?itemid=15945972",
-        "https://media1.tenor.com/images/0ffb715776443e6242b736420ce84144/tenor.gif?itemid=14558168",
-        "https://media1.tenor.com/images/6f5c4dd655d8d93b5f85d2f739f11cea/tenor.gif?itemid=16986104",
-        "https://media1.tenor.com/images/78e79fa52e3934f693ce670a3a905e64/tenor.gif?itemid=16549140"
-        "https://media1.tenor.com/images/84b80c7e1fa843fd4ea7b90e1bc269c4/tenor.gif?itemid=15426315"]
+RAWR = ["https://c.tenor.com/kCSH0OrdJGYAAAAC/tenor.gif",
+        "https://c.tenor.com/iiBorSRc51gAAAAC/tenor.gif",
+        "https://c.tenor.com/qEu3Rll5gesAAAAC/tenor.gif",
+        "https://c.tenor.com/mXtIIEffguEAAAAC/tenor.gif",
+        "https://c.tenor.com/ZR7IGFuTBAkAAAAC/tenor.gif"]
 
-KISS = ["https://media1.tenor.com/images/473c30ffa595a67a281d9b2fde7b48d6/tenor.gif?itemid=5373130",
+KISS = ["https://c.tenor.com/9FEe1JLvxNQAAAAC/tenor.gif",
         "https://media.tenor.com/images/78aaf08e4cb6174a5d3a0d2826c43953/tenor.gif",
-        "https://media1.tenor.com/images/3fce8ce3fb358cc6fafd0517c6558653/tenor.gif?itemid=14802231",
+        "https://c.tenor.com/1FPyVLeSI8kAAAAC/tenor.gif",
         "https://cdn.weasyl.com/~recurrent/submissions/1797089/3e4439c6a3b09383c2361d2db9f5d72f1e74f70dfaf26654b468875ee1d0071d/recurrent-c-kiss-under-the-moon.gif",
         "https://pa1.narvii.com/6929/e06bf443286d81e79374a4374cac98a1e263ebb4r1-2000-2000_hq.gif",
         "https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
-        "https://media1.tenor.com/images/12ff73f58a57174d6c6228f323e41c21/tenor.gif?itemid=11770367",
+        "https://media1.tenor.com/m/f4nHxgAkULsAAAAC/furry-love.gif",
         "https://d.facdn.net/art/kusuguttai/1550707158/1550707158.kusuguttai_kissandnibble.gif",
         "https://i.pinimg.com/originals/a2/64/72/a26472dd131d20dba037b81c1a633c61.gif",
-        "https://media1.tenor.com/images/5c8972db3df932240bb191be36c71b85/tenor.gif?itemid=7189564"]
+        "https://c.tenor.com/ss6CRfqp1UUAAAAC/tenor.gif"]
 
 SNUGGLE = ["https://media.giphy.com/media/kz01wlAoCLYx3v8F68/giphy.gif",
            "https://media.giphy.com/media/DAX8RixOTrWuY/giphy.gif"]
 
 WAG = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gif",
        "https://media.tenor.com/images/bac4a23e4a961a274c94d2631cf63e19/tenor.gif",
-       "https://media1.tenor.com/images/3562622d1c072ba2c30645b19e13bd2f/tenor.gif?itemid=7910058",
+       "https://c.tenor.com/EYn2s9ww6WgAAAAC/tenor.gif",
        "https://media.tenor.com/images/4a53db6c0267f84b180d7b9d3c34f120/tenor.gif",
        "https://media.tenor.com/images/7bd999202fde3cb64395725964ff34ac/tenor.gif"]
 
@@ -133,8 +133,8 @@ PAW = ["https://cdn.discordapp.com/attachments/1092442686671290378/1092442923158
        "https://cdn.discordapp.com/attachments/1092442686671290378/1097869826904571964/Paw_No.png"
        ]
 
-DANCE = ["https://media.tenor.com/OxrPk4Zbf1IAAAAC/dancing-protogen.gif",
-         "https://media.tenor.com/pTxxtlWeKBMAAAAC/furry-dance.gif",
-         "https://media.tenor.com/EtShnq3WAWkAAAAd/eevee-furry.gif",
-         "https://media.tenor.com/5FlpxgiZWe4AAAAd/keenora-kee.gif",
-         "https://media.tenor.com/3U0EPDQsvx4AAAAd/furry-furries.gif"]
+DANCE = ["https://c.tenor.com/OxrPk4Zbf1IAAAAC/tenor.gif",
+         "https://c.tenor.com/EtShnq3WAWkAAAAC/tenor.gif",
+         "https://c.tenor.com/5FlpxgiZWe4AAAAC/tenor.gif",
+         "https://c.tenor.com/8eJRJmF5cOgAAAAC/tenor.gif",
+         "https://media.tenor.com/pTxxtlWeKBMAAAAC/furry-dance.gif"]
