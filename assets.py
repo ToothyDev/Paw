@@ -100,7 +100,6 @@ KISS = ["https://c.tenor.com/9FEe1JLvxNQAAAAC/tenor.gif",
         "https://cdn.weasyl.com/~recurrent/submissions/1797089/3e4439c6a3b09383c2361d2db9f5d72f1e74f70dfaf26654b468875ee1d0071d/recurrent-c-kiss-under-the-moon.gif",
         "https://pa1.narvii.com/6929/e06bf443286d81e79374a4374cac98a1e263ebb4r1-2000-2000_hq.gif",
         "https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
-        "https://media1.tenor.com/m/f4nHxgAkULsAAAAC/furry-love.gif",
         "https://d.facdn.net/art/kusuguttai/1550707158/1550707158.kusuguttai_kissandnibble.gif",
         "https://i.pinimg.com/originals/a2/64/72/a26472dd131d20dba037b81c1a633c61.gif",
         "https://c.tenor.com/ss6CRfqp1UUAAAAC/tenor.gif"]
@@ -116,7 +115,6 @@ WAG = ["https://media.tenor.com/images/391f32ea35c6bd010fe29425f8a689e3/tenor.gi
 
 COOKIE = ['https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-ms-fields-cookies-024-1544735513.jpg',
           'https://images-gmi-pmc.edge-generalmills.com/087d17eb-500e-4b26-abd1-4f9ffa96a2c6.jpg',
-          'https://www.janespatisserie.com/wp-content/uploads/2020/04/IMG_0744_1-scaled.jpg',
           'https://images.squarespace-cdn.com/content/v1/549367d9e4b0b0a3e2543543/1588847414826-FQZTCRKH9B7DBCHWPX04/ke17ZwdGBToddI8pDm48kGBZtRQfXGGrtPZLnhyM-_cUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKc2A05hr64wuCTS4zP7CpzbvVdV_gnisg_uG0ZwZ1tao3WChTLVZ4KTQ-wgmrDxiyo/image-asset.jpeg']
 
 NUZZLE = ['https://media1.tenor.com/images/412ed5e4675f2efa000882e933f1ffee/tenor.gif?itemid=12530414']
