@@ -36,7 +36,6 @@ class InteractionsView(discord.ui.View):
         super().__init__(timeout=600, *components)
 
     async def button_callback(self, interaction: discord.Interaction):
-        to_ping = self.members.copy()
         if interaction.user not in self.members:
             if not self.action_error:
                 await interaction.respond(f"You weren't {self.action}!", ephemeral=True)
@@ -57,4 +56,4 @@ class InteractionsView(discord.ui.View):
             )
         ]
         view = discord.ui.View(*components)
-        await interaction.respond(view=view, allowed_mentions=discord.AllowedMentions(users=to_ping))
+        await interaction.respond(view=view, allowed_mentions=discord.AllowedMentions(users=[self.ctx.author]))
