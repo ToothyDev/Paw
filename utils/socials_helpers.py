@@ -24,6 +24,7 @@ async def feelings(ctx, members, name, giflist):
         discord.ui.Container(
             discord.ui.TextDisplay(view_text),
             discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(giflist))),
+            color=discord.Color.blue()
         )
     ]
 

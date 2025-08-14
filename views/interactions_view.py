@@ -27,7 +27,8 @@ class InteractionsView(discord.ui.View):
             discord.ui.Container(
                 discord.ui.TextDisplay(f"**{ctx.author.mention}** {action} **" + memberlist + "**"),
                 discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(giflist))),
-                self.interact_button
+                self.interact_button,
+                color=discord.Color.blue()
             )
         ]
 
@@ -50,6 +51,7 @@ class InteractionsView(discord.ui.View):
                 discord.ui.TextDisplay(
                     f"**{interaction.user.mention}** {self.action} **" + self.ctx.author.mention + "** back!"),
                 discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(self.giflist))),
+                color=discord.Color.blue()
             )
         ]
         view = discord.ui.View(*components)
