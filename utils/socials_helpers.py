@@ -7,37 +7,27 @@ import utils
 from views import InteractionsView
 
 
-async def interactions(ctx, members, action, giflist):
-    image = random.choice(giflist)
-    memberlist = [member.display_name for member in members]
-    if len(members) >= 3:
-        memberlist.append(f"**and **{memberlist.pop()}")
-    if len(members) == 2:
-        memberlist = f"{memberlist[0]}** and **{memberlist[1]}"
-    else:
-        memberlist = ', '.join(memberlist)
-    embed = discord.Embed(
-        description=f"**{ctx.author.display_name}** {action} **" + memberlist + "**",
-        color=discord.Color.blue())
-    embed.set_image(url=image)
-    return embed
-
-
 async def feelings(ctx, members, name, giflist):
-    embed = discord.Embed(color=discord.Color.blue())
-    embed.set_image(url=random.choice(giflist))
     if members is None:
-        embed.description = f"**{ctx.author.display_name}** {name}!"
+        view_text = f"**{ctx.author.mention}** {name}!"
     else:
-        display_giflist = [member.display_name for member in members]
+        member_mentions = [member.mention for member in members]
         if len(members) >= 3:
-            display_giflist.append(f"**and **{display_giflist.pop(-1)}")
+            member_mentions.append(f"**and **{member_mentions.pop(-1)}")
         if len(members) == 2:
-            display_giflist = f"{display_giflist[0]}** and **{display_giflist[1]}"
+            member_mentions = f"{member_mentions[0]}** and **{member_mentions[1]}"
         else:
-            display_giflist = ', '.join(display_giflist)
-        embed.description = f"**{ctx.author.display_name}** {name} because of **{display_giflist}**"
-    await ctx.respond(embed=embed)
+            member_mentions = ', '.join(member_mentions)
+        view_text = f"**{ctx.author.display_name}** {name} because of **{member_mentions}**"
+
+    components = [
+        discord.ui.Container(
+            discord.ui.TextDisplay(view_text),
+            discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(giflist))),
+        )
+    ]
+
+    await ctx.respond(view=discord.ui.View(*components))
 
 
 async def mention_converter(ctx: discord.ApplicationContext, members: str) -> list[discord.Member] | None:
@@ -61,9 +51,8 @@ async def social_interaction_handler(ctx: discord.ApplicationContext, members: s
     memberlist = await mention_converter(ctx, members)
     if not memberlist:
         return
-    embed = await interactions(ctx, memberlist, words[0], gifs)
     view = InteractionsView(ctx, memberlist, words[0], words[1], gifs, words[2] if len(words) > 2 else None)
-    await ctx.respond(embed=embed, view=view)
+    await ctx.respond(view=view)
 
 
 async def build_input_history(bot, channel: discord.TextChannel, author: discord.Member, guild: discord.Guild,
@@ -120,7 +109,7 @@ async def _format_user_message(message: discord.Message) -> dict:
                 "url": f"data:image/jpeg;base64,{image_base64}",
             },
         })
-        
+
     return {
         "role": "user",
         "name": f"{message.author.display_name} ({utils.get_gender(message.author)})",

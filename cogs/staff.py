@@ -112,7 +112,7 @@ class Staff(discord.Cog, name="Staff"):
 
     @discord.message_command(name="GIF blamer")
     async def gif_blamer(self, ctx: discord.ApplicationContext, message: discord.Message):
-        await ctx.respond(f"The URL is {message.embeds[0].image.url}")
+        await ctx.respond(message.components[0].components[1].items[0].url)
 
 
 def setup(bot):

@@ -5,17 +5,35 @@ import discord
 
 class InteractionsView(discord.ui.View):
     def __init__(self, ctx, members, action, button_label, giflist, action_error=None):
-        super().__init__(timeout=600)
         self.ctx = ctx
         self.members = members
         self.action = action
         self.giflist = giflist
         self.action_error = action_error
-        self.button_callback.label = f"{button_label} back!"
         self.disable_on_timeout = True
 
-    @discord.ui.button(style=discord.ButtonStyle.primary)
-    async def button_callback(self, _, interaction: discord.Interaction):
+        self.interact_button = discord.ui.Button(label=f"{button_label} back!", style=discord.ButtonStyle.primary)
+        self.interact_button.callback = self.button_callback
+
+        memberlist = [member.mention for member in members]
+        if len(members) >= 3:
+            memberlist.append(f"**and **{memberlist.pop()}")
+        if len(members) == 2:
+            memberlist = f"{memberlist[0]}** and **{memberlist[1]}"
+        else:
+            memberlist = ', '.join(memberlist)
+
+        components = [
+            discord.ui.Container(
+                discord.ui.TextDisplay(f"**{ctx.author.mention}** {action} **" + memberlist + "**"),
+                discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(giflist))),
+                self.interact_button
+            )
+        ]
+
+        super().__init__(timeout=600, *components)
+
+    async def button_callback(self, interaction: discord.Interaction):
         if interaction.user not in self.members:
             if not self.action_error:
                 await interaction.respond(f"You weren't {self.action}!", ephemeral=True)
@@ -26,9 +44,13 @@ class InteractionsView(discord.ui.View):
         if len(self.members) == 0:
             self.disable_all_items()
             await interaction.message.edit(view=self)
-        image = random.choice(self.giflist)
-        embed = discord.Embed(
-            description=f"**{interaction.user.display_name}** {self.action} **" + self.ctx.author.display_name + "** back!",
-            color=discord.Color.blue())
-        embed.set_image(url=image)
-        await interaction.respond(embed=embed)
+
+        components = [
+            discord.ui.Container(
+                discord.ui.TextDisplay(
+                    f"**{interaction.user.mention}** {self.action} **" + self.ctx.author.mention + "** back!"),
+                discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(self.giflist))),
+            )
+        ]
+        view = discord.ui.View(*components)
+        await interaction.respond(view=view)
