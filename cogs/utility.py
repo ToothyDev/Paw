@@ -8,6 +8,7 @@ from discord import option, slash_command
 import assets
 import logger
 import utils
+from views.redo_view import RedoView
 
 log = logger.get_logger(__name__)
 
@@ -23,30 +24,30 @@ class Utility(discord.Cog, name="Utilities"):
             required=False)
     async def sonagen(self, ctx: discord.ApplicationContext, species: str, sex: str, sonatype: str):
         """ Generate a random sona """
-        await ctx.defer()
+        await ctx.defer(invisible=False)
         primary_color = discord.Color.random()
         color = random.choice(utils.data.COLOR_STRINGS)
 
         sona = await utils.api_helpers.generate_sona(
             f"""Your job is to generate a fursona as a fursona generator. Use the following json schema: {json.dumps(utils.data.Fursona.model_json_schema(), indent=2)}
-            The user already picked the following values:
-            {species if species else ""} {sex if sex else ""} {sonatype if sonatype else ""}
-            Do NOT change the values the user picked, instead, use them as is and generate the sona using them
-            You should however "clean" the species name, e.g. correct typos and remove unnecessary bits. Start with a capital letter.
-            Also, do NOT let the species name influence your following choices. Pick that on your own.
-            Make up a name that may incorporate any of the sona's attributes, but does not have to.
-            The species is any animal that makes sense as a fursona.
-            The sona type is either Feral or Anthro.
-            Gender may be Male, Feral or Intersex, but pick Intersex only rarely.
-            Color: {primary_color}.
-            Secondary Color: {color}.
-            Standing Height in cm (shoulder height for feral sonas).
-            Consider a height of 175cm average / normal for anthro sonas.
-            For feral sonas, pick a shoulder height that is reasonable for the animal you chose.
-            Generate a small, 2-3 sentence fursona description based on the following values:
-            Always add a description of their physical features, traits or behaviours, never simply describe their "stats".
-            Always say colors by name and not in hexadecimal form.
-            Do not say anything towards the user, simply act like a sona text generator""")
+                The user already picked the following values:
+                {species if species else ""} {sex if sex else ""} {sonatype if sonatype else ""}
+                Do NOT change the values the user picked, instead, use them as is and generate the sona using them
+                You should however "clean" the species name, e.g. correct typos and remove unnecessary bits. Start with a capital letter.
+                Also, do NOT let the species name influence your following choices. Pick that on your own.
+                Make up a name that may incorporate any of the sona's attributes, but does not have to.
+                The species is any animal that makes sense as a fursona.
+                The sona type is either Feral or Anthro.
+                Gender may be Male, Feral or Intersex, but pick Intersex only rarely.
+                Color: {primary_color}.
+                Secondary Color: {color}.
+                Standing Height in cm (shoulder height for feral sonas).
+                Consider a height of 175cm average / normal for anthro sonas.
+                For feral sonas, pick a shoulder height that is reasonable for the animal you chose.
+                Generate a small, 2-3 sentence fursona description based on the following values:
+                Always add a description of their physical features, traits or behaviours, never simply describe their "stats".
+                Always say colors by name and not in hexadecimal form.
+                Do not say anything towards the user, simply act like a sona text generator""")
 
         name = sona.name
         sonatype = sona.type
@@ -56,7 +57,11 @@ class Utility(discord.Cog, name="Utilities"):
         description = sona.description
         heightstring = f"**Height{' to shoulders' if sonatype == 'Feral' else ''}**: {height}cm"
 
-        embed = discord.Embed(title="Your Sona:", color=primary_color, description=f"""
+        components = [
+            discord.ui.Container(
+                discord.ui.TextDisplay(f"## Your Sona: {name}"),
+                discord.ui.Separator(),
+                discord.ui.TextDisplay(f"""
 **Name**: {name}
 **Species**: {sonatype} {species}
 **Primary Color**: {str(primary_color)} (embed color)
@@ -64,8 +69,13 @@ class Utility(discord.Cog, name="Utilities"):
 {heightstring}
 **Sex**: {sex}
 **Description**: {description}
-        """)
-        await ctx.respond(content="Sure, here's your freshly generated sona!", embed=embed)
+                        """),
+                color=primary_color
+            )
+
+        ]
+        return await ctx.respond(view=RedoView(ctx, [species, sex, sonatype], *components))
+        await ctx.respond(view=discord.ui.View(*components))
 
     @slash_command()
     async def serverinfo(self, ctx: discord.ApplicationContext):
