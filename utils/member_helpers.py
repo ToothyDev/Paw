@@ -8,15 +8,24 @@ import utils
 log = logger.get_logger(__name__)
 
 
-async def send_welcome_message(member: discord.Member):
+async def send_welcome_message(bot: discord.Bot, member: discord.Member):
     channel = member.guild.get_channel(1066357407443333190)
-    embed = discord.Embed(color=utils.Colors.PURPLE)
-    embed.set_thumbnail(url=member.display_avatar)
-    embed.description = f"""
-Welcome to the server, {member.mention}!\nFeel free to visit <id:customize> for roles & channels and <id:guide> for some useful info!
-__**IMPORTANT**__: To verify yourself, you first need to gain a level by chatting, else you will be kicked for inactivity.
-Thank you for reading and have fun!"""
-    await channel.send(content=f"<@&822886791312703518>, welcome {member.mention}", embed=embed)
+    accent = (await bot.fetch_user(member.id)).accent_color
+
+    components = [
+        discord.ui.Container(
+            discord.ui.Section(
+                discord.ui.TextDisplay(f"""### <@&822886791312703518>, welcome {member.mention} to the server!"""),
+                discord.ui.TextDisplay("""
+    Feel free to visit <id:customize> for roles & channels and <id:guide> for some useful info about the server!
+    __**IMPORTANT**__: To verify yourself, you first need to gain a level by chatting, else you will be kicked for inactivity. Thank you for reading and have fun!"""),
+                accessory=discord.ui.Thumbnail(url=member.display_avatar.url)
+            ),
+            color=accent
+        )
+    ]
+
+    await channel.send(view=discord.ui.View(*components))
 
 
 async def unverified_role_handler(member_old: discord.Member, member: discord.Member):
