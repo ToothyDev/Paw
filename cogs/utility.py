@@ -8,7 +8,7 @@ from discord import option, slash_command
 import assets
 import logger
 import utils
-from views.redo_view import RedoView
+from views.redo_view import ReRunView
 
 log = logger.get_logger(__name__)
 
@@ -74,8 +74,7 @@ class Utility(discord.Cog, name="Utilities"):
             )
 
         ]
-        return await ctx.respond(view=RedoView(ctx, [species, sex, sonatype], *components))
-        await ctx.respond(view=discord.ui.View(*components))
+        return await ctx.respond(view=ReRunView(ctx, [species, sex, sonatype], *components))
 
     @slash_command()
     async def serverinfo(self, ctx: discord.ApplicationContext):
