@@ -74,7 +74,7 @@ HUG = ["https://c.tenor.com/_OWB09MaabIAAAAC/tenor.gif",
        "https://c.tenor.com/XyECfmRs0KMAAAAC/tenor.gif",
        "https://c.tenor.com/eAKshP8ZYWAAAAAC/tenor.gif",
        "https://c.tenor.com/r9WuPexy4t8AAAAC/tenor.gif",
-       "https://media2.giphy.com/media/gl8ymnpv4Sqha/giphy.gif"]
+       "https://i.giphy.com/gl8ymnpv4Sqha.webp"]
 
 LICK = ["https://i.kym-cdn.com/photos/images/original/001/099/490/e82.gif",
         "https://media.giphy.com/media/8v9njaWnlcW2c/giphy.gif",
