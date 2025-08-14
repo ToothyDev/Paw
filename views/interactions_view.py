@@ -12,6 +12,7 @@ class InteractionsView(discord.ui.View):
         self.giflist = giflist
         self.action_error = action_error
         self.disable_on_timeout = True
+        self.original_allowed_mentions = discord.AllowedMentions(users=members)
 
         self.interact_button = discord.ui.Button(label=f"{button_label} back!", style=discord.ButtonStyle.primary)
         self.interact_button.callback = self.button_callback
@@ -45,7 +46,7 @@ class InteractionsView(discord.ui.View):
         self.members.remove(interaction.user)
         if len(self.members) == 0:
             self.disable_all_items()
-            await interaction.message.edit(view=self)
+            await interaction.message.edit(view=self, allowed_mentions=self.original_allowed_mentions)
 
         components = [
             discord.ui.Container(
