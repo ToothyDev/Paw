@@ -1,7 +1,7 @@
-aiohttp~=3.11
-py-cord==2.6.1
+aiohttp~=3.12
+py-cord @ git+https://github.com/Pycord-Development/pycord@e1814cce4bb7ed54d970ac5fe6900f8e65bb1879
 psutil~=7.0
-openai~=1.77
+openai~=1.99
 pydantic~=2.11
 coloredlogs~=15.0
-audioop-lts~=0.2.1; python_version>='3.13'
+audioop-lts~=0.2.2; python_version>='3.13'
