@@ -53,7 +53,7 @@ async def social_interaction_handler(ctx: discord.ApplicationContext, members: s
     if not memberlist:
         return
     view = InteractionsView(ctx, memberlist, words[0], words[1], gifs, words[2] if len(words) > 2 else None)
-    await ctx.respond(view=view)
+    await ctx.respond(view=view, allowed_mentions=discord.AllowedMentions(users=memberlist))
 
 
 async def build_input_history(bot, channel: discord.TextChannel, author: discord.Member, guild: discord.Guild,

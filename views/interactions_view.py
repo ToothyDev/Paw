@@ -4,7 +4,8 @@ import discord
 
 
 class InteractionsView(discord.ui.View):
-    def __init__(self, ctx, members, action, button_label, giflist, action_error=None):
+    def __init__(self, ctx: discord.ApplicationContext, members: list[discord.Member], action: str, button_label: str,
+                 giflist: list[str], action_error: str = None):
         self.ctx = ctx
         self.members = members
         self.action = action
@@ -35,6 +36,7 @@ class InteractionsView(discord.ui.View):
         super().__init__(timeout=600, *components)
 
     async def button_callback(self, interaction: discord.Interaction):
+        to_ping = self.members.copy()
         if interaction.user not in self.members:
             if not self.action_error:
                 await interaction.respond(f"You weren't {self.action}!", ephemeral=True)
@@ -55,4 +57,4 @@ class InteractionsView(discord.ui.View):
             )
         ]
         view = discord.ui.View(*components)
-        await interaction.respond(view=view)
+        await interaction.respond(view=view, allowed_mentions=discord.AllowedMentions(users=to_ping))
