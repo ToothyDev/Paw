@@ -30,4 +30,5 @@ class ReRunView(discord.ui.View):
         await self.message.edit(view=self)
 
         self.ctx.interaction = interaction
+        self.ctx.command = self.ctx_command
         await self.ctx.invoke(self.ctx_command, *self.command_args)
