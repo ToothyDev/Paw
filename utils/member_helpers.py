@@ -17,8 +17,8 @@ async def send_welcome_message(bot: discord.Bot, member: discord.Member):
             discord.ui.Section(
                 discord.ui.TextDisplay(f"""### <@&822886791312703518>, welcome {member.mention} to the server!"""),
                 discord.ui.TextDisplay("""
-    Feel free to visit <id:customize> for roles & channels and <id:guide> for some useful info about the server!
-    __**IMPORTANT**__: To verify yourself, you first need to gain a level by chatting, else you will be kicked for inactivity. Thank you for reading and have fun!"""),
+Feel free to visit <id:customize> for roles & channels and\n<id:guide> for some useful info about the server!
+__**IMPORTANT**__: To verify yourself, you first need to gain a level by chatting, else you will be kicked for inactivity. Thank you for reading and have fun!"""),
                 accessory=discord.ui.Thumbnail(url=member.display_avatar.url)
             ),
             color=accent
