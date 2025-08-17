@@ -19,7 +19,7 @@ class ReRunView(discord.ui.View):
         self.command_args = command_options
         self.view_args = list(args) + [redo_button]
 
-        super().__init__(timeout=5, *self.view_args, **kwargs)
+        super().__init__(timeout=600, *self.view_args, **kwargs)
         self.disable_on_timeout = True
 
     async def redo(self, interaction: discord.Interaction):
