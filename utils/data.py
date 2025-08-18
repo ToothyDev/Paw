@@ -34,10 +34,9 @@ INACTIVE_ROLES = [  # Level 1 at the top
     716590668905971752  # Partners
 ]
 
-FACT_URLS = ["https://some-random-api.com/facts/dog", "https://some-random-api.com/facts/cat",
-             "https://some-random-api.com/facts/panda",
-             "https://some-random-api.com/facts/fox", "https://some-random-api.com/facts/bird",
-             "https://some-random-api.com/facts/koala"]
+FACT_URLS = ["https://api.some-random-api.com/facts/dog", "https://api.some-random-api.com/facts/cat",
+             "https://api.some-random-api.com/facts/panda", "https://api.some-random-api.com/facts/fox",
+             "https://api.some-random-api.com/facts/bird", "https://apisome-random-api.com/facts/koala"]
 
 COLOR_STRINGS = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
                  "Light Blue", "Grey", "Yellow"]

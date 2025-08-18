@@ -91,9 +91,9 @@ class Socials(discord.Cog, name="Socials"):
             user = ctx.author
         url = user.display_avatar.url if server_avatar else user.avatar.url
         if border:
-            link = f"https://some-random-api.com/canvas/misc/lgbt/?avatar={url}"
+            link = f"https://api.some-random-api.com/canvas/misc/lgbt/?avatar={url}"
         else:
-            link = f"https://some-random-api.com/canvas/gay/?avatar={url}"
+            link = f"https://api.some-random-api.com/canvas/gay/?avatar={url}"
         embed = discord.Embed(color=discord.Color.random())
         embed.set_image(url=link)
         embed.set_footer(text=f"Gay avatar: {user.display_name}")
