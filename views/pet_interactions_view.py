@@ -31,9 +31,9 @@ class PetInteractionView(discord.ui.View):
     async def button_callback(self, interaction: discord.Interaction):
         if interaction.user != self.member:
             if not self.action_error:
-                await interaction.respond(f"You weren't petted!", ephemeral=True)
+                await interaction.respond("You weren't petted!", ephemeral=True)
                 return
-            await interaction.respond(f"You weren't petted!", ephemeral=True)
+            await interaction.respond("You weren't petted!", ephemeral=True)
             return
 
         self.disable_all_items()

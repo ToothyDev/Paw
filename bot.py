@@ -11,7 +11,7 @@ bot = discord.Bot(intents=discord.Intents.all(), status=Status.online,
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs.events")
-log.info("Loaded cogs: " + ', '.join(key for key in bot.cogs))
+log.info("Loaded cogs: " + ', '.join(list(bot.cogs)))
 
 
 @bot.listen()
