@@ -1,6 +1,8 @@
+import io
 import random
 import time
 
+import aiohttp
 import discord
 import openai
 from discord import slash_command, option
@@ -9,6 +11,7 @@ from discord.ext import commands
 import logger
 import utils
 from utils import build_input_history
+from views.pet_interactions_view import PetInteractionView
 
 log = logger.get_logger(__name__)
 
@@ -104,6 +107,28 @@ class Socials(discord.Cog, name="Socials"):
         input_history = await build_input_history(self.bot, ctx.channel, ctx.author, ctx.guild, text)
         response = await utils.generate_from_history(input_history)
         await ctx.respond(content=f"**Prompt:** {text}\n**Paw:** {response}")
+
+    @slash_command()
+    @option("member", discord.Member, description="Select a member to pet")
+    async def petpet(self, ctx: discord.ApplicationContext, member: discord.Member):
+        """ Pet a user's avatar! """
+        async with aiohttp.ClientSession() as session:
+            async with session.get(
+                    f"https://api.some-random-api.com/premium/petpet?avatar={member.display_avatar.with_format('png').with_size(256).url}") as resp:
+                gif_file = discord.File(io.BytesIO(await resp.read()), filename="petpet.gif")
+
+        components = [
+            discord.ui.Container(
+                discord.ui.TextDisplay(f"**{ctx.author.mention}** pet **{member.mention}**!"),
+                discord.ui.MediaGallery(
+                    discord.MediaGalleryItem(
+                        url="attachment://petpet.gif")
+                ),
+                color=discord.Color.blue()
+            )
+        ]
+        await ctx.respond(view=PetInteractionView(ctx, member, gif_file, *components), file=gif_file,
+                          allowed_mentions=discord.AllowedMentions(users=[member]))
 
     def _create_social_command(self, name: str, description: str, option_description: str, words: list[str],
                                gifs: list[str]):
