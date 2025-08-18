@@ -90,6 +90,45 @@ EMOTION_COMMANDS_DATA = [
      "option_description": "Mention users that made you wag", "word": "wags their tail", "gifs": assets.WAG},
 ]
 
+FILTER_COMMANDS_DATA = [
+    {"name": "blue", "url": "/canvas/filter/blue"},
+    {"name": "blurple", "url": "/canvas/filter/blurple"},
+    {"name": "pixelate", "url": "/canvas/filter/pixelate"},
+    {"name": "blur", "url": "/canvas/filter/blur"},
+    {"name": "blurple2", "url": "/canvas/filter/blurple2"},
+    {"name": "green", "url": "/canvas/filter/green"},
+    {"name": "greyscale", "url": "/canvas/filter/greyscale"},
+    {"name": "invert", "url": "/canvas/filter/invert"},
+    {"name": "red", "url": "/canvas/filter/red"},
+    {"name": "invertgreyscale", "url": "/canvas/filter/invertgreyscale"},
+    {"name": "sepia", "url": "/canvas/filter/sepia"}
+]
+
+BORDER_COMMANDS_DATA = [
+    {"name": "bisexual", "url": "/canvas/misc/bisexual"},
+    {"name": "circle", "url": "/canvas/misc/circle"},
+    {"name": "heart", "url": "/canvas/misc/heart"},
+    {"name": "horny", "url": "/canvas/misc/horny"},
+    {"name": "lesbian", "url": "/canvas/misc/lesbian"},
+    {"name": "lgbt", "url": "/canvas/misc/lgbt"},
+    {"name": "lied", "url": "/canvas/misc/lied"},
+    {"name": "nonbinary", "url": "/canvas/misc/nonbinary"},
+    {"name": "pansexual", "url": "/canvas/misc/pansexual"},
+    {"name": "simpcard", "url": "/canvas/misc/simpcard"},
+    {"name": "tonikawa", "url": "/canvas/misc/tonikawa"},
+    {"name": "transgender", "url": "/canvas/misc/transgender"},
+]
+
+OVERLAY_COMMANDS_DATA = [
+    {"name": "comrade", "url": "/canvas/overlay/comrade"},
+    {"name": "gay", "url": "/canvas/overlay/gay"},
+    {"name": "glass", "url": "/canvas/overlay/glass"},
+    {"name": "jail", "url": "/canvas/overlay/jail"},
+    {"name": "passed", "url": "/canvas/overlay/passed"},
+    {"name": "triggered", "url": "/canvas/overlay/triggered"},
+    {"name": "wasted", "url": "/canvas/overlay/wasted"},
+]
+
 SPECIES = {"Dragon": [80, 300], "Fox": [35, 50], "Deer": [53, 120], "Wolf": [60, 90], "Dog": [15, 110],
            "Bunny": [25, 35], "Protogen": [60, 120], "Hyena": [75, 105], "Tiger": [75, 107], "Lion": [110, 140],
            "Bird": [5, 50], "Otter": [20, 30], "Snake": [5, 20], "Cat": [15, 30], "Sergal": [80, 120],
