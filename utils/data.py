@@ -36,7 +36,7 @@ INACTIVE_ROLES = [  # Level 1 at the top
 
 FACT_URLS = ["https://api.some-random-api.com/facts/dog", "https://api.some-random-api.com/facts/cat",
              "https://api.some-random-api.com/facts/panda", "https://api.some-random-api.com/facts/fox",
-             "https://api.some-random-api.com/facts/bird", "https://apisome-random-api.com/facts/koala"]
+             "https://api.some-random-api.com/facts/bird", "https://api.some-random-api.com/facts/koala"]
 
 COLOR_STRINGS = ["Red", "Green", "Blue", "Pink", "Purple", "Brown", "Black", "White", "Orange", "Teal", "Light Green",
                  "Light Blue", "Grey", "Yellow"]
