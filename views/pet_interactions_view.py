@@ -19,7 +19,7 @@ class PetInteractionView(discord.ui.View):
 
         components = [
             discord.ui.Container(
-                discord.ui.TextDisplay(f"**{ctx.author.mention}** pet **" + member.mention + "**"),
+                discord.ui.TextDisplay(f"**{ctx.author.mention}** petted **" + member.mention + "**"),
                 discord.ui.MediaGallery(discord.MediaGalleryItem(url="attachment://petpet.gif")),
                 self.interact_button,
                 color=discord.Color.blue()
@@ -30,9 +30,6 @@ class PetInteractionView(discord.ui.View):
 
     async def button_callback(self, interaction: discord.Interaction):
         if interaction.user != self.member:
-            if not self.action_error:
-                await interaction.respond("You weren't petted!", ephemeral=True)
-                return
             await interaction.respond("You weren't petted!", ephemeral=True)
             return
 
