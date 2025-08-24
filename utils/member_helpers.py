@@ -1,5 +1,6 @@
 import time
 
+from dateutil.relativedelta import relativedelta
 import discord
 
 import logger
@@ -98,6 +99,53 @@ async def log_member_kick(member: discord.Member, member_class: str):
     embed.description = f"**User**: {member.mention}\n**User ID**: {member.id}"
     logchannel = member.guild.get_channel(760181839033139260)
     await logchannel.send(embed=embed)
+
+
+async def log_member_join(member: discord.Member):
+    delta = relativedelta(member.joined_at, member.created_at)
+    year = "years" if delta.years > 1 else "year"
+    month = "months" if delta.months > 1 else "month"
+    day = "days" if delta.days > 1 else "day"
+    hour = "hours" if delta.hours > 1 else "hour"
+    minute = "minutes" if delta.minutes > 1 else "minute"
+
+    account_age = f"{delta.years} {year}, {delta.months} {month}, {delta.days} {day}"
+
+    if delta.years == 0 and delta.months == 0 and delta.days == 0:
+        account_age = f"{delta.hours} {hour}, {delta.minutes} {minute}"
+
+    components = [
+        discord.ui.Container(
+            discord.ui.Section(
+                discord.ui.TextDisplay(f"### Member joined\n"
+                                       f"{member.mention} {member.name}"),
+                discord.ui.TextDisplay(f"**Account Age**\n{account_age}"),
+                accessory=discord.ui.Thumbnail(url=member.display_avatar.url)
+            ),
+            discord.ui.TextDisplay(f"-# ID: {member.id} | <t:{round(time.time())}:t>"),
+            color=discord.Color.green()
+        )
+    ]
+
+    logchannel = member.guild.get_channel(847196926222008370)
+    await logchannel.send(view=discord.ui.View(*components))
+
+
+async def log_member_leave(member: discord.Member):
+    components = [
+        discord.ui.Container(
+            discord.ui.Section(
+                discord.ui.TextDisplay("### Member left\n"
+                                       f"{member.mention} {member.name}"),
+                accessory=discord.ui.Thumbnail(url=member.display_avatar.url),
+            ),
+            discord.ui.TextDisplay(f"-# ID: {member.id} | <t:{round(time.time())}:t>"),
+            color=discord.Color.red()
+        )
+    ]
+
+    logchannel = member.guild.get_channel(847196926222008370)
+    await logchannel.send(view=discord.ui.View(*components))
 
 
 def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:

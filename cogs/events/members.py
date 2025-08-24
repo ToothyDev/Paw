@@ -9,7 +9,13 @@ class MemberEvents(discord.Cog, name="Member Events"):
 
     @discord.Cog.listener()
     async def on_member_join(self, member: discord.Member):
+        await utils.log_member_join(member)
+        await member.add_roles(member.guild.get_role(778893728701087744))
         await utils.spammer_kicker(member)
+
+    @discord.Cog.listener()
+    async def on_member_remove(self, member: discord.Member):
+        await utils.log_member_leave(member)
 
     @discord.Cog.listener()
     async def on_member_update(self, member_old: discord.Member, member: discord.Member):
