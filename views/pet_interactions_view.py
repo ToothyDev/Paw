@@ -5,7 +5,7 @@ import discord
 from discord import File
 
 
-class PetInteractionView(discord.ui.View):
+class PetInteractionView(discord.ui.DesignerView):
     def __init__(self, ctx: discord.ApplicationContext, member: discord.Member, gif: File, action_error: str = None):
         self.ctx = ctx
         self.member = member
@@ -21,7 +21,7 @@ class PetInteractionView(discord.ui.View):
             discord.ui.Container(
                 discord.ui.TextDisplay(f"**{ctx.author.mention}** petted **" + member.mention + "**"),
                 discord.ui.MediaGallery(discord.MediaGalleryItem(url="attachment://petpet.gif")),
-                self.interact_button,
+                discord.ui.ActionRow(self.interact_button),
                 color=discord.Color.blue()
             )
         ]
@@ -52,6 +52,6 @@ class PetInteractionView(discord.ui.View):
             )
         ]
 
-        view = discord.ui.View(*components)
+        view = discord.ui.DesignerView(*components)
         await interaction.respond(view=view, allowed_mentions=discord.AllowedMentions(users=[self.ctx.author]),
                                   file=gif_file)

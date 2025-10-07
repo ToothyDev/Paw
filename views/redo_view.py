@@ -1,8 +1,8 @@
 import discord
 
 
-class ReRunView(discord.ui.View):
-    """ Provides functionality to rerun any command using a cv2 view. Currently breaks at attempt 2
+class ReRunView(discord.ui.DesignerView):
+    """ Provides functionality to rerun any command using a cv2 view
         :param ctx: The context of the command
         :param command_options: All options the command takes in the right order
         :param args: Any other args for the view
@@ -17,7 +17,7 @@ class ReRunView(discord.ui.View):
         self.ctx = ctx
         self.ctx_command = ctx.command
         self.command_args = command_options
-        self.view_args = list(args) + [redo_button]
+        self.view_args = list(args) + [discord.ui.ActionRow(redo_button)]
 
         super().__init__(timeout=600, *self.view_args, **kwargs)
         self.disable_on_timeout = True

@@ -30,9 +30,10 @@ class Members(discord.Cog, name="Members"):
                     discord.ui.TextDisplay(
                         "You've been kicked from The Paw Kingdom for not reaching level 1 in time to verify yourself "
                         "You can rejoin and restart the verification process using the button below."),
-                    discord.ui.Button(label="Rejoin", style=discord.ButtonStyle.link, url="https://discord.gg/tpk")
+                    discord.ui.ActionRow(
+                        discord.ui.Button(label="Rejoin", style=discord.ButtonStyle.link, url="https://discord.gg/tpk"))
                 ]
-                await member.send(view=discord.ui.View(*components))
+                await member.send(view=discord.ui.DesignerView(*components))
             except (discord.HTTPException, discord.Forbidden):
                 pass
             try:

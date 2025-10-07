@@ -3,7 +3,7 @@ import random
 import discord
 
 
-class InteractionsView(discord.ui.View):
+class InteractionsView(discord.ui.DesignerView):
     def __init__(self, ctx: discord.ApplicationContext, members: list[discord.Member], action: str, button_label: str,
                  giflist: list[str], action_error: str = None):
         self.ctx = ctx
@@ -29,7 +29,7 @@ class InteractionsView(discord.ui.View):
             discord.ui.Container(
                 discord.ui.TextDisplay(f"**{ctx.author.mention}** {action} **" + memberlist + "**"),
                 discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(giflist))),
-                self.interact_button,
+                discord.ui.ActionRow(self.interact_button),
                 color=discord.Color.blue()
             )
         ]
@@ -56,5 +56,5 @@ class InteractionsView(discord.ui.View):
                 color=discord.Color.blue()
             )
         ]
-        view = discord.ui.View(*components)
+        view = discord.ui.DesignerView(*components)
         await interaction.respond(view=view, allowed_mentions=discord.AllowedMentions(users=[self.ctx.author]))

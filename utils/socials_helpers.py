@@ -28,7 +28,7 @@ async def feelings(ctx, members, name, giflist):
         )
     ]
 
-    await ctx.respond(view=discord.ui.View(*components))
+    await ctx.respond(view=discord.ui.DesignerView(*components))
 
 
 async def mention_converter(ctx: discord.ApplicationContext, members: str) -> list[discord.Member] | None:

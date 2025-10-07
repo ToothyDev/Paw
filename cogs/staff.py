@@ -92,9 +92,8 @@ class Staff(discord.Cog, name="Staff"):
             await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
             return
         if embed:
-            view = ConfirmView()
-            await ctx.respond("Are you sure? Embeds don't actually send pings to any roles or users", view=view,
-                              ephemeral=True)
+            view = ConfirmView("Are you sure? Embeds don't actually send pings to any roles or users")
+            await ctx.respond(view=view, ephemeral=True)
             await view.wait()
             if not view.confirmed:
                 return

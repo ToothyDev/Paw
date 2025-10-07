@@ -1,7 +1,7 @@
 aiohttp~=3.12
 coloredlogs~=15.0
-openai~=1.101
+openai~=2.3.0
 psutil~=7.0
-py-cord~=2.7.0rc1
+py-cord~=2.7.0rc2
 pydantic~=2.11
 python-dateutil~=2.9

@@ -1,7 +1,7 @@
 import discord
 
 
-class BasicImageView(discord.ui.View):
+class BasicImageView(discord.ui.DesignerView):
     def __init__(self, image_url: str, *args, **kwargs):
         components = [
             discord.ui.Container(

@@ -28,7 +28,7 @@ else you will be kicked for inactivity. Thank you for reading and have fun!"""),
         )
     ]
 
-    await channel.send(view=discord.ui.View(*components))
+    await channel.send(view=discord.ui.DesignerView(*components))
 
 
 async def unverified_role_handler(member_old: discord.Member, member: discord.Member):
@@ -128,7 +128,7 @@ async def log_member_join(member: discord.Member):
     ]
 
     logchannel = member.guild.get_channel(847196926222008370)
-    await logchannel.send(view=discord.ui.View(*components))
+    await logchannel.send(view=discord.ui.DesignerView(*components))
 
 
 async def log_member_leave(member: discord.Member):
@@ -145,7 +145,7 @@ async def log_member_leave(member: discord.Member):
     ]
 
     logchannel = member.guild.get_channel(847196926222008370)
-    await logchannel.send(view=discord.ui.View(*components))
+    await logchannel.send(view=discord.ui.DesignerView(*components))
 
 
 def get_inactives(guild: discord.Guild) -> dict[str, list[discord.Member]]:
