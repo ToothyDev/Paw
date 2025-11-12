@@ -36,7 +36,7 @@ async def mention_converter(ctx: discord.ApplicationContext, members: str) -> li
     guild = ctx.guild
     members = discord.utils.raw_mentions(members)
     for member in members:
-        member = await discord.utils.get_or_fetch(guild, 'member', member)
+        member = await discord.utils.get_or_fetch(guild, discord.Member, member)
         memberlist.append(member)
     if not memberlist:
         await ctx.respond('Sorry, but you need to specify someone with a mention.', ephemeral=True)

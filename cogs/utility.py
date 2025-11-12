@@ -80,9 +80,9 @@ class Utility(discord.Cog, name="Utilities"):
     async def serverinfo(self, ctx: discord.ApplicationContext):
         """ Get the current server's info """
         guild = ctx.guild
-        owner = await discord.utils.get_or_fetch(guild, 'member', guild.owner_id)
-        embed = discord.Embed(color=discord.Color.random(), title=guild.name)
-        embed.description = f"""
+        owner = await discord.utils.get_or_fetch(guild, discord.Member, guild.owner_id)
+        container = discord.ui.Container()
+        container.add_section(discord.ui.TextDisplay(f"""
 **Owner:** {owner.mention}
 **Members:** {guild.member_count}
 **Roles:** {len(guild.roles)}
@@ -91,14 +91,14 @@ class Utility(discord.Cog, name="Utilities"):
 **Created:** <t:{round(guild.created_at.timestamp())}:R>
 **Emojis:** {len(guild.emojis)}
 **Stickers:** {len(guild.stickers)}
-        """
-        embed.set_thumbnail(url=guild.icon.url)
-        embed.set_footer(text=f"ID: {guild.id}")
+        """), accessory=discord.ui.Thumbnail(url=guild.icon.url))
+        container.add_text("### Features\n" + ", ".join(guild.features).replace("_", " ").title())
         if guild.banner:
-            embed.set_image(url=guild.banner.url)
-        features = ", ".join(guild.features).replace("_", " ").title()
-        embed.add_field(name="Features", value=features)
-        await ctx.respond(embed=embed)
+            container.add_item(discord.ui.MediaGallery(discord.MediaGalleryItem(url=guild.banner.url)))
+        container.add_text(f"-# ID: {guild.id}")
+        container.color = discord.Color.random()
+
+        await ctx.respond(view=discord.ui.DesignerView(container), allowed_mentions=discord.AllowedMentions.none())
 
     @slash_command()
     async def info(self, ctx: discord.ApplicationContext):
