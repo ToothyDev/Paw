@@ -10,7 +10,7 @@ log = logger.get_logger(__name__)
 
 
 async def send_welcome_message(bot: discord.Bot, member: discord.Member):
-    channel = member.guild.get_channel(1066357407443333190)
+    channel = member.guild.get_channel(715969701771083820)
     accent = (await bot.fetch_user(member.id)).accent_color or member.color
 
     components = [
