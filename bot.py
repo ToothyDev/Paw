@@ -7,7 +7,7 @@ import logger
 log = logger.get_logger(__name__)
 
 bot = discord.Bot(intents=discord.Intents.all(), status=Status.online,
-                  activity=Activity(type=ActivityType.watching, name="over the Paw Kingdom"))
+                  activity=Activity(type=ActivityType.custom, name="Watching over the Paw Kingdom"))
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs.events")
