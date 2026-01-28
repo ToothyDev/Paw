@@ -1,13 +1,12 @@
 import discord
-from discord import Status, Activity, ActivityType
 
-from config import token
 import logger
+from config import token
 
 log = logger.get_logger(__name__)
 
-bot = discord.Bot(intents=discord.Intents.all(), status=Status.online,
-                  activity=Activity(type=ActivityType.custom, name="Watching over the Paw Kingdom"))
+bot = discord.Bot(intents=discord.Intents.all(), status=discord.Status.online,
+                  activity=discord.Activity(type=discord.ActivityType.custom, state="Watching over The Paw Kingdom"))
 
 bot.load_extensions("cogs")
 bot.load_extensions("cogs.events")
