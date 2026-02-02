@@ -7,7 +7,6 @@ from discord import option, slash_command, RawReactionActionEvent
 import logger
 import utils
 from utils.staff_helpers import AssetDownloader
-from views import ConfirmView
 
 log = logger.get_logger(__name__)
 
@@ -81,32 +80,27 @@ class Staff(discord.Cog, name="Staff"):
     @option("channel", channel_types=[discord.ChannelType.news, discord.ChannelType.text],
             description="The channel to announce in")
     @option("message", str, description="The message to announce")
-    @option("embed", bool, description="Whether to make it an embed", required=False, default=False)
-    @option("attachment", discord.Attachment, description="A nice image", required=False, default=None)
+    @option("container", bool, description="Whether to send it as a container", required=False)
+    @option("attachment", discord.Attachment, description="An image for the announcement", required=False)
     @discord.default_permissions(manage_guild=True)
-    async def announce(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, message: str, embed: bool,
-                       attachment: discord.Attachment):
+    async def announce(self, ctx: discord.ApplicationContext, channel: discord.TextChannel, message: str,
+                       container: bool = False, attachment: discord.Attachment = None):
         """ Announce something in a channel """
-        await ctx.defer(ephemeral=True)
         if not channel.can_send():
             await ctx.respond(f"I don't have permissions to send messages to {channel.mention}!", ephemeral=True)
             return
-        if embed:
-            view = ConfirmView("Are you sure? Embeds don't actually send pings to any roles or users")
-            await ctx.respond(view=view, ephemeral=True)
-            await view.wait()
-            if not view.confirmed:
-                return
-            message_embed = discord.Embed(colour=discord.Color.random(), description=message)
+        file = None
+        if attachment:
+            await ctx.defer(ephemeral=True)
+            file = await attachment.to_file()
+        if container:
+            container = discord.ui.Container(discord.ui.TextDisplay(message), color=discord.Color.random())
             if attachment:
-                message_embed.set_image(url=attachment.url)
-            await channel.send(embed=message_embed)
+                container.add_item(
+                    discord.ui.MediaGallery(discord.MediaGalleryItem(url=f"attachment://{attachment.filename}")))
+            await channel.send(view=discord.ui.DesignerView(container), file=file)
         else:
-            if attachment:
-                file = await attachment.to_file()
-                await channel.send(content=message, file=file)
-            else:
-                await channel.send(message)
+            await channel.send(message, file=file)
         await ctx.respond("Message successfully sent!", ephemeral=True)
 
     @discord.message_command(name="GIF blamer")
