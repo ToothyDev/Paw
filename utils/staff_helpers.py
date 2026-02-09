@@ -27,9 +27,9 @@ class AssetDownloader:
         """ Download all emojis in the server and save them in the provided zip file"""
         saved_emojis = []
         for emoji in self.guild.emojis:
-            emoji_file_name = (emoji.name if emoji.name not in saved_emojis else emoji.name + str(
-                saved_emojis.count(emoji.name) + 1)) + emoji.url[-4:]
-            self.zipped_f.writestr(f"emojis/{emoji_file_name}", await emoji.read())
+            emoji_name = emoji.name if emoji.name not in saved_emojis else emoji.name + str(
+                saved_emojis.count(emoji.name) + 1)
+            self.zipped_f.writestr(f"emojis/{emoji_name + "." + emoji.extension}", await emoji.read())
             saved_emojis.append(emoji.name)
             await self._handle_percentage_update()
 
