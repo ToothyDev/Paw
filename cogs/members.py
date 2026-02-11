@@ -1,11 +1,12 @@
+import logging
+
 import discord
 from discord import option
 from discord.ext import tasks
 
-import logger
 import utils
 
-log = logger.get_logger(__name__)
+log = logging.getLogger(__name__)
 
 
 class Members(discord.Cog, name="Members"):

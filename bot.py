@@ -1,9 +1,12 @@
+import logging
+
 import discord
 
-import logger
+import log_setup
 from config import token
 
-log = logger.get_logger(__name__)
+log_setup.setup_logging(logging.INFO)
+log = logging.getLogger(__name__)
 
 bot = discord.Bot(intents=discord.Intents.all(), status=discord.Status.online,
                   activity=discord.Activity(type=discord.ActivityType.custom, state="Watching over The Paw Kingdom"))

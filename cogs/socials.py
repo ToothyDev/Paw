@@ -1,4 +1,5 @@
 import io
+import logging
 import random
 import time
 
@@ -8,12 +9,11 @@ import openai
 from discord import slash_command, option
 from discord.ext import commands
 
-import logger
 import utils
 from utils import build_input_history
 from views.pet_interactions_view import PetInteractionView
 
-log = logger.get_logger(__name__)
+log = logging.getLogger(__name__)
 
 
 class Socials(discord.Cog, name="Socials"):

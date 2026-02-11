@@ -1,12 +1,12 @@
+import logging
 import time
 
-from dateutil.relativedelta import relativedelta
 import discord
+from dateutil.relativedelta import relativedelta
 
-import logger
 import utils
 
-log = logger.get_logger(__name__)
+log = logging.getLogger(__name__)
 
 
 async def send_welcome_message(bot: discord.Bot, member: discord.Member):

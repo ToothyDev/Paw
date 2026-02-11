@@ -1,14 +1,14 @@
 import io
+import logging
 import zipfile
 
 import discord
 from discord import option, slash_command, RawReactionActionEvent
 
-import logger
 import utils
 from utils.staff_helpers import AssetDownloader
 
-log = logger.get_logger(__name__)
+log = logging.getLogger(__name__)
 
 
 class Staff(discord.Cog, name="Staff"):

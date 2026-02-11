@@ -1,12 +1,13 @@
+import logging
+
 import discord
 import openai
 import pydantic
 from discord.ext import commands
 
 import config
-import logger
 
-log = logger.get_logger(__name__)
+log = logging.getLogger(__name__)
 
 
 class Error(discord.Cog, name="Errors"):

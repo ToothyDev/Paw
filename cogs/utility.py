@@ -1,4 +1,5 @@
 import json
+import logging
 import random
 
 import discord
@@ -6,11 +7,10 @@ import psutil
 from discord import option, slash_command
 
 import assets
-import logger
 import utils
 from views.redo_view import ReRunView
 
-log = logger.get_logger(__name__)
+log = logging.getLogger(__name__)
 
 
 class Utility(discord.Cog, name="Utilities"):

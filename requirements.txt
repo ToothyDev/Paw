@@ -1,5 +1,4 @@
 aiohttp~=3.13
-coloredlogs~=15.0
 openai~=2.18
 psutil~=7.2
 py-cord~=2.7.1
