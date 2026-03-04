@@ -100,15 +100,13 @@ async def _format_user_message(message: discord.Message) -> dict:
     text_content = f"{message.author.display_name} ({utils.get_gender(message.author)}) said: {message.clean_content}"
     image_attachments = [a for a in message.attachments if a.content_type.startswith("image")]
 
-    content = [{"type": "text", "text": text_content}]
+    content = [{"type": "input_text", "text": text_content}]
     for attachment in image_attachments:
-        image_data = await attachment.read()
-        image_base64 = base64.b64encode(image_data).decode("utf-8")
+        # image_data = await attachment.read()
+        # image_base64 = base64.b64encode(image_data).decode("utf-8")
         content.append({
-            "type": "image_url",
-            "image_url": {
-                "url": f"data:image/jpeg;base64,{image_base64}",
-            },
+            "type": "input_image",
+            "image_url": attachment.url,
         })
 
     return {

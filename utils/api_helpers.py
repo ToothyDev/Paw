@@ -9,23 +9,23 @@ from utils.data import Fursona
 
 async def generate_from_history(history: list[dict]) -> str:
     client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
-    chat_completion = await client.chat.completions.create(messages=history, model=config.model_name)
-    return _strip_thinking(chat_completion.choices[0].message.content)[:1600]
+    response = await client.responses.create(input=history, model=config.model_name)
+    return _strip_thinking(response.output_text)[:1600]
 
 
 async def generate_single(prompt: str) -> str:
     client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
-    chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                           model=config.model_name)
-    return _strip_thinking(chat_completion.choices[0].message.content)[:1600]
+    response = await client.responses.create(input=[{"role": "user", "content": prompt}],
+                                             model=config.model_name)
+    return _strip_thinking(response.output_text)[:1600]
 
 
 async def generate_sona(prompt: str) -> Fursona:
     client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
-    chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                           model=config.model_name,
-                                                           response_format={"type": "json_object"})
-    return Fursona.model_validate_json(chat_completion.choices[0].message.content)
+    response = await client.responses.create(input=[{"role": "user", "content": prompt}],
+                                             model=config.model_name,
+                                             response_format={"type": "json_object"})
+    return Fursona.model_validate_json(response.output_text)
 
 
 async def apireq(url, headers=None, data=None) -> dict[str, Any]:
