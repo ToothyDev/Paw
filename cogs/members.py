@@ -29,7 +29,7 @@ class Members(discord.Cog, name="Members"):
             try:
                 components = [
                     discord.ui.TextDisplay(
-                        "You've been kicked from The Paw Kingdom for not reaching level 1 in time to verify yourself "
+                        "You've been kicked from The Paw Kingdom for not reaching level 1 in time to verify yourself\n"
                         "You can rejoin and restart the verification process using the button below."),
                     discord.ui.ActionRow(
                         discord.ui.Button(label="Rejoin", style=discord.ButtonStyle.link, url="https://discord.gg/tpk"))
