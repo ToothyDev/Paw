@@ -20,7 +20,7 @@ def setup_logging(log_level: int = logging.INFO) -> None:
     stderr_handler = logging.StreamHandler(sys.stderr)
     stderr_handler.setLevel(logging.WARNING)
 
-    formatter = logging.Formatter("%(levelname)s: %(message)s")
+    formatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s")
     stdout_handler.setFormatter(formatter)
     stderr_handler.setFormatter(formatter)
 
