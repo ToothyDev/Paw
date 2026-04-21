@@ -17,11 +17,6 @@ class Error(discord.Cog, name="Errors"):
     @commands.Cog.listener()
     async def on_application_command_error(self, ctx: discord.ApplicationContext,
                                            err: discord.ApplicationCommandInvokeError):
-        if isinstance(err, commands.MissingPermissions):
-            perms = "`" + '`, `'.join(err.missing_permissions) + "`"
-            await ctx.respond(f"{config.crossmark} **You are missing {perms} permissions.**", ephemeral=True)
-            return
-
         if isinstance(err, commands.BotMissingPermissions):
             perms = "`" + '`, `'.join(err.missing_permissions) + "`"
             await ctx.respond(f"{config.crossmark} **I'm missing {perms} permissions**", ephemeral=True)
@@ -41,37 +36,46 @@ class Error(discord.Cog, name="Errors"):
             await ctx.respond("I could not find the argument you have provided.", ephemeral=True)
             return
 
-        err = err.original  # Unwrap the exception to catch any non-discord errors
+        err: Exception = err.original  # Unwrap the exception to catch any non-discord errors
 
         if isinstance(err, openai.RateLimitError):
-            log.info("AI API ratelimit error")
+            log.warning("AI API rate limit hit for /%s by %s", ctx.command, ctx.author.global_name)
             await ctx.respond("You are using this command too much! Please try again in a few seconds", ephemeral=True)
             return
 
         if isinstance(err, openai.BadRequestError):
             if err.message == "context deadline exceeded":
+                log.warning("AI API request timed out for /%s by %s: %s", ctx.command, ctx.author.global_name,
+                            err.message)
                 await ctx.respond("The request has timed out! Please try again", ephemeral=True)
                 return
 
-        if isinstance(err, openai.InternalServerError):
-            log.info("AI API internal service error")
-            await ctx.respond("The service this command uses had an error. Try again later.", ephemeral=True)
-            return
-
         if isinstance(err, openai.APIStatusError):
             if err.message.startswith("Request too large for model"):
-                log.info("AI API request too large for model")
+                log.warning("AI API request too large for /%s by %s", ctx.command, ctx.author.global_name)
                 await ctx.respond("The chat history is too big! Try again later.", ephemeral=True)
                 return
 
+        if isinstance(err, openai.NotFoundError):
+            log.warning("AI API error for /%s by %s: %s", ctx.command, ctx.author.global_name,
+                        err.message)
+            await ctx.respond("Something went wrong!", ephemeral=True)
+            return
+
+        if isinstance(err, openai.InternalServerError):
+            log.warning("AI API error for /%s by %s: %s", ctx.command, ctx.author.global_name, err.message)
+            await ctx.respond("The API returned an error! Please try again.", ephemeral=True)
+            return
+
         if isinstance(err, pydantic.ValidationError):
-            log.info("AI API pydantic model validation error")
+            log.warning("AI API pydantic model validation error")
             await ctx.respond("There was an issue generating your sona, try again!", ephemeral=True)
             return
 
         await ctx.respond("An unknown error occured! This will be logged and fixed!", ephemeral=True)
         log.error(
-            f"{ctx.author.global_name} used /{ctx.command} which caused '{err}', error class: {err.__class__.__name__}",
+            "%s used /%s which caused '%s', error class: %s",
+            ctx.author.global_name, ctx.command, err, err.__class__.__name__,
             exc_info=(type(err), err, err.__traceback__))
 
 
