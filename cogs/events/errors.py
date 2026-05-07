@@ -50,22 +50,22 @@ class Error(discord.Cog, name="Errors"):
                 await ctx.respond("The request has timed out! Please try again", ephemeral=True)
                 return
 
+        if isinstance(err, openai.InternalServerError):
+            log.warning("AI API error for /%s by %s: %s", ctx.command, ctx.author.global_name, err.message)
+            await ctx.respond("The API returned an error! Please try again.", ephemeral=True)
+            return
+
+        if isinstance(err, openai.NotFoundError):
+            log.warning("AI API error for /%s by %s: %s", ctx.command, ctx.author.global_name,
+                        err.message)
+            await ctx.respond("Something went wrong! This was logged and will be fixed.", ephemeral=True)
+            return
+
         if isinstance(err, openai.APIStatusError):
             if err.message.startswith("Request too large for model"):
                 log.warning("AI API request too large for /%s by %s", ctx.command, ctx.author.global_name)
                 await ctx.respond("The chat history is too big! Try again later.", ephemeral=True)
                 return
-
-        if isinstance(err, openai.NotFoundError):
-            log.warning("AI API error for /%s by %s: %s", ctx.command, ctx.author.global_name,
-                        err.message)
-            await ctx.respond("Something went wrong!", ephemeral=True)
-            return
-
-        if isinstance(err, openai.InternalServerError):
-            log.warning("AI API error for /%s by %s: %s", ctx.command, ctx.author.global_name, err.message)
-            await ctx.respond("The API returned an error! Please try again.", ephemeral=True)
-            return
 
         if isinstance(err, pydantic.ValidationError):
             log.warning("AI API pydantic model validation error")
