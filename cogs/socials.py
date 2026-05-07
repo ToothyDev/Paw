@@ -41,6 +41,30 @@ class Socials(discord.Cog, name="Socials"):
                 try:
                     response = await utils.generate_from_history(input_history)
                     await message.reply(response)
+                except openai.RateLimitError:
+                    log.warning("AI API rate limit hit for @Paw by %s", message.author)
+                    await message.reply("You are using this feature too much! Please try again in a few seconds", )
+                    return
+                except openai.BadRequestError as err:
+                    if err.message == "context deadline exceeded":
+                        log.warning("AI API request timed out for @Paw by %s: %s", message.author.global_name,
+                                    err.message)
+                        await message.reply("The request has timed out! Please try again")
+                        return
+                except openai.InternalServerError as err:
+                    log.warning("AI API error for @Paw by %s: %s", message.author.global_name, err.message)
+                    await message.reply("The API returned an error! Please try again.", ephemeral=True)
+                    return
+                except openai.NotFoundError as err:
+                    log.warning("AI API error for @Paw by %s: %s", message.author.global_name,
+                                err.message)
+                    await message.reply("Something went wrong! This was logged and will be fixed soon.")
+                    return
+                except openai.APIStatusError as err:
+                    if err.message.startswith("Request too large for model"):
+                        log.warning("AI API request too large for @Paw by %s", message.author.global_name)
+                        await message.reply("The chat history is too big! Try again later.")
+                        return
                 except openai.APIError as e:
                     await message.reply("An unknown error occured! This will be logged and fixed!")
                     log.error(
