@@ -1,6 +1,6 @@
 aiohttp~=3.13
 openai~=2.18
 psutil~=7.2
-py-cord~=2.7.1
+py-cord~=2.8
 pydantic~=2.12
 python-dateutil~=2.9
