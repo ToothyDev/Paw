@@ -2,8 +2,8 @@ import logging
 
 import discord
 
+import config
 import log_setup
-from config import token
 
 log_setup.setup_logging(logging.INFO)
 log = logging.getLogger(__name__)
@@ -26,4 +26,4 @@ async def on_ready():
     log.info(f'Logged in as {bot.user}')
 
 
-bot.run(token)
+bot.run(config.BOT_TOKEN)

@@ -19,17 +19,17 @@ class Error(discord.Cog, name="Errors"):
                                            err: discord.ApplicationCommandInvokeError):
         if isinstance(err, commands.BotMissingPermissions):
             perms = "`" + '`, `'.join(err.missing_permissions) + "`"
-            await ctx.respond(f"{config.crossmark} **I'm missing {perms} permissions**", ephemeral=True)
+            await ctx.respond(f"{config.CROSSMARK} **I'm missing {perms} permissions**", ephemeral=True)
             return
 
         if isinstance(err, commands.CommandOnCooldown):
             await ctx.respond(
-                f"{config.crossmark} **This command is on cooldown for {round(err.retry_after)} more seconds.**",
+                f"{config.CROSSMARK} **This command is on cooldown for {round(err.retry_after)} more seconds.**",
                 ephemeral=True)
             return
 
         if isinstance(err, commands.MemberNotFound):
-            await ctx.respond(f"{config.confused} **Could not find user `{err.argument}`", ephemeral=True)
+            await ctx.respond(f"{config.CONFUSED} **Could not find user `{err.argument}`", ephemeral=True)
             return
 
         if isinstance(err, discord.NotFound):

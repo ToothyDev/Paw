@@ -1,4 +1,4 @@
-config.py
 __pycache__
 users.json
 .idea
+/.env
