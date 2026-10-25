@@ -8,22 +8,22 @@ from utils.data import Fursona
 
 
 async def generate_from_history(history: list[dict]) -> str:
-    client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
-    chat_completion = await client.chat.completions.create(messages=history, model=config.model_name)
+    client = AsyncOpenAI(api_key=config.LLM_API_KEY, base_url=config.LLM_BASE_URL)
+    chat_completion = await client.chat.completions.create(messages=history, model=config.LLM_MODEL_NAME)
     return _strip_thinking(chat_completion.choices[0].message.content)[:1600]
 
 
 async def generate_single(prompt: str) -> str:
-    client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
+    client = AsyncOpenAI(api_key=config.LLM_API_KEY, base_url=config.LLM_BASE_URL)
     chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                           model=config.model_name)
+                                                           model=config.LLM_MODEL_NAME)
     return _strip_thinking(chat_completion.choices[0].message.content)[:1600]
 
 
 async def generate_sona(prompt: str) -> Fursona:
-    client = AsyncOpenAI(api_key=config.llm_api_key, base_url=config.llm_base_url)
+    client = AsyncOpenAI(api_key=config.LLM_API_KEY, base_url=config.LLM_BASE_URL)
     chat_completion = await client.chat.completions.create(messages=[{"role": "user", "content": prompt}],
-                                                           model=config.model_name,
+                                                           model=config.LLM_MODEL_NAME,
                                                            response_format={"type": "json_object"})
     return Fursona.model_validate_json(chat_completion.choices[0].message.content)
 
