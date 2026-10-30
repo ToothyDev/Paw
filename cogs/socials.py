@@ -67,9 +67,8 @@ class Socials(discord.Cog, name="Socials"):
                         return
                 except openai.APIError as e:
                     await message.reply("An unknown error occured! This will be logged and fixed!")
-                    log.error(
-                        f"{message.author.global_name} used @Paw which caused '{e}', error class: {e.__class__.__name__}",
-                        exc_info=(type(e), e, e.__traceback__))
+                    log.exception(
+                        f"{message.author.global_name} used @Paw which caused '{e}', error class: {e.__class__.__name__}")
 
     @slash_command()
     @option("topic", str, description="The topic to revive chat with", required=False)
@@ -92,7 +91,7 @@ class Socials(discord.Cog, name="Socials"):
     @commands.cooldown(1, 5, commands.BucketType.user)
     async def fact(self, ctx):
         """ Get a random animal fact """
-        json = await utils.apireq(random.choice(utils.FACT_URLS))
+        json = await utils.apireq(random.choice(utils.FACT_URLS))  # NOSONAR (S2445), "No security implications"
         await ctx.respond(json.get("fact"))
 
     @slash_command()
@@ -136,10 +135,9 @@ class Socials(discord.Cog, name="Socials"):
     @option("member", discord.Member, description="Select a member to pet")
     async def petpet(self, ctx: discord.ApplicationContext, member: discord.Member):
         """ Pet a user's avatar! """
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                    f"https://api.some-random-api.com/premium/petpet?avatar={member.display_avatar.with_format('png').with_size(256).url}") as resp:
-                gif_file = discord.File(io.BytesIO(await resp.read()), filename="petpet.gif")
+        async with aiohttp.ClientSession() as session, session.get(
+                f"https://api.some-random-api.com/premium/petpet?avatar={member.display_avatar.with_format('png').with_size(256).url}") as resp:
+            gif_file = discord.File(io.BytesIO(await resp.read()), filename="petpet.gif")
 
         components = [
             discord.ui.Container(

@@ -36,10 +36,9 @@ class PetInteractionView(discord.ui.DesignerView):
         self.disable_all_items()
         await interaction.message.edit(view=self, allowed_mentions=self.original_allowed_mentions)
 
-        async with aiohttp.ClientSession() as session:
-            async with session.get(
-                    f"https://api.some-random-api.com/premium/petpet?avatar={self.ctx.author.display_avatar.with_format('png').with_size(256).url}") as resp:
-                gif_file = discord.File(io.BytesIO(await resp.read()), filename="petpet.gif")
+        async with aiohttp.ClientSession() as session, session.get(
+                f"https://api.some-random-api.com/premium/petpet?avatar={self.ctx.author.display_avatar.with_format('png').with_size(256).url}") as resp:
+            gif_file = discord.File(io.BytesIO(await resp.read()), filename="petpet.gif")
 
         components = [
             discord.ui.Container(

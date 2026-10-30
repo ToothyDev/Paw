@@ -26,7 +26,7 @@ class Utility(discord.Cog, name="Utilities"):
         """ Generate a random sona """
         await ctx.defer(invisible=False)
         primary_color = discord.Color.random()
-        color = random.choice(utils.data.COLOR_STRINGS)
+        color = random.choice(utils.data.COLOR_STRINGS)  # NOSONAR (S2445), "No security implications"
 
         sona = await utils.api_helpers.generate_sona(
             f"""Your job is to generate a fursona as a fursona generator. Use the following json schema: {json.dumps(utils.data.Fursona.model_json_schema(), indent=2)}
@@ -131,7 +131,7 @@ class Utility(discord.Cog, name="Utilities"):
     async def paw(self, ctx: discord.ApplicationContext):
         """ Get random art of me, Paw """
         embed = discord.Embed(title="A picture of myself, Paw!", color=utils.Colors.BLUE)
-        embed.set_image(url=random.choice(assets.PAW))
+        embed.set_image(url=random.choice(assets.PAW))  # NOSONAR (S2445), "No security implications"
         await ctx.respond(embed=embed)
 
 

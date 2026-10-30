@@ -23,7 +23,11 @@ async def feelings(ctx, members, name, giflist):
     components = [
         discord.ui.Container(
             discord.ui.TextDisplay(view_text),
-            discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(giflist))),
+            discord.ui.MediaGallery(
+                discord.MediaGalleryItem(
+                    url=random.choice(giflist)  # NOSONAR (S2445), "No security implications"
+                )
+            ),
             color=discord.Color.blue()
         )
     ]

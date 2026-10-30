@@ -29,9 +29,8 @@ async def generate_sona(prompt: str) -> Fursona:
 
 
 async def apireq(url, headers=None, data=None) -> dict[str, Any]:
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url, headers=headers, json=data) as response:
-            return await response.json()
+    async with aiohttp.ClientSession() as session, session.get(url, headers=headers, json=data) as response:
+        return await response.json()
 
 
 def _strip_thinking(response: str) -> str:

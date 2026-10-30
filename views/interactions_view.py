@@ -28,7 +28,9 @@ class InteractionsView(discord.ui.DesignerView):
         components = [
             discord.ui.Container(
                 discord.ui.TextDisplay(f"**{ctx.author.mention}** {action} **" + memberlist + "**"),
-                discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(giflist))),
+                discord.ui.MediaGallery(
+                    discord.MediaGalleryItem(url=random.choice(giflist))  # NOSONAR (S2445), "No security implications"
+                ),
                 discord.ui.ActionRow(self.interact_button),
                 color=discord.Color.blue()
             )
@@ -52,7 +54,11 @@ class InteractionsView(discord.ui.DesignerView):
             discord.ui.Container(
                 discord.ui.TextDisplay(
                     f"**{interaction.user.mention}** {self.action} **" + self.ctx.author.mention + "** back!"),
-                discord.ui.MediaGallery(discord.MediaGalleryItem(url=random.choice(self.giflist))),
+                discord.ui.MediaGallery(
+                    discord.MediaGalleryItem(
+                        url=random.choice(self.giflist)  # NOSONAR (S2445), "No security implications"
+                    )
+                ),
                 color=discord.Color.blue()
             )
         ]
