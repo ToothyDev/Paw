@@ -181,29 +181,20 @@ def _format_time(delta: relativedelta) -> str:
     :param delta: The time delta to print in human-readable form
     :return: The human-readable time string
     """
-    year = "years" if delta.years > 1 or delta.years == 0 else "year"
-    month = "months" if delta.months > 1 or delta.months == 0 else "month"
-    day = "days" if delta.days > 1 or delta.days == 0 else "day"
-    hour = "hours" if delta.hours > 1 or delta.hours == 0 else "hour"
-    minute = "minutes" if delta.minutes > 1 or delta.minutes == 0 else "minute"
+    if delta.years or delta.months or delta.days:
+        units = [("year", delta.years), ("month", delta.months), ("day", delta.days)]
+    else:
+        units = [("hour", delta.hours), ("minute", delta.minutes)]
 
-    delta_string = ""
-    keep_adding = False
-    if delta.years == 0 and delta.months == 0 and delta.days == 0:  # Only print hours and minutes if less than a day
-        if delta.hours > 0:
-            delta_string += f"{delta.hours} {hour}, "
-            keep_adding = True
-        if delta.minutes > 0 or keep_adding:
-            delta_string += f"{delta.minutes} {minute}"
-        return delta_string
+    parts = []
+    for name, value in units:
+        if value == 0:
+            continue
+        if value != 1:
+            name += "s"
+        parts.append(f"{value} {name}")
 
-    if delta.years > 0:
-        delta_string += f"{delta.years} {year}, "
-        keep_adding = True
-    if delta.months > 0 or keep_adding:
-        delta_string += f"{delta.months} {month}, "
-        keep_adding = True
-    if delta.days > 0 or keep_adding:
-        delta_string += f"{delta.days} {day}"
+    if not parts:
+        return "less than a minute"
 
-    return delta_string
+    return ", ".join(parts)
