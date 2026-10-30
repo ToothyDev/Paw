@@ -10,4 +10,4 @@ LLM_BASE_URL = os.getenv("LLM_BASE_URL", "https://generativelanguage.googleapis.
 LLM_API_KEY = os.environ["LLM_API_KEY"]
 
 CROSSMARK = os.getenv("CROSSMARK", "❌")
-CONFUSED = os.getenv("CROSSMARK", "😕")
+CONFUSED = os.getenv("CONFUSED", "😕")
